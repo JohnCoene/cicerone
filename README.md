@@ -84,4 +84,4 @@ server <- function(input, output){
 shinyApp(ui, server)
 ```
 
-All the options are detailed in the documentation of the object: `?Cicerone`.
+All the options are detailed in the documentation of the object: `?Cicerone`. See the [post](https://blog.john-coene.com/posts/2019-11-20-cicerone/) for more information and some rambling.
