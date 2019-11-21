@@ -1,10 +1,8 @@
-<!-- badges: start -->
-[![Travis build status](https://travis-ci.org/JohnCoene/cicerone.svg?branch=master)](https://travis-ci.org/JohnCoene/cicerone)
-<!-- badges: end -->
-
 <img src="./man/figures/logo.png" align = "right"/>
 
-# cicerone
+# cicerone 
+
+[![Travis build status](https://travis-ci.org/JohnCoene/cicerone.svg?branch=master)](https://travis-ci.org/JohnCoene/cicerone)
 
 Provides an easy API to create guided tours for Shiny applications using [driver.js](https://kamranahmed.info/driver.js/).
 
