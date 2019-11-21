@@ -23,14 +23,14 @@ Let's create a very basic Shiny app to demonstrate: it takes a text input and on
 library(shiny)
 
 ui <- fluidPage(
-  textInput("text", "Enter some text"),
-  actionButton("submit", "Submit text"),
+  textInput("text_inputId", "Enter some text"),
+  actionButton("submit_inputId", "Submit text"),
   verbatimTextOutput("print")
 )
 
 server <- function(input, output){
-  txt <- eventReactive(input$submit, {
-    input$text
+  txt <- eventReactive(input$submit_inputId, {
+    input$text_inputId
   })
 
   output$print <- renderPrint(txt())
@@ -47,12 +47,12 @@ library(cicerone)
 guide <- Cicerone$
   new()$ 
   step(
-    el = "text",
+    el = "text_inputId",
     title = "Text Input",
     description = "This is where you enter the text you want to print."
   )$
   step(
-    "submit",
+    "submit_inputId",
     "Send the Text",
     "Send the text to the server for printing"
   )
@@ -65,8 +65,8 @@ library(shiny)
 
 ui <- fluidPage(
   use_cicerone(), # include dependencies
-  textInput("text", "Enter some text"),
-  actionButton("submit", "Submit text"),
+  textInput("text_inputId", "Enter some text"),
+  actionButton("submit_inputId", "Submit text"),
   verbatimTextOutput("print")
 )
 
@@ -75,8 +75,8 @@ server <- function(input, output){
   # initialise then start the guide
   guide$init()$start()
 
-  txt <- eventReactive(input$submit, {
-    input$text
+  txt <- eventReactive(input$submit_inputId, {
+    input$text_inputId
   })
 
   output$print <- renderPrint(txt())
