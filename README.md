@@ -16,7 +16,7 @@ remotes::install_github("JohnCoene/cicerone")
 
 ## Usage
 
-Let's create a very basic Shiny app to demonstrate: it's takes an input and on hitting a button simply prints it.
+Let's create a very basic Shiny app to demonstrate: it takes a text input and on hitting a button simply prints it.
 
 ```r
 library(shiny)
