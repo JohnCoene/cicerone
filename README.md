@@ -1,4 +1,5 @@
 <!-- badges: start -->
+[![Travis build status](https://travis-ci.org/JohnCoene/cicerone.svg?branch=master)](https://travis-ci.org/JohnCoene/cicerone)
 <!-- badges: end -->
 
 <img src="./man/figures/logo.png" align = "right"/>
