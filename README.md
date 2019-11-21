@@ -5,7 +5,7 @@
 
 # cicerone
 
-Provides an easy API to create Shiny applications guided tours via [driver.js](https://kamranahmed.info/driver.js/).
+Provides an easy API to create guided tours for Shiny applications using [driver.js](https://kamranahmed.info/driver.js/).
 
 ## Installation
 
