@@ -16,8 +16,6 @@ remotes::install_github("JohnCoene/cicerone")
 
 ## Usage
 
-Visit the [documentation](https://shiny.john-coene.com/) for a full walk-through.
-
 Let's create a very basic Shiny app to demonstrate: it's takes an input and on hitting a button simply prints it.
 
 ```r
@@ -86,4 +84,4 @@ server <- function(input, output){
 shinyApp(ui, server)
 ```
 
-Visit the [documentation](https://shiny.john-coene.com/) for more examples, read the documentation of `?Cicerone`.
+All the options are detailed in the documentation of the object: `?Cicerone`.
