@@ -101,7 +101,6 @@ ui <- fluidPage(
 
 server <- function(input, output) {
 
-  # American English also available
   initialise()
 
   observeEvent(input$highlight, {

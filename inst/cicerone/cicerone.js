@@ -86,7 +86,7 @@ Shiny.addCustomMessageHandler('cicerone-previous', function(opts) {
 });
 
 Shiny.addCustomMessageHandler('cicerone-highlight-man', function(opts) {
-  driver.highlight(opts.obj);
+  driver.highlight(opts);
 });
 
 Shiny.addCustomMessageHandler('cicerone-get-highlighted', function(opts) {

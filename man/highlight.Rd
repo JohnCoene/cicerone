@@ -3,15 +3,14 @@
 \name{highlight}
 \alias{highlight}
 \alias{initialise}
-\alias{initialize}
 \title{Highlight & Initialise}
 \usage{
 highlight(
   el,
-  title,
-  description,
-  position = "right",
-  class = "popover-class",
+  title = NULL,
+  description = NULL,
+  position = NULL,
+  class = NULL,
   show_btns = NULL,
   close_btn_text = NULL,
   next_btn_text = NULL,
@@ -20,22 +19,6 @@ highlight(
 )
 
 initialise(
-  animate = TRUE,
-  opacity = 0.75,
-  padding = 10,
-  allow_close = TRUE,
-  overlay_click_next = FALSE,
-  done_btn_text = "Done",
-  close_btn_text = "Close",
-  stage_background = "#ffffff",
-  next_btn_text = "Next",
-  prev_btn_text = "Previous",
-  show_btns = TRUE,
-  keyboard_control = TRUE,
-  session = NULL
-)
-
-initialize(
   animate = TRUE,
   opacity = 0.75,
   padding = 10,
@@ -101,3 +84,20 @@ to close, arrow keys to move).}
 \description{
 Initialise and highlight an element.
 }
+\section{Position}{
+
+* left
+* right
+* left-center
+* left-bottom
+* top
+* top-center
+* top-right
+* right
+* right-center
+* right-bottom
+* bottom
+* bottom-center
+* mid-center
+}
+
