@@ -4,8 +4,26 @@
   font-family: 'Dosis', sans-serif;
 }
 
-code{
-  font-family: 'Ubuntu Mono', monospace;
+body, .footer-nav, .body{
+  background-color: #D1D1D1 !important;
+}
+
+.menu, .menu-toggle {
+  background-color: #C6BFB7 !important;
+  color: #3B322D !important;
+}
+
+.hlink, .link{
+  color: #3B322D !important;
+}
+
+li > .title{
+  color: #3B322D !important;
+}
+
+code, pre{
+  font-family: 'Ubuntu Mono', monospace !important;
+  background-color: rgb(235, 235, 235) !important;
 }
 
 #logo-wrapper{
@@ -17,4 +35,12 @@ code{
   max-height: 250px;
   text-align: center;
   margin:auto;
+  background-color: #D1D1D1;
+}
+
+pre {
+  box-shadow:
+    rgba(80, 80, 80, 0.1) 0 2px 3px 1px,
+    rgba(0, 0, 0, 0.1) 0 1px 3px 1px,
+    rgba(0, 0, 0, 0.2) 0 1px 1px -1px;
 }

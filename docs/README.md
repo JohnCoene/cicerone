@@ -9,6 +9,10 @@ Guided Tours for Shiny
 
 A convenient API to create guided tours of Shiny applications using [driver.js](https://kamranahmed.info/driver.js/).
 
+## Why cicerone?
+
+There are already R packages that let you create a guide to your Shiny application. Where cicerone differs is that it allows you to leave your actual application intact; keeping the guide separate from the app (code wise).
+
 ## Installation
 
 You can install cicerone from Github with using either `remotes` or `devtools`.

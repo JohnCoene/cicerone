@@ -49,7 +49,7 @@ guide <- Cicerone$
   )
 ```
 
-Now we can include the guide in our application. Again we source the dependencies with `use_cicerone` and in the server launch the guide when the app loads `guide$init()$start()`. Regarding the button, we simply observe the event and `guide$start()` on click.
+Now we can include the guide in our application. Again we source the dependencies with `use_cicerone` and in the server launch the guide when the app loads `guide$init()$start()`. Regarding the button, we simply observe the event and `start()` on click.
 
 ```r
 library(shiny)
@@ -83,3 +83,5 @@ server <- function(input, output){
 
 shinyApp(ui, server)
 ```
+
+Note that the `start` method takes a `step` argument which defaults to 1, the first step, you may start the guide at any other step.

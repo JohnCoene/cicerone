@@ -8,6 +8,11 @@
         "slug": "index",
         "headings": [
           {
+            "title": "Why cicerone?",
+            "depth": 2,
+            "id": "why-cicerone"
+          },
+          {
             "title": "Installation",
             "depth": 2,
             "id": "installation"
@@ -24,10 +29,10 @@
             "slug": "guideget-started"
           },
           {
-            "title": "Advanced",
-            "source": "docs/guide/advanced.md",
-            "url": "guide/advanced.html",
-            "slug": "guideadvanced"
+            "title": "Basics",
+            "source": "docs/guide/basics.md",
+            "url": "guide/basics.html",
+            "slug": "guidebasics"
           }
         ]
       }
@@ -41,6 +46,11 @@
       "slug": "index",
       "headings": [
         {
+          "title": "Why cicerone?",
+          "depth": 2,
+          "id": "why-cicerone"
+        },
+        {
           "title": "Installation",
           "depth": 2,
           "id": "installation"
@@ -53,17 +63,17 @@
       "pageTitle": "Get Started",
       "slug": "guideget-started"
     },
-    "guide/advanced.html": {
-      "source": "docs/guide/advanced.md",
-      "title": "Advanced - cicerone",
-      "pageTitle": "Advanced",
-      "slug": "guideadvanced"
+    "guide/basics.html": {
+      "source": "docs/guide/basics.md",
+      "title": "Basics - cicerone",
+      "pageTitle": "Basics",
+      "slug": "guidebasics"
     }
   },
   "sources": {
     "README.md": "index.html",
     "docs/guide/get-started.md": "guide/get-started.html",
-    "docs/guide/advanced.md": "guide/advanced.html",
+    "docs/guide/basics.md": "guide/basics.html",
     "docs/css/style.css": "css/style.css",
     "docs/img/cicerone.png": "img/cicerone.png",
     "docs/img/cicerone_banner.png": "img/cicerone_banner.png"
