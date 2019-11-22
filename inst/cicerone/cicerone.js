@@ -59,11 +59,14 @@ function on_previous(){
 }
 
 Shiny.addCustomMessageHandler('cicerone-init', function(opts) {
+
   opts.globals.onNext = on_next;
   opts.globals.onPrevious = on_previous;
 
   driver = new Driver(opts.globals);
-  driver.defineSteps(opts.steps);
+
+  if(opts.steps)
+    driver.defineSteps(opts.steps);
 });
 
 Shiny.addCustomMessageHandler('cicerone-start', function(opts) {
@@ -82,8 +85,8 @@ Shiny.addCustomMessageHandler('cicerone-previous', function(opts) {
   driver.movePrevious();
 });
 
-Shiny.addCustomMessageHandler('cicerone-highlight', function(opts) {
-  driver.highlight(opts.el);
+Shiny.addCustomMessageHandler('cicerone-highlight-man', function(opts) {
+  driver.highlight(opts.obj);
 });
 
 Shiny.addCustomMessageHandler('cicerone-get-highlighted', function(opts) {
@@ -94,4 +97,8 @@ Shiny.addCustomMessageHandler('cicerone-get-highlighted', function(opts) {
 Shiny.addCustomMessageHandler('cicerone-get-previous', function(opts) {
   highlighted = driver.getLastHighlightedElement();
   Shiny.onInputChange("cicerone_previous_element", highlighted.options.element, {priority: 'event'});
+});
+
+Shiny.addCustomMessageHandler('cicerone-highlight', function(opts) {
+  driver.highlight(opts.el);
 });

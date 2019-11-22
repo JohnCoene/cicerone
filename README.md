@@ -87,4 +87,30 @@ shinyApp(ui, server)
 
 ![](./man/figures/demo.gif)
 
+You are not limited to creating an entire guide and may simply use cicerone to highlight a single element.
+
+```r
+library(shiny)
+library(cicerone)
+
+ui <- fluidPage(
+  use_cicerone(),
+  textInput("text", "Text to print"),
+  actionButton("highlight", "highlight")
+)
+
+server <- function(input, output) {
+
+  # American English also available
+  initialise()
+
+  observeEvent(input$highlight, {
+    highlight("text", "SOME TEXT", "DESC")
+  })
+
+}
+
+shinyApp(ui, server)
+```
+
 All the options are detailed in the documentation of the object: `?Cicerone`. See the [post](https://blog.john-coene.com/posts/2019-11-20-cicerone/) for more information and some rambling on the logo and package name.
