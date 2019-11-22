@@ -75,7 +75,7 @@
     "docs/guide/get-started.md": "guide/get-started.html",
     "docs/guide/basics.md": "guide/basics.html",
     "docs/css/style.css": "css/style.css",
-    "docs/img/cicerone.png": "img/cicerone.png",
-    "docs/img/cicerone_banner.png": "img/cicerone_banner.png"
+    "docs/img/cicerone_banner.png": "img/cicerone_banner.png",
+    "docs/img/cicerone.png": "img/cicerone.png"
   }
 }
