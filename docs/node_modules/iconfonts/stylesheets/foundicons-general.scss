@@ -1,0 +1,722 @@
+// GeneralFoundicons v1.5.2
+// http://zurb.com/playground/foundation-icon-fonts-3
+//
+// Sass integration via https://github.com/rstacruz/iconfonts.
+// Usage:
+//
+//    @include fig-font;
+//    .button:before {
+//      @include fig-icon("arrow");
+//      @include fig-icon("arrow", 14px, #333);
+//    }
+//
+// Output:
+//
+//    @font-face {
+//      font-family: "GeneralFoundicons"; ...
+//    }
+//    .button:before {
+//      font-family: "GeneralFoundicons";
+//      content: '\f0123';
+//    }
+//
+// Icon files:
+//
+//     https://cdn.rawgit.com/zurb/foundation-icons/master/foundation_icons_general/fonts/general_foundicons.eot
+//     https://cdn.rawgit.com/zurb/foundation-icons/master/foundation_icons_general/fonts/general_foundicons.ttf
+//     https://cdn.rawgit.com/zurb/foundation-icons/master/foundation_icons_general/fonts/general_foundicons.woff
+//     https://cdn.rawgit.com/zurb/foundation-icons/master/foundation_icons_general/fonts/general_foundicons.svg
+
+$fig-path: "https://cdn.rawgit.com/zurb/foundation-icons/master/foundation_icons_general/fonts/" !default;
+$fig-name: "GeneralFoundicons" !default;
+$fig-site: "http://zurb.com/playground/foundation-icon-fonts-3" !default;
+$fig-basename: "general_foundicons" !default;
+$fig-version: "1.5.2" !default;
+$fig-svghash: "#GeneralFoundicons" !default;
+$fig-nativesize: "32px" !default;
+
+// Embeds the @font-face.
+@mixin fig-font {
+  @font-face {
+    font-family: $fig-name;
+    src: url($fig-path + $fig-basename + ".eot?v=" + $fig-version);
+    src: url($fig-path + $fig-basename + ".eot?#iefix&v=" + $fig-version) format("embedded-opentype"),
+         url($fig-path + $fig-basename + ".woff?v=" + $fig-version) format("woff"),
+         url($fig-path + $fig-basename + ".ttf?v=" + $fig-version) format("truetype"),
+         url($fig-path + $fig-basename + ".svg?v=" + $fig-version + $fig-svghash) format("svg");
+    font-weight: normal;
+    font-style: normal;
+  }
+}
+
+// Embeds the @font-face. Use this if you're using `sass-rails`.
+@mixin fig-font-rails($prefix: "") {
+  @font-face {
+    font-family: $fig-name;
+    src: font-url($prefix + $fig-basename + ".eot");
+    src: font-url($prefix + $fig-basename + ".eot#iefix") format("embedded-opentype"),
+         font-url($prefix + $fig-basename + ".woff") format("woff"),
+         font-url($prefix + $fig-basename + ".ttf") format("truetype"),
+         font-url($prefix + $fig-basename + ".svg" + $fig-svghash) format("svg");
+    font-weight: normal;
+    font-style: normal;
+  }
+}
+
+// Uses a given icon.
+//
+//     .button:before
+//       +fig-icon(music)
+//       +fig-icon(music, 24px)        /* 24px size */
+//
+// You may specify a color.
+//
+//     .button:before
+//       +fig-icon(music, $color: #333)
+//
+// You may also specify a `$top` value to compensate for any mis-alignment.
+// This nudges the icon by that many pixels from the top.
+//
+//     .button:before
+//       +fig-icon(music, $top: 2px)
+
+@mixin fig-icon($type, $size: auto, $color: auto, $top: auto, $left: auto, $shadow: none) {
+  @extend %fig-icon;
+  @extend %fig-icon-#{$type};
+
+  @if $size != auto {
+    font-size: $size; }
+  @if $top != auto {
+    position: relative;
+    top: $top; }
+  @if $left != auto {
+    position: relative;
+    left: $left; }
+  @if $color != auto {
+    color: $color; }
+  @if $shadow != none {
+    text-shadow: $shadow; }
+}
+
+%fig-icon {
+  line-height: 1em;
+  font-family: $fig-name;
+  font-weight: normal;
+  font-style: normal;
+  display: inline-block;
+  text-decoration: none;
+  vertical-align: middle;
+  text-rendering: optimizeLegibility !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+%fig-icon-alert { content: "\f101"; }
+%fig-icon-alert-circled { content: "\f100"; }
+%fig-icon-android-add { content: "\f2c7"; }
+%fig-icon-android-add-contact { content: "\f2c6"; }
+%fig-icon-android-alarm { content: "\f2c8"; }
+%fig-icon-android-archive { content: "\f2c9"; }
+%fig-icon-android-arrow-back { content: "\f2ca"; }
+%fig-icon-android-arrow-down-left { content: "\f2cb"; }
+%fig-icon-android-arrow-down-right { content: "\f2cc"; }
+%fig-icon-android-arrow-forward { content: "\f30f"; }
+%fig-icon-android-arrow-up-left { content: "\f2cd"; }
+%fig-icon-android-arrow-up-right { content: "\f2ce"; }
+%fig-icon-android-battery { content: "\f2cf"; }
+%fig-icon-android-book { content: "\f2d0"; }
+%fig-icon-android-calendar { content: "\f2d1"; }
+%fig-icon-android-call { content: "\f2d2"; }
+%fig-icon-android-camera { content: "\f2d3"; }
+%fig-icon-android-chat { content: "\f2d4"; }
+%fig-icon-android-checkmark { content: "\f2d5"; }
+%fig-icon-android-clock { content: "\f2d6"; }
+%fig-icon-android-close { content: "\f2d7"; }
+%fig-icon-android-contact { content: "\f2d8"; }
+%fig-icon-android-contacts { content: "\f2d9"; }
+%fig-icon-android-data { content: "\f2da"; }
+%fig-icon-android-developer { content: "\f2db"; }
+%fig-icon-android-display { content: "\f2dc"; }
+%fig-icon-android-download { content: "\f2dd"; }
+%fig-icon-android-drawer { content: "\f310"; }
+%fig-icon-android-dropdown { content: "\f2de"; }
+%fig-icon-android-earth { content: "\f2df"; }
+%fig-icon-android-folder { content: "\f2e0"; }
+%fig-icon-android-forums { content: "\f2e1"; }
+%fig-icon-android-friends { content: "\f2e2"; }
+%fig-icon-android-hand { content: "\f2e3"; }
+%fig-icon-android-image { content: "\f2e4"; }
+%fig-icon-android-inbox { content: "\f2e5"; }
+%fig-icon-android-information { content: "\f2e6"; }
+%fig-icon-android-keypad { content: "\f2e7"; }
+%fig-icon-android-lightbulb { content: "\f2e8"; }
+%fig-icon-android-locate { content: "\f2e9"; }
+%fig-icon-android-location { content: "\f2ea"; }
+%fig-icon-android-mail { content: "\f2eb"; }
+%fig-icon-android-microphone { content: "\f2ec"; }
+%fig-icon-android-mixer { content: "\f2ed"; }
+%fig-icon-android-more { content: "\f2ee"; }
+%fig-icon-android-note { content: "\f2ef"; }
+%fig-icon-android-playstore { content: "\f2f0"; }
+%fig-icon-android-printer { content: "\f2f1"; }
+%fig-icon-android-promotion { content: "\f2f2"; }
+%fig-icon-android-reminder { content: "\f2f3"; }
+%fig-icon-android-remove { content: "\f2f4"; }
+%fig-icon-android-search { content: "\f2f5"; }
+%fig-icon-android-send { content: "\f2f6"; }
+%fig-icon-android-settings { content: "\f2f7"; }
+%fig-icon-android-share { content: "\f2f8"; }
+%fig-icon-android-social { content: "\f2fa"; }
+%fig-icon-android-social-user { content: "\f2f9"; }
+%fig-icon-android-sort { content: "\f2fb"; }
+%fig-icon-android-stair-drawer { content: "\f311"; }
+%fig-icon-android-star { content: "\f2fc"; }
+%fig-icon-android-stopwatch { content: "\f2fd"; }
+%fig-icon-android-storage { content: "\f2fe"; }
+%fig-icon-android-system-back { content: "\f2ff"; }
+%fig-icon-android-system-home { content: "\f300"; }
+%fig-icon-android-system-windows { content: "\f301"; }
+%fig-icon-android-timer { content: "\f302"; }
+%fig-icon-android-trash { content: "\f303"; }
+%fig-icon-android-user-menu { content: "\f312"; }
+%fig-icon-android-volume { content: "\f304"; }
+%fig-icon-android-wifi { content: "\f305"; }
+%fig-icon-aperture { content: "\f313"; }
+%fig-icon-archive { content: "\f102"; }
+%fig-icon-arrow-down-a { content: "\f103"; }
+%fig-icon-arrow-down-b { content: "\f104"; }
+%fig-icon-arrow-down-c { content: "\f105"; }
+%fig-icon-arrow-expand { content: "\f25e"; }
+%fig-icon-arrow-graph-down-left { content: "\f25f"; }
+%fig-icon-arrow-graph-down-right { content: "\f260"; }
+%fig-icon-arrow-graph-up-left { content: "\f261"; }
+%fig-icon-arrow-graph-up-right { content: "\f262"; }
+%fig-icon-arrow-left-a { content: "\f106"; }
+%fig-icon-arrow-left-b { content: "\f107"; }
+%fig-icon-arrow-left-c { content: "\f108"; }
+%fig-icon-arrow-move { content: "\f263"; }
+%fig-icon-arrow-resize { content: "\f264"; }
+%fig-icon-arrow-return-left { content: "\f265"; }
+%fig-icon-arrow-return-right { content: "\f266"; }
+%fig-icon-arrow-right-a { content: "\f109"; }
+%fig-icon-arrow-right-b { content: "\f10a"; }
+%fig-icon-arrow-right-c { content: "\f10b"; }
+%fig-icon-arrow-shrink { content: "\f267"; }
+%fig-icon-arrow-swap { content: "\f268"; }
+%fig-icon-arrow-up-a { content: "\f10c"; }
+%fig-icon-arrow-up-b { content: "\f10d"; }
+%fig-icon-arrow-up-c { content: "\f10e"; }
+%fig-icon-asterisk { content: "\f314"; }
+%fig-icon-at { content: "\f10f"; }
+%fig-icon-bag { content: "\f110"; }
+%fig-icon-battery-charging { content: "\f111"; }
+%fig-icon-battery-empty { content: "\f112"; }
+%fig-icon-battery-full { content: "\f113"; }
+%fig-icon-battery-half { content: "\f114"; }
+%fig-icon-battery-low { content: "\f115"; }
+%fig-icon-beaker { content: "\f269"; }
+%fig-icon-beer { content: "\f26a"; }
+%fig-icon-bluetooth { content: "\f116"; }
+%fig-icon-bonfire { content: "\f315"; }
+%fig-icon-bookmark { content: "\f26b"; }
+%fig-icon-briefcase { content: "\f26c"; }
+%fig-icon-bug { content: "\f2be"; }
+%fig-icon-calculator { content: "\f26d"; }
+%fig-icon-calendar { content: "\f117"; }
+%fig-icon-camera { content: "\f118"; }
+%fig-icon-card { content: "\f119"; }
+%fig-icon-cash { content: "\f316"; }
+%fig-icon-chatbox { content: "\f11b"; }
+%fig-icon-chatbox-working { content: "\f11a"; }
+%fig-icon-chatboxes { content: "\f11c"; }
+%fig-icon-chatbubble { content: "\f11e"; }
+%fig-icon-chatbubble-working { content: "\f11d"; }
+%fig-icon-chatbubbles { content: "\f11f"; }
+%fig-icon-checkmark { content: "\f122"; }
+%fig-icon-checkmark-circled { content: "\f120"; }
+%fig-icon-checkmark-round { content: "\f121"; }
+%fig-icon-chevron-down { content: "\f123"; }
+%fig-icon-chevron-left { content: "\f124"; }
+%fig-icon-chevron-right { content: "\f125"; }
+%fig-icon-chevron-up { content: "\f126"; }
+%fig-icon-clipboard { content: "\f127"; }
+%fig-icon-clock { content: "\f26e"; }
+%fig-icon-close { content: "\f12a"; }
+%fig-icon-close-circled { content: "\f128"; }
+%fig-icon-close-round { content: "\f129"; }
+%fig-icon-closed-captioning { content: "\f317"; }
+%fig-icon-cloud { content: "\f12b"; }
+%fig-icon-code { content: "\f271"; }
+%fig-icon-code-download { content: "\f26f"; }
+%fig-icon-code-working { content: "\f270"; }
+%fig-icon-coffee { content: "\f272"; }
+%fig-icon-compass { content: "\f273"; }
+%fig-icon-compose { content: "\f12c"; }
+%fig-icon-connection-bars { content: "\f274"; }
+%fig-icon-contrast { content: "\f275"; }
+%fig-icon-cube { content: "\f318"; }
+%fig-icon-disc { content: "\f12d"; }
+%fig-icon-document { content: "\f12f"; }
+%fig-icon-document-text { content: "\f12e"; }
+%fig-icon-drag { content: "\f130"; }
+%fig-icon-earth { content: "\f276"; }
+%fig-icon-edit { content: "\f2bf"; }
+%fig-icon-egg { content: "\f277"; }
+%fig-icon-eject { content: "\f131"; }
+%fig-icon-email { content: "\f132"; }
+%fig-icon-eye { content: "\f133"; }
+%fig-icon-eye-disabled { content: "\f306"; }
+%fig-icon-female { content: "\f278"; }
+%fig-icon-filing { content: "\f134"; }
+%fig-icon-film-marker { content: "\f135"; }
+%fig-icon-fireball { content: "\f319"; }
+%fig-icon-flag { content: "\f279"; }
+%fig-icon-flame { content: "\f31a"; }
+%fig-icon-flash { content: "\f137"; }
+%fig-icon-flash-off { content: "\f136"; }
+%fig-icon-flask { content: "\f138"; }
+%fig-icon-folder { content: "\f139"; }
+%fig-icon-fork { content: "\f27a"; }
+%fig-icon-fork-repo { content: "\f2c0"; }
+%fig-icon-forward { content: "\f13a"; }
+%fig-icon-funnel { content: "\f31b"; }
+%fig-icon-game-controller-a { content: "\f13b"; }
+%fig-icon-game-controller-b { content: "\f13c"; }
+%fig-icon-gear-a { content: "\f13d"; }
+%fig-icon-gear-b { content: "\f13e"; }
+%fig-icon-grid { content: "\f13f"; }
+%fig-icon-hammer { content: "\f27b"; }
+%fig-icon-happy { content: "\f31c"; }
+%fig-icon-headphone { content: "\f140"; }
+%fig-icon-heart { content: "\f141"; }
+%fig-icon-heart-broken { content: "\f31d"; }
+%fig-icon-help { content: "\f143"; }
+%fig-icon-help-buoy { content: "\f27c"; }
+%fig-icon-help-circled { content: "\f142"; }
+%fig-icon-home { content: "\f144"; }
+%fig-icon-icecream { content: "\f27d"; }
+%fig-icon-icon-social-google-plus { content: "\f146"; }
+%fig-icon-icon-social-google-plus-outline { content: "\f145"; }
+%fig-icon-image { content: "\f147"; }
+%fig-icon-images { content: "\f148"; }
+%fig-icon-information { content: "\f14a"; }
+%fig-icon-information-circled { content: "\f149"; }
+%fig-icon-ionic { content: "\f14b"; }
+%fig-icon-ios7-alarm { content: "\f14d"; }
+%fig-icon-ios7-alarm-outline { content: "\f14c"; }
+%fig-icon-ios7-albums { content: "\f14f"; }
+%fig-icon-ios7-albums-outline { content: "\f14e"; }
+%fig-icon-ios7-americanfootball { content: "\f31f"; }
+%fig-icon-ios7-americanfootball-outline { content: "\f31e"; }
+%fig-icon-ios7-analytics { content: "\f321"; }
+%fig-icon-ios7-analytics-outline { content: "\f320"; }
+%fig-icon-ios7-arrow-back { content: "\f150"; }
+%fig-icon-ios7-arrow-down { content: "\f151"; }
+%fig-icon-ios7-arrow-forward { content: "\f152"; }
+%fig-icon-ios7-arrow-left { content: "\f153"; }
+%fig-icon-ios7-arrow-right { content: "\f154"; }
+%fig-icon-ios7-arrow-thin-down { content: "\f27e"; }
+%fig-icon-ios7-arrow-thin-left { content: "\f27f"; }
+%fig-icon-ios7-arrow-thin-right { content: "\f280"; }
+%fig-icon-ios7-arrow-thin-up { content: "\f281"; }
+%fig-icon-ios7-arrow-up { content: "\f155"; }
+%fig-icon-ios7-at { content: "\f157"; }
+%fig-icon-ios7-at-outline { content: "\f156"; }
+%fig-icon-ios7-barcode { content: "\f323"; }
+%fig-icon-ios7-barcode-outline { content: "\f322"; }
+%fig-icon-ios7-baseball { content: "\f325"; }
+%fig-icon-ios7-baseball-outline { content: "\f324"; }
+%fig-icon-ios7-basketball { content: "\f327"; }
+%fig-icon-ios7-basketball-outline { content: "\f326"; }
+%fig-icon-ios7-bell { content: "\f159"; }
+%fig-icon-ios7-bell-outline { content: "\f158"; }
+%fig-icon-ios7-bolt { content: "\f15b"; }
+%fig-icon-ios7-bolt-outline { content: "\f15a"; }
+%fig-icon-ios7-bookmarks { content: "\f15d"; }
+%fig-icon-ios7-bookmarks-outline { content: "\f15c"; }
+%fig-icon-ios7-box { content: "\f15f"; }
+%fig-icon-ios7-box-outline { content: "\f15e"; }
+%fig-icon-ios7-briefcase { content: "\f283"; }
+%fig-icon-ios7-briefcase-outline { content: "\f282"; }
+%fig-icon-ios7-browsers { content: "\f161"; }
+%fig-icon-ios7-browsers-outline { content: "\f160"; }
+%fig-icon-ios7-calculator { content: "\f285"; }
+%fig-icon-ios7-calculator-outline { content: "\f284"; }
+%fig-icon-ios7-calendar { content: "\f163"; }
+%fig-icon-ios7-calendar-outline { content: "\f162"; }
+%fig-icon-ios7-camera { content: "\f165"; }
+%fig-icon-ios7-camera-outline { content: "\f164"; }
+%fig-icon-ios7-cart { content: "\f167"; }
+%fig-icon-ios7-cart-outline { content: "\f166"; }
+%fig-icon-ios7-chatboxes { content: "\f169"; }
+%fig-icon-ios7-chatboxes-outline { content: "\f168"; }
+%fig-icon-ios7-chatbubble { content: "\f16b"; }
+%fig-icon-ios7-chatbubble-outline { content: "\f16a"; }
+%fig-icon-ios7-checkmark { content: "\f16e"; }
+%fig-icon-ios7-checkmark-empty { content: "\f16c"; }
+%fig-icon-ios7-checkmark-outline { content: "\f16d"; }
+%fig-icon-ios7-circle-filled { content: "\f16f"; }
+%fig-icon-ios7-circle-outline { content: "\f170"; }
+%fig-icon-ios7-clock { content: "\f172"; }
+%fig-icon-ios7-clock-outline { content: "\f171"; }
+%fig-icon-ios7-close { content: "\f2bc"; }
+%fig-icon-ios7-close-empty { content: "\f2bd"; }
+%fig-icon-ios7-close-outline { content: "\f2bb"; }
+%fig-icon-ios7-cloud { content: "\f178"; }
+%fig-icon-ios7-cloud-download { content: "\f174"; }
+%fig-icon-ios7-cloud-download-outline { content: "\f173"; }
+%fig-icon-ios7-cloud-outline { content: "\f175"; }
+%fig-icon-ios7-cloud-upload { content: "\f177"; }
+%fig-icon-ios7-cloud-upload-outline { content: "\f176"; }
+%fig-icon-ios7-cloudy { content: "\f17a"; }
+%fig-icon-ios7-cloudy-night { content: "\f308"; }
+%fig-icon-ios7-cloudy-night-outline { content: "\f307"; }
+%fig-icon-ios7-cloudy-outline { content: "\f179"; }
+%fig-icon-ios7-cog { content: "\f17c"; }
+%fig-icon-ios7-cog-outline { content: "\f17b"; }
+%fig-icon-ios7-compose { content: "\f17e"; }
+%fig-icon-ios7-compose-outline { content: "\f17d"; }
+%fig-icon-ios7-contact { content: "\f180"; }
+%fig-icon-ios7-contact-outline { content: "\f17f"; }
+%fig-icon-ios7-copy { content: "\f182"; }
+%fig-icon-ios7-copy-outline { content: "\f181"; }
+%fig-icon-ios7-download { content: "\f184"; }
+%fig-icon-ios7-download-outline { content: "\f183"; }
+%fig-icon-ios7-drag { content: "\f185"; }
+%fig-icon-ios7-email { content: "\f187"; }
+%fig-icon-ios7-email-outline { content: "\f186"; }
+%fig-icon-ios7-expand { content: "\f30d"; }
+%fig-icon-ios7-eye { content: "\f189"; }
+%fig-icon-ios7-eye-outline { content: "\f188"; }
+%fig-icon-ios7-fastforward { content: "\f18b"; }
+%fig-icon-ios7-fastforward-outline { content: "\f18a"; }
+%fig-icon-ios7-filing { content: "\f18d"; }
+%fig-icon-ios7-filing-outline { content: "\f18c"; }
+%fig-icon-ios7-film { content: "\f18f"; }
+%fig-icon-ios7-film-outline { content: "\f18e"; }
+%fig-icon-ios7-flag { content: "\f191"; }
+%fig-icon-ios7-flag-outline { content: "\f190"; }
+%fig-icon-ios7-folder { content: "\f193"; }
+%fig-icon-ios7-folder-outline { content: "\f192"; }
+%fig-icon-ios7-football { content: "\f329"; }
+%fig-icon-ios7-football-outline { content: "\f328"; }
+%fig-icon-ios7-gear { content: "\f195"; }
+%fig-icon-ios7-gear-outline { content: "\f194"; }
+%fig-icon-ios7-glasses { content: "\f197"; }
+%fig-icon-ios7-glasses-outline { content: "\f196"; }
+%fig-icon-ios7-heart { content: "\f199"; }
+%fig-icon-ios7-heart-outline { content: "\f198"; }
+%fig-icon-ios7-help { content: "\f19c"; }
+%fig-icon-ios7-help-empty { content: "\f19a"; }
+%fig-icon-ios7-help-outline { content: "\f19b"; }
+%fig-icon-ios7-home { content: "\f32b"; }
+%fig-icon-ios7-home-outline { content: "\f32a"; }
+%fig-icon-ios7-infinite { content: "\f19e"; }
+%fig-icon-ios7-infinite-outline { content: "\f19d"; }
+%fig-icon-ios7-information { content: "\f1a1"; }
+%fig-icon-ios7-information-empty { content: "\f19f"; }
+%fig-icon-ios7-information-outline { content: "\f1a0"; }
+%fig-icon-ios7-ionic-outline { content: "\f1a2"; }
+%fig-icon-ios7-keypad { content: "\f1a4"; }
+%fig-icon-ios7-keypad-outline { content: "\f1a3"; }
+%fig-icon-ios7-lightbulb { content: "\f287"; }
+%fig-icon-ios7-lightbulb-outline { content: "\f286"; }
+%fig-icon-ios7-location { content: "\f1a6"; }
+%fig-icon-ios7-location-outline { content: "\f1a5"; }
+%fig-icon-ios7-locked { content: "\f1a8"; }
+%fig-icon-ios7-locked-outline { content: "\f1a7"; }
+%fig-icon-ios7-loop { content: "\f32d"; }
+%fig-icon-ios7-loop-strong { content: "\f32c"; }
+%fig-icon-ios7-medkit { content: "\f289"; }
+%fig-icon-ios7-medkit-outline { content: "\f288"; }
+%fig-icon-ios7-mic { content: "\f1ab"; }
+%fig-icon-ios7-mic-off { content: "\f1a9"; }
+%fig-icon-ios7-mic-outline { content: "\f1aa"; }
+%fig-icon-ios7-minus { content: "\f1ae"; }
+%fig-icon-ios7-minus-empty { content: "\f1ac"; }
+%fig-icon-ios7-minus-outline { content: "\f1ad"; }
+%fig-icon-ios7-monitor { content: "\f1b0"; }
+%fig-icon-ios7-monitor-outline { content: "\f1af"; }
+%fig-icon-ios7-moon { content: "\f1b2"; }
+%fig-icon-ios7-moon-outline { content: "\f1b1"; }
+%fig-icon-ios7-more { content: "\f1b4"; }
+%fig-icon-ios7-more-outline { content: "\f1b3"; }
+%fig-icon-ios7-musical-note { content: "\f1b5"; }
+%fig-icon-ios7-musical-notes { content: "\f1b6"; }
+%fig-icon-ios7-navigate { content: "\f1b8"; }
+%fig-icon-ios7-navigate-outline { content: "\f1b7"; }
+%fig-icon-ios7-paper { content: "\f32f"; }
+%fig-icon-ios7-paper-outline { content: "\f32e"; }
+%fig-icon-ios7-paperplane { content: "\f1ba"; }
+%fig-icon-ios7-paperplane-outline { content: "\f1b9"; }
+%fig-icon-ios7-partlysunny { content: "\f1bc"; }
+%fig-icon-ios7-partlysunny-outline { content: "\f1bb"; }
+%fig-icon-ios7-pause { content: "\f1be"; }
+%fig-icon-ios7-pause-outline { content: "\f1bd"; }
+%fig-icon-ios7-paw { content: "\f331"; }
+%fig-icon-ios7-paw-outline { content: "\f330"; }
+%fig-icon-ios7-people { content: "\f1c0"; }
+%fig-icon-ios7-people-outline { content: "\f1bf"; }
+%fig-icon-ios7-person { content: "\f1c2"; }
+%fig-icon-ios7-person-outline { content: "\f1c1"; }
+%fig-icon-ios7-personadd { content: "\f1c4"; }
+%fig-icon-ios7-personadd-outline { content: "\f1c3"; }
+%fig-icon-ios7-photos { content: "\f1c6"; }
+%fig-icon-ios7-photos-outline { content: "\f1c5"; }
+%fig-icon-ios7-pie { content: "\f28b"; }
+%fig-icon-ios7-pie-outline { content: "\f28a"; }
+%fig-icon-ios7-play { content: "\f1c8"; }
+%fig-icon-ios7-play-outline { content: "\f1c7"; }
+%fig-icon-ios7-plus { content: "\f1cb"; }
+%fig-icon-ios7-plus-empty { content: "\f1c9"; }
+%fig-icon-ios7-plus-outline { content: "\f1ca"; }
+%fig-icon-ios7-pricetag { content: "\f28d"; }
+%fig-icon-ios7-pricetag-outline { content: "\f28c"; }
+%fig-icon-ios7-pricetags { content: "\f333"; }
+%fig-icon-ios7-pricetags-outline { content: "\f332"; }
+%fig-icon-ios7-printer { content: "\f1cd"; }
+%fig-icon-ios7-printer-outline { content: "\f1cc"; }
+%fig-icon-ios7-pulse { content: "\f335"; }
+%fig-icon-ios7-pulse-strong { content: "\f334"; }
+%fig-icon-ios7-rainy { content: "\f1cf"; }
+%fig-icon-ios7-rainy-outline { content: "\f1ce"; }
+%fig-icon-ios7-recording { content: "\f1d1"; }
+%fig-icon-ios7-recording-outline { content: "\f1d0"; }
+%fig-icon-ios7-redo { content: "\f1d3"; }
+%fig-icon-ios7-redo-outline { content: "\f1d2"; }
+%fig-icon-ios7-refresh { content: "\f1d6"; }
+%fig-icon-ios7-refresh-empty { content: "\f1d4"; }
+%fig-icon-ios7-refresh-outline { content: "\f1d5"; }
+%fig-icon-ios7-reload { content: "\f28e"; }
+%fig-icon-ios7-reloading { content: "\f28e"; }
+%fig-icon-ios7-reverse-camera { content: "\f337"; }
+%fig-icon-ios7-reverse-camera-outline { content: "\f336"; }
+%fig-icon-ios7-rewind { content: "\f1d8"; }
+%fig-icon-ios7-rewind-outline { content: "\f1d7"; }
+%fig-icon-ios7-search { content: "\f1da"; }
+%fig-icon-ios7-search-strong { content: "\f1d9"; }
+%fig-icon-ios7-settings { content: "\f339"; }
+%fig-icon-ios7-settings-strong { content: "\f338"; }
+%fig-icon-ios7-shrink { content: "\f30e"; }
+%fig-icon-ios7-skipbackward { content: "\f1dc"; }
+%fig-icon-ios7-skipbackward-outline { content: "\f1db"; }
+%fig-icon-ios7-skipforward { content: "\f1de"; }
+%fig-icon-ios7-skipforward-outline { content: "\f1dd"; }
+%fig-icon-ios7-snowy { content: "\f309"; }
+%fig-icon-ios7-speedometer { content: "\f290"; }
+%fig-icon-ios7-speedometer-outline { content: "\f28f"; }
+%fig-icon-ios7-star { content: "\f1e0"; }
+%fig-icon-ios7-star-half { content: "\f33a"; }
+%fig-icon-ios7-star-outline { content: "\f1df"; }
+%fig-icon-ios7-stopwatch { content: "\f1e2"; }
+%fig-icon-ios7-stopwatch-outline { content: "\f1e1"; }
+%fig-icon-ios7-sunny { content: "\f1e4"; }
+%fig-icon-ios7-sunny-outline { content: "\f1e3"; }
+%fig-icon-ios7-telephone { content: "\f1e6"; }
+%fig-icon-ios7-telephone-outline { content: "\f1e5"; }
+%fig-icon-ios7-tennisball { content: "\f33c"; }
+%fig-icon-ios7-tennisball-outline { content: "\f33b"; }
+%fig-icon-ios7-thunderstorm { content: "\f1e8"; }
+%fig-icon-ios7-thunderstorm-outline { content: "\f1e7"; }
+%fig-icon-ios7-time { content: "\f292"; }
+%fig-icon-ios7-time-outline { content: "\f291"; }
+%fig-icon-ios7-timer { content: "\f1ea"; }
+%fig-icon-ios7-timer-outline { content: "\f1e9"; }
+%fig-icon-ios7-toggle { content: "\f33e"; }
+%fig-icon-ios7-toggle-outline { content: "\f33d"; }
+%fig-icon-ios7-trash { content: "\f1ec"; }
+%fig-icon-ios7-trash-outline { content: "\f1eb"; }
+%fig-icon-ios7-undo { content: "\f1ee"; }
+%fig-icon-ios7-undo-outline { content: "\f1ed"; }
+%fig-icon-ios7-unlocked { content: "\f1f0"; }
+%fig-icon-ios7-unlocked-outline { content: "\f1ef"; }
+%fig-icon-ios7-upload { content: "\f1f2"; }
+%fig-icon-ios7-upload-outline { content: "\f1f1"; }
+%fig-icon-ios7-videocam { content: "\f1f4"; }
+%fig-icon-ios7-videocam-outline { content: "\f1f3"; }
+%fig-icon-ios7-volume-high { content: "\f1f5"; }
+%fig-icon-ios7-volume-low { content: "\f1f6"; }
+%fig-icon-ios7-wineglass { content: "\f294"; }
+%fig-icon-ios7-wineglass-outline { content: "\f293"; }
+%fig-icon-ios7-world { content: "\f1f8"; }
+%fig-icon-ios7-world-outline { content: "\f1f7"; }
+%fig-icon-ipad { content: "\f1f9"; }
+%fig-icon-iphone { content: "\f1fa"; }
+%fig-icon-ipod { content: "\f1fb"; }
+%fig-icon-jet { content: "\f295"; }
+%fig-icon-key { content: "\f296"; }
+%fig-icon-knife { content: "\f297"; }
+%fig-icon-laptop { content: "\f1fc"; }
+%fig-icon-leaf { content: "\f1fd"; }
+%fig-icon-levels { content: "\f298"; }
+%fig-icon-lightbulb { content: "\f299"; }
+%fig-icon-link { content: "\f1fe"; }
+%fig-icon-load-a { content: "\f29a"; }
+%fig-icon-load-b { content: "\f29b"; }
+%fig-icon-load-c { content: "\f29c"; }
+%fig-icon-load-d { content: "\f29d"; }
+%fig-icon-loading-a { content: "\f29a"; }
+%fig-icon-loading-b { content: "\f29b"; }
+%fig-icon-loading-c { content: "\f29c"; }
+%fig-icon-loading-d { content: "\f29d"; }
+%fig-icon-location { content: "\f1ff"; }
+%fig-icon-locked { content: "\f200"; }
+%fig-icon-log-in { content: "\f29e"; }
+%fig-icon-log-out { content: "\f29f"; }
+%fig-icon-loop { content: "\f201"; }
+%fig-icon-looping { content: "\f201"; }
+%fig-icon-magnet { content: "\f2a0"; }
+%fig-icon-male { content: "\f2a1"; }
+%fig-icon-man { content: "\f202"; }
+%fig-icon-map { content: "\f203"; }
+%fig-icon-medkit { content: "\f2a2"; }
+%fig-icon-merge { content: "\f33f"; }
+%fig-icon-mic-a { content: "\f204"; }
+%fig-icon-mic-b { content: "\f205"; }
+%fig-icon-mic-c { content: "\f206"; }
+%fig-icon-minus { content: "\f209"; }
+%fig-icon-minus-circled { content: "\f207"; }
+%fig-icon-minus-round { content: "\f208"; }
+%fig-icon-model-s { content: "\f2c1"; }
+%fig-icon-monitor { content: "\f20a"; }
+%fig-icon-more { content: "\f20b"; }
+%fig-icon-mouse { content: "\f340"; }
+%fig-icon-music-note { content: "\f20c"; }
+%fig-icon-navicon { content: "\f20e"; }
+%fig-icon-navicon-round { content: "\f20d"; }
+%fig-icon-navigate { content: "\f2a3"; }
+%fig-icon-network { content: "\f341"; }
+%fig-icon-no-smoking { content: "\f2c2"; }
+%fig-icon-nuclear { content: "\f2a4"; }
+%fig-icon-outlet { content: "\f342"; }
+%fig-icon-paper-airplane { content: "\f2c3"; }
+%fig-icon-paperclip { content: "\f20f"; }
+%fig-icon-pause { content: "\f210"; }
+%fig-icon-person { content: "\f213"; }
+%fig-icon-person-add { content: "\f211"; }
+%fig-icon-person-stalker { content: "\f212"; }
+%fig-icon-pie-graph { content: "\f2a5"; }
+%fig-icon-pin { content: "\f2a6"; }
+%fig-icon-pinpoint { content: "\f2a7"; }
+%fig-icon-pizza { content: "\f2a8"; }
+%fig-icon-plane { content: "\f214"; }
+%fig-icon-planet { content: "\f343"; }
+%fig-icon-play { content: "\f215"; }
+%fig-icon-playstation { content: "\f30a"; }
+%fig-icon-plus { content: "\f218"; }
+%fig-icon-plus-circled { content: "\f216"; }
+%fig-icon-plus-round { content: "\f217"; }
+%fig-icon-podium { content: "\f344"; }
+%fig-icon-pound { content: "\f219"; }
+%fig-icon-power { content: "\f2a9"; }
+%fig-icon-pricetag { content: "\f2aa"; }
+%fig-icon-pricetags { content: "\f2ab"; }
+%fig-icon-printer { content: "\f21a"; }
+%fig-icon-pull-request { content: "\f345"; }
+%fig-icon-qr-scanner { content: "\f346"; }
+%fig-icon-quote { content: "\f347"; }
+%fig-icon-radio-waves { content: "\f2ac"; }
+%fig-icon-record { content: "\f21b"; }
+%fig-icon-refresh { content: "\f21c"; }
+%fig-icon-refreshing { content: "\f21c"; }
+%fig-icon-reply { content: "\f21e"; }
+%fig-icon-reply-all { content: "\f21d"; }
+%fig-icon-ribbon-a { content: "\f348"; }
+%fig-icon-ribbon-b { content: "\f349"; }
+%fig-icon-sad { content: "\f34a"; }
+%fig-icon-scissors { content: "\f34b"; }
+%fig-icon-search { content: "\f21f"; }
+%fig-icon-settings { content: "\f2ad"; }
+%fig-icon-share { content: "\f220"; }
+%fig-icon-shuffle { content: "\f221"; }
+%fig-icon-skip-backward { content: "\f222"; }
+%fig-icon-skip-forward { content: "\f223"; }
+%fig-icon-social-android { content: "\f225"; }
+%fig-icon-social-android-outline { content: "\f224"; }
+%fig-icon-social-apple { content: "\f227"; }
+%fig-icon-social-apple-outline { content: "\f226"; }
+%fig-icon-social-bitcoin { content: "\f2af"; }
+%fig-icon-social-bitcoin-outline { content: "\f2ae"; }
+%fig-icon-social-buffer { content: "\f229"; }
+%fig-icon-social-buffer-outline { content: "\f228"; }
+%fig-icon-social-designernews { content: "\f22b"; }
+%fig-icon-social-designernews-outline { content: "\f22a"; }
+%fig-icon-social-dribbble { content: "\f22d"; }
+%fig-icon-social-dribbble-outline { content: "\f22c"; }
+%fig-icon-social-dropbox { content: "\f22f"; }
+%fig-icon-social-dropbox-outline { content: "\f22e"; }
+%fig-icon-social-facebook { content: "\f231"; }
+%fig-icon-social-facebook-outline { content: "\f230"; }
+%fig-icon-social-foursquare { content: "\f34d"; }
+%fig-icon-social-foursquare-outline { content: "\f34c"; }
+%fig-icon-social-freebsd-devil { content: "\f2c4"; }
+%fig-icon-social-github { content: "\f233"; }
+%fig-icon-social-github-outline { content: "\f232"; }
+%fig-icon-social-google { content: "\f34f"; }
+%fig-icon-social-google-outline { content: "\f34e"; }
+%fig-icon-social-googleplus { content: "\f235"; }
+%fig-icon-social-googleplus-outline { content: "\f234"; }
+%fig-icon-social-hackernews { content: "\f237"; }
+%fig-icon-social-hackernews-outline { content: "\f236"; }
+%fig-icon-social-instagram { content: "\f351"; }
+%fig-icon-social-instagram-outline { content: "\f350"; }
+%fig-icon-social-linkedin { content: "\f239"; }
+%fig-icon-social-linkedin-outline { content: "\f238"; }
+%fig-icon-social-pinterest { content: "\f2b1"; }
+%fig-icon-social-pinterest-outline { content: "\f2b0"; }
+%fig-icon-social-reddit { content: "\f23b"; }
+%fig-icon-social-reddit-outline { content: "\f23a"; }
+%fig-icon-social-rss { content: "\f23d"; }
+%fig-icon-social-rss-outline { content: "\f23c"; }
+%fig-icon-social-skype { content: "\f23f"; }
+%fig-icon-social-skype-outline { content: "\f23e"; }
+%fig-icon-social-tumblr { content: "\f241"; }
+%fig-icon-social-tumblr-outline { content: "\f240"; }
+%fig-icon-social-tux { content: "\f2c5"; }
+%fig-icon-social-twitter { content: "\f243"; }
+%fig-icon-social-twitter-outline { content: "\f242"; }
+%fig-icon-social-usd { content: "\f353"; }
+%fig-icon-social-usd-outline { content: "\f352"; }
+%fig-icon-social-vimeo { content: "\f245"; }
+%fig-icon-social-vimeo-outline { content: "\f244"; }
+%fig-icon-social-windows { content: "\f247"; }
+%fig-icon-social-windows-outline { content: "\f246"; }
+%fig-icon-social-wordpress { content: "\f249"; }
+%fig-icon-social-wordpress-outline { content: "\f248"; }
+%fig-icon-social-yahoo { content: "\f24b"; }
+%fig-icon-social-yahoo-outline { content: "\f24a"; }
+%fig-icon-social-youtube { content: "\f24d"; }
+%fig-icon-social-youtube-outline { content: "\f24c"; }
+%fig-icon-speakerphone { content: "\f2b2"; }
+%fig-icon-speedometer { content: "\f2b3"; }
+%fig-icon-spoon { content: "\f2b4"; }
+%fig-icon-star { content: "\f24e"; }
+%fig-icon-stats-bars { content: "\f2b5"; }
+%fig-icon-steam { content: "\f30b"; }
+%fig-icon-stop { content: "\f24f"; }
+%fig-icon-thermometer { content: "\f2b6"; }
+%fig-icon-thumbsdown { content: "\f250"; }
+%fig-icon-thumbsup { content: "\f251"; }
+%fig-icon-toggle { content: "\f355"; }
+%fig-icon-toggle-filled { content: "\f354"; }
+%fig-icon-trash-a { content: "\f252"; }
+%fig-icon-trash-b { content: "\f253"; }
+%fig-icon-trophy { content: "\f356"; }
+%fig-icon-umbrella { content: "\f2b7"; }
+%fig-icon-university { content: "\f357"; }
+%fig-icon-unlocked { content: "\f254"; }
+%fig-icon-upload { content: "\f255"; }
+%fig-icon-usb { content: "\f2b8"; }
+%fig-icon-videocamera { content: "\f256"; }
+%fig-icon-volume-high { content: "\f257"; }
+%fig-icon-volume-low { content: "\f258"; }
+%fig-icon-volume-medium { content: "\f259"; }
+%fig-icon-volume-mute { content: "\f25a"; }
+%fig-icon-wand { content: "\f358"; }
+%fig-icon-waterdrop { content: "\f25b"; }
+%fig-icon-wifi { content: "\f25c"; }
+%fig-icon-wineglass { content: "\f2b9"; }
+%fig-icon-woman { content: "\f25d"; }
+%fig-icon-wrench { content: "\f2ba"; }
+%fig-icon-xbox { content: "\f30c"; }
+

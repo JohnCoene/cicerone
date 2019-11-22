@@ -1,0 +1,26 @@
+language: node_js
+node_js:
+- 'stable'
+- '10'
+- '8'
+cache:
+  directories:
+  - node_modules
+
+# Build docs using latest docpress plugins
+script:
+- npm test
+- ./bin/docpress build
+
+# Deploy to gh-pages
+after_success:
+- npm run coveralls
+- if [ "$TRAVIS_BRANCH" = "master" -a "$TRAVIS_PULL_REQUEST" = "false" ]; then ./node_modules/.bin/git-update-ghpages -e; fi
+
+env:
+  global:
+  - GIT_NAME: Travis CI
+  - GIT_EMAIL: nobody@nobody.org
+  - GITHUB_REPO: docpress/docpress.github.io
+  - GIT_SOURCE: _docpress
+  - GIT_BRANCH: master

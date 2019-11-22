@@ -1,0 +1,11 @@
+{
+  "docs": "docs",
+  "github": "JohnCoene/cicerone",
+  "googleAnalytics.id": "UA-74544116-1",
+  "css": [
+    "docs/css/style.css"
+  ],
+  "markdown": {
+    "typographer": true
+  }
+}

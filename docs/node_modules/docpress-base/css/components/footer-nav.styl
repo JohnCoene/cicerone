@@ -1,0 +1,110 @@
+//
+// Footer nav
+//
+
+.footer-nav
+  &
+    position: fixed
+    bottom: 0
+    right: 0
+    left: 0
+    border-top: solid 1px transparent
+    background-color: rgba(white, 0)
+    clearfix()
+
+  &, a
+    height: 24px + 16px + $xpad
+    line-height: 24px
+
+  a
+    display: block
+    white-space: nowrap
+    text-overflow: ellipsis
+
+  // Expanded: background
+  &.-expanded
+    background-color: rgba(white, 1)
+
+    &:before
+      content: ''
+      position: absolute
+      left: $xpad
+      right: $xpad
+      top: 0
+      height: 1px
+      background: $line
+
+  // Layout
+  .left
+    position: absolute
+    left: 0
+    top: 0
+
+  .right
+    position: absolute
+    right: 0
+    top: 0
+    text-align: right
+
+  &.-expanded .right
+    width: 60%
+
+  // Title and labels
+  .title,
+  .label
+    opacity: 0
+    pointer-events: none
+
+  // Fly the 'next: ___' from the left
+  .right .title,
+  .right .label
+    transform: translate3d(-8px, 0, 0)
+
+  .title,
+  .label,
+  a:before,
+  a:after
+    transition: all 250ms ease-in
+
+  &.-expanded .title,
+  &.-expanded .label
+    opacity: 1
+    transform: translate3d(0, 0, 0)
+    pointer-events: auto
+
+  // Link styles
+  a
+    text-decoration: none
+    color: $slate
+    padding: 16px $xpad $xpad $xpad
+
+  .label,
+  .left .title
+    color: rgba($slate, 0.5)
+
+  .right .title
+    margin-right: 0.1em
+    color: $black
+
+  .left a:hover:before,
+  .right a:hover:after
+    color: $accent
+
+  a:hover .title
+    color: $accent
+
+  .left a:before,
+  .right a:after
+    display: inline-block
+    font-size: 20px
+    vertical-align: middle
+    position: relative
+    top: -1px
+
+  .left a:before
+    ion-icon('chevron-left')
+    margin-right: 16px
+
+  .right a:after
+    ion-icon('chevron-right')
+    margin-left: 16px

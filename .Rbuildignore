@@ -2,3 +2,4 @@
 ^test\.R$
 ^docs$
 ^\.travis\.yml$
+^appveyor\.yml$

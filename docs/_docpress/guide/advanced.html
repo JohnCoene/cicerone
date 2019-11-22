@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../assets/style.css?t=90051322">
+    <link rel="stylesheet" href="../css/style.css?t=48da64ce">
+    <script src="../assets/script.js?t=93f1a66c"></script>
+    <title>Advanced - cicerone</title>
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body class="-menu-visible">
+    <div class="doc-layout">
+      <div class="toggle menu-toggle js-menu-toggle"></div>
+      <div class="menu toc-menu">
+        <ul>
+          <li class="menu-item -level-0 -parent">
+            <ul class="submenu">
+              <li class="menu-item -level-1"><a class="link title  link-index" href="../index.html">cicerone</a>
+              </li>
+              <li class="menu-item -level-1 -parent"><span class="title">Guide</span>
+                <ul class="submenu">
+                  <li class="menu-item -level-2"><a class="link title  link-guideget-started" href="../guide/get-started.html">Get Started</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title -active link-guideadvanced" href="../guide/advanced.html">Advanced</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="body page-guideadvanced">
+        <div class="header-nav">
+          <div class="right"><a class="iconlink" href="https://github.com/JohnCoene/cicerone" data-title="JohnCoene/cicerone">
+              <!-- span.title Open in GitHub--><span class="icon -github"></span></a>
+          </div>
+        </div>
+        <div class="markdown-body"><h1 id="advanced">Advanced</h1>
+<p>This documents a somewhat more advanced usage of cicerone. Below we build another application, we add a button that will allow users to restart the guide (we&#x2019;ll handle the server part later).</p>
+<pre><code class="lang-r"><span class="pl-k">library</span>(shiny)
+
+ui &lt;- fluidPage(
+  numericInput(<span class="pl-s">&quot;nobs&quot;</span>, <span class="pl-s">&quot;Observations&quot;</span>, min = <span class="hljs-number">50</span>, max = <span class="hljs-number">200</span>, value = <span class="hljs-number">20</span>),
+  actionButton(<span class="pl-s">&quot;submit_button&quot;</span>, <span class="pl-s">&quot;Submit observations&quot;</span>),
+  plotOutput(<span class="pl-s">&quot;hist&quot;</span>),
+  actionButton(<span class="pl-s">&quot;guide&quot;</span>, <span class="pl-s">&quot;Guide&quot;</span>)
+)
+
+server &lt;- <span class="pl-k">function</span>(input, output){
+  dat &lt;- eventReactive(input$submit_button, {
+    runif(input$nobs)
+  })
+
+  output$hist &lt;- renderPlot({
+    hist(dat())
+  })
+}
+
+shinyApp(ui, server)
+</code></pre>
+<p>Let&#x2019;s a guide to walk users through. We&#x2019;ll pretend this app is truly complicated and that we want to force users to go through the guide before they can interact with our app by setting <code>allow_close</code> to <code>TRUE</code>.</p>
+<pre><code class="lang-r"><span class="pl-k">library</span>(cicerone)
+
+guide &lt;- Cicerone$
+  new()$
+  step(
+    <span class="pl-s">&quot;nobs&quot;</span>,
+    <span class="pl-s">&quot;Observations&quot;</span>,
+    <span class="pl-s">&quot;Number of observations to draw distribution&quot;</span>
+  )$
+  step(
+    <span class="pl-s">&quot;submit_button&quot;</span>,
+    <span class="pl-s">&quot;Submit Data&quot;</span>,
+    <span class="pl-s">&quot;Hit the button after you&apos;ve set the number of observations&quot;</span>
+  )$
+  step(
+    <span class="pl-s">&quot;hist&quot;</span>,
+    <span class="pl-s">&quot;Histogram&quot;</span>,
+    <span class="pl-s">&quot;The histogram appears here.&quot;</span>
+  )
+</code></pre>
+<p>Now we can include the guide in our application. Again we source the dependencies with <code>use_cicerone</code> and in the server launch the guide when the app loads <code>guide$init()$start()</code>. Regarding the button, we simply observe the event and <code>guide$start()</code> on click.</p>
+<pre><code class="lang-r"><span class="pl-k">library</span>(shiny)
+
+ui &lt;- fluidPage(
+  use_cicerone(),
+  numericInput(<span class="pl-s">&quot;nobs&quot;</span>, <span class="pl-s">&quot;Observations&quot;</span>, min = <span class="hljs-number">50</span>, max = <span class="hljs-number">200</span>, value = <span class="hljs-number">20</span>),
+  actionButton(<span class="pl-s">&quot;submit_button&quot;</span>, <span class="pl-s">&quot;Submit observations&quot;</span>),
+  plotOutput(<span class="pl-s">&quot;hist&quot;</span>),
+  actionButton(<span class="pl-s">&quot;guide&quot;</span>, <span class="pl-s">&quot;Guide&quot;</span>)
+)
+
+server &lt;- <span class="pl-k">function</span>(input, output){
+
+  guide$
+    init()$
+    start()
+
+  dat &lt;- eventReactive(input$submit_button, {
+    runif(input$nobs)
+  })
+
+  output$hist &lt;- renderPlot({
+    hist(dat())
+  })
+
+  observeEvent(input$guide, {
+    guide$start()
+  })
+}
+
+shinyApp(ui, server)
+</code></pre>
+
+        </div>
+        <div class="footer-nav">
+          <div class="left"><a href="../guide/get-started.html"><span class="title">Get Started</span></a></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

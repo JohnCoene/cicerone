@@ -1,0 +1,71 @@
+{
+  "toc": {
+    "sections": [
+      {
+        "title": "cicerone",
+        "source": "README.md",
+        "url": "index.html",
+        "slug": "index",
+        "headings": [
+          {
+            "title": "Installation",
+            "depth": 2,
+            "id": "installation"
+          }
+        ]
+      },
+      {
+        "title": "Guide",
+        "sections": [
+          {
+            "title": "Get Started",
+            "source": "docs/guide/get-started.md",
+            "url": "guide/get-started.html",
+            "slug": "guideget-started"
+          },
+          {
+            "title": "Advanced",
+            "source": "docs/guide/advanced.md",
+            "url": "guide/advanced.html",
+            "slug": "guideadvanced"
+          }
+        ]
+      }
+    ]
+  },
+  "index": {
+    "index.html": {
+      "source": "README.md",
+      "title": "cicerone",
+      "pageTitle": "cicerone",
+      "slug": "index",
+      "headings": [
+        {
+          "title": "Installation",
+          "depth": 2,
+          "id": "installation"
+        }
+      ]
+    },
+    "guide/get-started.html": {
+      "source": "docs/guide/get-started.md",
+      "title": "Get Started - cicerone",
+      "pageTitle": "Get Started",
+      "slug": "guideget-started"
+    },
+    "guide/advanced.html": {
+      "source": "docs/guide/advanced.md",
+      "title": "Advanced - cicerone",
+      "pageTitle": "Advanced",
+      "slug": "guideadvanced"
+    }
+  },
+  "sources": {
+    "README.md": "index.html",
+    "docs/guide/get-started.md": "guide/get-started.html",
+    "docs/guide/advanced.md": "guide/advanced.html",
+    "docs/css/style.css": "css/style.css",
+    "docs/img/cicerone.png": "img/cicerone.png",
+    "docs/img/cicerone_banner.png": "img/cicerone_banner.png"
+  }
+}

@@ -1,0 +1,108 @@
+//
+// Header
+//
+.header-nav
+  &
+    font-size: 16px
+
+  &
+    position: fixed
+    top: 0
+    right: 0
+    left: 0
+    height: 40px + $xpad + $xpad
+    line-height: 40px
+    text-align: center
+
+  &
+    opacity: 0
+    transition: opacity 250ms linear
+    pointer-events: none
+
+  &.-expanded
+    opacity: 1
+    pointer-events: auto
+
+  .left
+    position: absolute
+    left: 0
+    top: 0
+    text-align: left
+
+  .right
+    position: absolute
+    right: 0
+    top: 0
+    text-align: right
+
+  .iconlink
+    position: relative
+    display: inline-block
+    vertical-align: middle
+    height: 32px
+    line-height: 1em
+    color: rgba($slate, 0.75)
+    transition: all 150ms linear
+    padding: $xpad
+
+  .iconlink:hover
+    color: $accent
+
+  .iconlink
+    white-space: nowrap
+    text-decoration: none
+
+  .title, .label
+    white-space: nowrap
+    margin: 0 8px
+
+    position: relative
+    top: -4px
+
+  // Tooltip
+  .iconlink[data-title]:before
+    content: attr(data-title)
+    display: inline-block
+    position: absolute
+    bottom: -24px - $xpad
+    right: $xpad
+    font-size: 13px
+    padding: 3px 10px
+    background: rgba($black, 0.8)
+    color: white
+    border: solid 1px rgba($black, 0.2)
+    border-radius: 2px
+    text-decoration: none
+    height: 22px
+    line-height: 22px
+    width: auto
+    white-space: nowrap
+    pointer-events: none
+    opacity: 0
+    transition: opacity 150ms linear, transform 150ms linear
+    transform: translate3d(0, -8px, 0)
+
+  .iconlink[data-title]:hover:before
+    opacity: 1
+    transform: translate3d(0, 0, 0)
+    pointer-events: auto
+
+  .icon:after
+    font-size: 24px
+    width: 32px
+    height: 32px
+    text-align: center
+
+  .icon
+    color: rgba($slate, 0.5)
+    transition: color 150ms linear
+
+  &.-expanded .icon
+    color: $black
+
+  .iconlink:hover .icon
+    color: $accent
+
+  // Icons
+  .icon.-github:after
+    ion-icon('social-github')

@@ -1,0 +1,413 @@
+// Elusive v1.5.0
+// http://shoestrap.org/downloads/elusive-icons-webfont/
+//
+// Sass integration via https://github.com/rstacruz/iconfonts.
+// Usage:
+//
+//    @include el-font;
+//    .button:before {
+//      @include el-icon("arrow");
+//      @include el-icon("arrow", 14px, #333);
+//    }
+//
+// Output:
+//
+//    @font-face {
+//      font-family: "Elusive"; ...
+//    }
+//    .button:before {
+//      font-family: "Elusive";
+//      content: '\f0123';
+//    }
+//
+// Icon files:
+//
+//     http://aristath.github.io/elusive-iconfont/assets/elusive-font/font/Elusive-Icons.eot
+//     http://aristath.github.io/elusive-iconfont/assets/elusive-font/font/Elusive-Icons.ttf
+//     http://aristath.github.io/elusive-iconfont/assets/elusive-font/font/Elusive-Icons.woff
+//     http://aristath.github.io/elusive-iconfont/assets/elusive-font/font/Elusive-Icons.svg
+
+$el-path: "http://aristath.github.io/elusive-iconfont/assets/elusive-font/font/" !default;
+$el-name: "Elusive" !default;
+$el-site: "http://shoestrap.org/downloads/elusive-icons-webfont/" !default;
+$el-basename: "Elusive-Icons" !default;
+$el-version: "1.5.0" !default;
+$el-svghash: "#Elusive-Icons" !default;
+$el-nativesize: "14px" !default;
+
+// Embeds the @font-face.
+@mixin el-font {
+  @font-face {
+    font-family: $el-name;
+    src: url($el-path + $el-basename + ".eot?v=" + $el-version);
+    src: url($el-path + $el-basename + ".eot?#iefix&v=" + $el-version) format("embedded-opentype"),
+         url($el-path + $el-basename + ".woff?v=" + $el-version) format("woff"),
+         url($el-path + $el-basename + ".ttf?v=" + $el-version) format("truetype"),
+         url($el-path + $el-basename + ".svg?v=" + $el-version + $el-svghash) format("svg");
+    font-weight: normal;
+    font-style: normal;
+  }
+}
+
+// Embeds the @font-face. Use this if you're using `sass-rails`.
+@mixin el-font-rails($prefix: "") {
+  @font-face {
+    font-family: $el-name;
+    src: font-url($prefix + $el-basename + ".eot");
+    src: font-url($prefix + $el-basename + ".eot#iefix") format("embedded-opentype"),
+         font-url($prefix + $el-basename + ".woff") format("woff"),
+         font-url($prefix + $el-basename + ".ttf") format("truetype"),
+         font-url($prefix + $el-basename + ".svg" + $el-svghash) format("svg");
+    font-weight: normal;
+    font-style: normal;
+  }
+}
+
+// Uses a given icon.
+//
+//     .button:before
+//       +el-icon(music)
+//       +el-icon(music, 24px)        /* 24px size */
+//
+// You may specify a color.
+//
+//     .button:before
+//       +el-icon(music, $color: #333)
+//
+// You may also specify a `$top` value to compensate for any mis-alignment.
+// This nudges the icon by that many pixels from the top.
+//
+//     .button:before
+//       +el-icon(music, $top: 2px)
+
+@mixin el-icon($type, $size: auto, $color: auto, $top: auto, $left: auto, $shadow: none) {
+  @extend %el-icon;
+  @extend %el-icon-#{$type};
+
+  @if $size != auto {
+    font-size: $size; }
+  @if $top != auto {
+    position: relative;
+    top: $top; }
+  @if $left != auto {
+    position: relative;
+    left: $left; }
+  @if $color != auto {
+    color: $color; }
+  @if $shadow != none {
+    text-shadow: $shadow; }
+}
+
+%el-icon {
+  line-height: 1em;
+  font-family: $el-name;
+  font-weight: normal;
+  font-style: normal;
+  display: inline-block;
+  text-decoration: none;
+  vertical-align: middle;
+  text-rendering: optimizeLegibility !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+%el-icon-address-book { content: "\e729"; }
+%el-icon-address-book-alt { content: "\e728"; }
+%el-icon-adjust { content: "\e727"; }
+%el-icon-adjust-alt { content: "\e726"; }
+%el-icon-adult { content: "\e725"; }
+%el-icon-align-center { content: "\e724"; }
+%el-icon-align-justify { content: "\e723"; }
+%el-icon-align-left { content: "\e722"; }
+%el-icon-align-right { content: "\e721"; }
+%el-icon-arrow-down { content: "\e720"; }
+%el-icon-arrow-left { content: "\e71f"; }
+%el-icon-arrow-right { content: "\e71e"; }
+%el-icon-arrow-up { content: "\e71d"; }
+%el-icon-asl { content: "\e71c"; }
+%el-icon-asterisk { content: "\e72a"; }
+%el-icon-backward { content: "\e71b"; }
+%el-icon-ban-circle { content: "\e71a"; }
+%el-icon-barcode { content: "\e719"; }
+%el-icon-behance { content: "\e718"; }
+%el-icon-bell { content: "\e717"; }
+%el-icon-blind { content: "\e716"; }
+%el-icon-blogger { content: "\e715"; }
+%el-icon-bold { content: "\e714"; }
+%el-icon-book { content: "\e713"; }
+%el-icon-bookmark { content: "\e712"; }
+%el-icon-bookmark-empty { content: "\e711"; }
+%el-icon-braille { content: "\e710"; }
+%el-icon-briefcase { content: "\e70f"; }
+%el-icon-broom { content: "\e70e"; }
+%el-icon-brush { content: "\e70d"; }
+%el-icon-bulb { content: "\e70c"; }
+%el-icon-bullhorn { content: "\e70b"; }
+%el-icon-calendar { content: "\e70a"; }
+%el-icon-calendar-sign { content: "\e709"; }
+%el-icon-camera { content: "\e708"; }
+%el-icon-car { content: "\e707"; }
+%el-icon-caret-down { content: "\e706"; }
+%el-icon-caret-left { content: "\e705"; }
+%el-icon-caret-right { content: "\e704"; }
+%el-icon-caret-up { content: "\e703"; }
+%el-icon-cc { content: "\e702"; }
+%el-icon-certificate { content: "\e701"; }
+%el-icon-check { content: "\e700"; }
+%el-icon-check-empty { content: "\e6ff"; }
+%el-icon-chevron-down { content: "\e6fe"; }
+%el-icon-chevron-left { content: "\e6fd"; }
+%el-icon-chevron-right { content: "\e6fc"; }
+%el-icon-chevron-up { content: "\e6fb"; }
+%el-icon-child { content: "\e6fa"; }
+%el-icon-circle-arrow-down { content: "\e6f9"; }
+%el-icon-circle-arrow-left { content: "\e6f8"; }
+%el-icon-circle-arrow-right { content: "\e6f7"; }
+%el-icon-circle-arrow-up { content: "\e6f6"; }
+%el-icon-cloud { content: "\e6f5"; }
+%el-icon-cloud-alt { content: "\e6f4"; }
+%el-icon-cog { content: "\e6f3"; }
+%el-icon-cog-alt { content: "\e6f2"; }
+%el-icon-cogs { content: "\e6f1"; }
+%el-icon-comment { content: "\e6f0"; }
+%el-icon-comment-alt { content: "\e6ef"; }
+%el-icon-compass { content: "\e6ee"; }
+%el-icon-compass-alt { content: "\e6ed"; }
+%el-icon-credit-card { content: "\e6ec"; }
+%el-icon-css { content: "\e6eb"; }
+%el-icon-dashboard { content: "\e6ea"; }
+%el-icon-delicious { content: "\e6e9"; }
+%el-icon-deviantart { content: "\e6e8"; }
+%el-icon-digg { content: "\e6e7"; }
+%el-icon-download { content: "\e6e6"; }
+%el-icon-download-alt { content: "\e6e5"; }
+%el-icon-dribbble { content: "\e6e4"; }
+%el-icon-edit { content: "\e6e3"; }
+%el-icon-eject { content: "\e6e2"; }
+%el-icon-envelope { content: "\e6e1"; }
+%el-icon-envelope-alt { content: "\e6e0"; }
+%el-icon-error { content: "\e6df"; }
+%el-icon-error-alt { content: "\e6de"; }
+%el-icon-eur { content: "\e6dd"; }
+%el-icon-exclamation-sign { content: "\e6dc"; }
+%el-icon-eye-close { content: "\e6db"; }
+%el-icon-eye-open { content: "\e6da"; }
+%el-icon-facebook { content: "\e6d9"; }
+%el-icon-facetime-video { content: "\e6d8"; }
+%el-icon-fast-backward { content: "\e6d7"; }
+%el-icon-fast-forward { content: "\e6d6"; }
+%el-icon-female { content: "\e6d5"; }
+%el-icon-file { content: "\e6d4"; }
+%el-icon-file-alt { content: "\e6d3"; }
+%el-icon-file-edit { content: "\e6d2"; }
+%el-icon-file-edit-alt { content: "\e6d1"; }
+%el-icon-file-new { content: "\e6d0"; }
+%el-icon-file-new-alt { content: "\e6cf"; }
+%el-icon-film { content: "\e6ce"; }
+%el-icon-filter { content: "\e6cd"; }
+%el-icon-fire { content: "\e6cc"; }
+%el-icon-flag { content: "\e6cb"; }
+%el-icon-flag-alt { content: "\e6ca"; }
+%el-icon-flickr { content: "\e6c9"; }
+%el-icon-folder { content: "\e6c8"; }
+%el-icon-folder-close { content: "\e6c7"; }
+%el-icon-folder-open { content: "\e6c6"; }
+%el-icon-folder-sign { content: "\e6c5"; }
+%el-icon-font { content: "\e6c4"; }
+%el-icon-fontsize { content: "\e6c3"; }
+%el-icon-fork { content: "\e6c2"; }
+%el-icon-forward { content: "\e6c1"; }
+%el-icon-forward-alt { content: "\e6c0"; }
+%el-icon-foursquare { content: "\e6bf"; }
+%el-icon-friendfeed { content: "\e6be"; }
+%el-icon-friendfeed-rect { content: "\e6bd"; }
+%el-icon-fullscreen { content: "\e6bc"; }
+%el-icon-gbp { content: "\e6bb"; }
+%el-icon-gift { content: "\e6ba"; }
+%el-icon-github { content: "\e6b9"; }
+%el-icon-github-text { content: "\e6b8"; }
+%el-icon-glass { content: "\e6b7"; }
+%el-icon-glasses { content: "\e6b6"; }
+%el-icon-globe { content: "\e6b5"; }
+%el-icon-globe-alt { content: "\e6b4"; }
+%el-icon-googleplus { content: "\e6b3"; }
+%el-icon-graph { content: "\e6b2"; }
+%el-icon-graph-alt { content: "\e6b1"; }
+%el-icon-group { content: "\e6b0"; }
+%el-icon-group-alt { content: "\e6af"; }
+%el-icon-guidedog { content: "\e6ae"; }
+%el-icon-hand-down { content: "\e6ad"; }
+%el-icon-hand-left { content: "\e6ac"; }
+%el-icon-hand-right { content: "\e6ab"; }
+%el-icon-hand-up { content: "\e6aa"; }
+%el-icon-hdd { content: "\e6a9"; }
+%el-icon-headphones { content: "\e6a8"; }
+%el-icon-hearing-impaired { content: "\e6a7"; }
+%el-icon-heart { content: "\e6a6"; }
+%el-icon-heart-alt { content: "\e6a5"; }
+%el-icon-heart-empty { content: "\e6a4"; }
+%el-icon-home { content: "\e6a3"; }
+%el-icon-home-alt { content: "\e6a2"; }
+%el-icon-hourglass { content: "\e6a1"; }
+%el-icon-idea { content: "\e6a0"; }
+%el-icon-idea-alt { content: "\e69f"; }
+%el-icon-inbox { content: "\e69e"; }
+%el-icon-inbox-alt { content: "\e69d"; }
+%el-icon-inbox-box { content: "\e69c"; }
+%el-icon-indent-left { content: "\e69b"; }
+%el-icon-indent-right { content: "\e69a"; }
+%el-icon-info-sign { content: "\e699"; }
+%el-icon-instagram { content: "\e698"; }
+%el-icon-iphone-home { content: "\e697"; }
+%el-icon-italic { content: "\e696"; }
+%el-icon-key { content: "\e695"; }
+%el-icon-laptop { content: "\e694"; }
+%el-icon-laptop-alt { content: "\e693"; }
+%el-icon-lastfm { content: "\e692"; }
+%el-icon-leaf { content: "\e691"; }
+%el-icon-lines { content: "\e690"; }
+%el-icon-link { content: "\e68f"; }
+%el-icon-linkedin { content: "\e68e"; }
+%el-icon-list { content: "\e68d"; }
+%el-icon-list-alt { content: "\e68c"; }
+%el-icon-livejournal { content: "\e68b"; }
+%el-icon-lock { content: "\e68a"; }
+%el-icon-lock-alt { content: "\e689"; }
+%el-icon-magic { content: "\e688"; }
+%el-icon-magnet { content: "\e687"; }
+%el-icon-male { content: "\e686"; }
+%el-icon-map-marker { content: "\e685"; }
+%el-icon-map-marker-alt { content: "\e684"; }
+%el-icon-mic { content: "\e683"; }
+%el-icon-mic-alt { content: "\e682"; }
+%el-icon-minus { content: "\e681"; }
+%el-icon-minus-sign { content: "\e680"; }
+%el-icon-move { content: "\e67f"; }
+%el-icon-music { content: "\e67e"; }
+%el-icon-myspace { content: "\e67d"; }
+%el-icon-network { content: "\e67c"; }
+%el-icon-off { content: "\e67b"; }
+%el-icon-ok { content: "\e67a"; }
+%el-icon-ok-circle { content: "\e679"; }
+%el-icon-ok-sign { content: "\e678"; }
+%el-icon-opensource { content: "\e677"; }
+%el-icon-paper-clip { content: "\e676"; }
+%el-icon-paper-clip-alt { content: "\e675"; }
+%el-icon-path { content: "\e674"; }
+%el-icon-pause { content: "\e673"; }
+%el-icon-pause-alt { content: "\e672"; }
+%el-icon-pencil { content: "\e671"; }
+%el-icon-pencil-alt { content: "\e670"; }
+%el-icon-person { content: "\e66f"; }
+%el-icon-phone { content: "\e66e"; }
+%el-icon-phone-alt { content: "\e66d"; }
+%el-icon-photo { content: "\e66c"; }
+%el-icon-photo-alt { content: "\e66b"; }
+%el-icon-picasa { content: "\e66a"; }
+%el-icon-picture { content: "\e669"; }
+%el-icon-pinterest { content: "\e668"; }
+%el-icon-plane { content: "\e667"; }
+%el-icon-play { content: "\e666"; }
+%el-icon-play-alt { content: "\e665"; }
+%el-icon-play-circle { content: "\e664"; }
+%el-icon-plus { content: "\e663"; }
+%el-icon-plus-sign { content: "\e662"; }
+%el-icon-podcast { content: "\e661"; }
+%el-icon-print { content: "\e660"; }
+%el-icon-puzzle { content: "\e65f"; }
+%el-icon-qrcode { content: "\e65e"; }
+%el-icon-question { content: "\e65d"; }
+%el-icon-question-sign { content: "\e65c"; }
+%el-icon-quotes { content: "\e65b"; }
+%el-icon-quotes-alt { content: "\e65a"; }
+%el-icon-random { content: "\e659"; }
+%el-icon-record { content: "\e658"; }
+%el-icon-reddit { content: "\e657"; }
+%el-icon-refresh { content: "\e656"; }
+%el-icon-remove { content: "\e655"; }
+%el-icon-remove-circle { content: "\e654"; }
+%el-icon-remove-sign { content: "\e653"; }
+%el-icon-repeat { content: "\e652"; }
+%el-icon-repeat-alt { content: "\e651"; }
+%el-icon-resize-full { content: "\e650"; }
+%el-icon-resize-horizontal { content: "\e64f"; }
+%el-icon-resize-small { content: "\e64e"; }
+%el-icon-resize-vertical { content: "\e64d"; }
+%el-icon-return-key { content: "\e64c"; }
+%el-icon-retweet { content: "\e64b"; }
+%el-icon-reverse-alt { content: "\e64a"; }
+%el-icon-road { content: "\e649"; }
+%el-icon-rss { content: "\e648"; }
+%el-icon-scissors { content: "\e647"; }
+%el-icon-screen { content: "\e646"; }
+%el-icon-screen-alt { content: "\e645"; }
+%el-icon-screenshot { content: "\e644"; }
+%el-icon-search { content: "\e643"; }
+%el-icon-search-alt { content: "\e642"; }
+%el-icon-share { content: "\e641"; }
+%el-icon-share-alt { content: "\e640"; }
+%el-icon-shopping-cart { content: "\e63f"; }
+%el-icon-shopping-cart-sign { content: "\e63e"; }
+%el-icon-signal { content: "\e63d"; }
+%el-icon-skype { content: "\e63c"; }
+%el-icon-slideshare { content: "\e63b"; }
+%el-icon-smiley { content: "\e63a"; }
+%el-icon-smiley-alt { content: "\e639"; }
+%el-icon-soundcloud { content: "\e638"; }
+%el-icon-speaker { content: "\e637"; }
+%el-icon-spotify { content: "\e636"; }
+%el-icon-stackoverflow { content: "\e635"; }
+%el-icon-star { content: "\e634"; }
+%el-icon-star-alt { content: "\e633"; }
+%el-icon-star-empty { content: "\e632"; }
+%el-icon-step-backward { content: "\e631"; }
+%el-icon-step-forward { content: "\e630"; }
+%el-icon-stop { content: "\e62f"; }
+%el-icon-stop-alt { content: "\e62e"; }
+%el-icon-stumbleupon { content: "\e62d"; }
+%el-icon-tag { content: "\e62c"; }
+%el-icon-tags { content: "\e62b"; }
+%el-icon-tasks { content: "\e62a"; }
+%el-icon-text-height { content: "\e629"; }
+%el-icon-text-width { content: "\e628"; }
+%el-icon-th { content: "\e627"; }
+%el-icon-th-large { content: "\e626"; }
+%el-icon-th-list { content: "\e625"; }
+%el-icon-thumbs-down { content: "\e624"; }
+%el-icon-thumbs-up { content: "\e623"; }
+%el-icon-time { content: "\e622"; }
+%el-icon-time-alt { content: "\e621"; }
+%el-icon-tint { content: "\e620"; }
+%el-icon-torso { content: "\e61f"; }
+%el-icon-trash { content: "\e61e"; }
+%el-icon-trash-alt { content: "\e61d"; }
+%el-icon-tumblr { content: "\e61c"; }
+%el-icon-twitter { content: "\e61b"; }
+%el-icon-universal-access { content: "\e61a"; }
+%el-icon-unlock { content: "\e619"; }
+%el-icon-unlock-alt { content: "\e618"; }
+%el-icon-upload { content: "\e617"; }
+%el-icon-usd { content: "\e616"; }
+%el-icon-user { content: "\e615"; }
+%el-icon-viadeo { content: "\e614"; }
+%el-icon-video { content: "\e613"; }
+%el-icon-video-alt { content: "\e612"; }
+%el-icon-video-chat { content: "\e611"; }
+%el-icon-view-mode { content: "\e610"; }
+%el-icon-vimeo { content: "\e60f"; }
+%el-icon-vkontakte { content: "\e60e"; }
+%el-icon-volume-down { content: "\e60d"; }
+%el-icon-volume-off { content: "\e60c"; }
+%el-icon-volume-up { content: "\e60b"; }
+%el-icon-w3c { content: "\e60a"; }
+%el-icon-warning-sign { content: "\e609"; }
+%el-icon-website { content: "\e608"; }
+%el-icon-website-alt { content: "\e607"; }
+%el-icon-wheelchair { content: "\e606"; }
+%el-icon-wordpress { content: "\e605"; }
+%el-icon-wrench { content: "\e604"; }
+%el-icon-wrench-alt { content: "\e603"; }
+%el-icon-youtube { content: "\e602"; }
+%el-icon-zoom-in { content: "\e601"; }
+%el-icon-zoom-out { content: "\e600"; }
+

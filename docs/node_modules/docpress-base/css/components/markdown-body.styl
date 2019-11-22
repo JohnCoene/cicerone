@@ -1,0 +1,59 @@
+// github-markdown-css defines .markdown-body and its descendants
+@require './github-markdown-css/github-markdown.css'
+
+//
+// Markdown body
+//
+
+.markdown-body
+  margin: 0 auto
+  max-width: 768px
+  overflow: visible
+  padding-bottom: 24px + 16px + $xpad
+
+//
+// Heading overrides
+//
+
+.markdown-body
+  &
+    line-height: 1.65
+
+  // Reduce font size in mobile screens
+  @media (max-width: 768px)
+    line-height: 1.6
+    font-size: 15px
+
+  // Primary headings should be larger on sites. No need to stick to small
+  // GitHub's small h1's, which are more appropriate for readme's on their
+  // site, but not in Docpress sites.
+  h1
+    font-size: 2.5em
+    font-weight: 300
+    margin-bottom: .5em
+    padding-bottom: .5em
+
+  // The h2..h6 changes are in line with older Helvetica GitHub look. The larger
+  // heading sizes are more appropriate for full-screen docs (rather than GitHub's
+  // where readme's are confined in a panel).
+  @media (min-width: 769px)
+    h2
+      margin-top: 28px
+      font-size: 1.75em
+      line-height: 1.225
+
+    h3, h4, h5, h6
+      line-height: 1.25
+      margin-top: 24px
+
+    h3
+      font-size: 1.5em
+
+    h4
+      font-size: 1.25em
+
+    h5
+      font-size: .875em
+
+    h6
+      font-size: .85em

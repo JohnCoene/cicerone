@@ -1,0 +1,400 @@
+// Elusive v1.5.0
+// http://shoestrap.org/downloads/elusive-icons-webfont/
+//
+// Stylus integration via https://github.com/rstacruz/iconfonts.
+// Usage:
+//
+//    el-font();
+//    .button:before {
+//      el-icon("arrow");
+//      el-icon("arrow", 14px, #333);
+//    }
+//
+// Output:
+//
+//    @font-face {
+//      font-family: "Elusive"; ...
+//    }
+//    .button:before {
+//      font-family: "Elusive";
+//      content: '\f0123';
+//    }
+//
+// Icon files:
+//
+//     http://aristath.github.io/elusive-iconfont/assets/elusive-font/font/Elusive-Icons.eot
+//     http://aristath.github.io/elusive-iconfont/assets/elusive-font/font/Elusive-Icons.ttf
+//     http://aristath.github.io/elusive-iconfont/assets/elusive-font/font/Elusive-Icons.woff
+//     http://aristath.github.io/elusive-iconfont/assets/elusive-font/font/Elusive-Icons.svg
+
+el = {
+  path: "http://aristath.github.io/elusive-iconfont/assets/elusive-font/font/"
+  name: "Elusive"
+  site: "http://shoestrap.org/downloads/elusive-icons-webfont/"
+  basename: "Elusive-Icons"
+  version: "1.5.0"
+  svghash: "#Elusive-Icons"
+  nativesize: "14px"
+}
+
+el-font()
+  @font-face
+    font-family: el['name']
+    src: url(el['path'] + el['basename'] + '.eot?v=' + el['version'])
+    src: url(el['path'] + el['basename'] + '.eot?#iefix&v=' + el['version']) format("embedded-opentype"),
+         url(el['path'] + el['basename'] + ".woff?v=" + el['version']) format("woff"),
+         url(el['path'] + el['basename'] + ".ttf?v=" + el['version']) format("truetype"),
+         url(el['path'] + el['basename'] + ".svg?v=" + el['version'] + el['svghash']) format("svg")
+    font-weight: normal
+    font-style: normal
+
+//
+// Uses a given icon.
+//
+//     .button:before
+//       el-icon("music")
+//       el-icon("music", 24px)        /* 24px size */
+//
+// You may specify a color.
+//
+//     .button:before
+//       el-icon("music", color: #333)
+//
+// You may also specify a `top` value to compensate for any mis-alignment.
+// This nudges the icon by that many pixels from the top.
+//
+//     .button:before
+//       el-icon("music", top: 2px)
+
+el-icon(type, size = auto, color = auto, top = auto, left = auto, shadow = none)
+  @extend $el-icon
+  content: el-icons[type]
+
+  unless size is "auto"
+    font-size: size
+  unless top is "auto"
+    position: relative
+    top: top
+  unless left is "auto"
+    position: relative
+    left: left
+  unless color is "auto"
+    color: color
+  unless shadow is "none"
+    text-shadow: shadow
+
+$el-icon
+  line-height: 1em
+  font-family: el['name']
+  font-weight: normal
+  font-style: normal
+  display: inline-block
+  text-decoration: none
+  vertical-align: middle
+  text-rendering: optimizeLegibility !important
+  -webkit-font-smoothing: antialiased !important
+  -moz-osx-font-smoothing: grayscale
+
+el-icons = {
+
+  address-book: "\e729"
+  address-book-alt: "\e728"
+  adjust: "\e727"
+  adjust-alt: "\e726"
+  adult: "\e725"
+  align-center: "\e724"
+  align-justify: "\e723"
+  align-left: "\e722"
+  align-right: "\e721"
+  arrow-down: "\e720"
+  arrow-left: "\e71f"
+  arrow-right: "\e71e"
+  arrow-up: "\e71d"
+  asl: "\e71c"
+  asterisk: "\e72a"
+  backward: "\e71b"
+  ban-circle: "\e71a"
+  barcode: "\e719"
+  behance: "\e718"
+  bell: "\e717"
+  blind: "\e716"
+  blogger: "\e715"
+  bold: "\e714"
+  book: "\e713"
+  bookmark: "\e712"
+  bookmark-empty: "\e711"
+  braille: "\e710"
+  briefcase: "\e70f"
+  broom: "\e70e"
+  brush: "\e70d"
+  bulb: "\e70c"
+  bullhorn: "\e70b"
+  calendar: "\e70a"
+  calendar-sign: "\e709"
+  camera: "\e708"
+  car: "\e707"
+  caret-down: "\e706"
+  caret-left: "\e705"
+  caret-right: "\e704"
+  caret-up: "\e703"
+  cc: "\e702"
+  certificate: "\e701"
+  check: "\e700"
+  check-empty: "\e6ff"
+  chevron-down: "\e6fe"
+  chevron-left: "\e6fd"
+  chevron-right: "\e6fc"
+  chevron-up: "\e6fb"
+  child: "\e6fa"
+  circle-arrow-down: "\e6f9"
+  circle-arrow-left: "\e6f8"
+  circle-arrow-right: "\e6f7"
+  circle-arrow-up: "\e6f6"
+  cloud: "\e6f5"
+  cloud-alt: "\e6f4"
+  cog: "\e6f3"
+  cog-alt: "\e6f2"
+  cogs: "\e6f1"
+  comment: "\e6f0"
+  comment-alt: "\e6ef"
+  compass: "\e6ee"
+  compass-alt: "\e6ed"
+  credit-card: "\e6ec"
+  css: "\e6eb"
+  dashboard: "\e6ea"
+  delicious: "\e6e9"
+  deviantart: "\e6e8"
+  digg: "\e6e7"
+  download: "\e6e6"
+  download-alt: "\e6e5"
+  dribbble: "\e6e4"
+  edit: "\e6e3"
+  eject: "\e6e2"
+  envelope: "\e6e1"
+  envelope-alt: "\e6e0"
+  error: "\e6df"
+  error-alt: "\e6de"
+  eur: "\e6dd"
+  exclamation-sign: "\e6dc"
+  eye-close: "\e6db"
+  eye-open: "\e6da"
+  facebook: "\e6d9"
+  facetime-video: "\e6d8"
+  fast-backward: "\e6d7"
+  fast-forward: "\e6d6"
+  female: "\e6d5"
+  file: "\e6d4"
+  file-alt: "\e6d3"
+  file-edit: "\e6d2"
+  file-edit-alt: "\e6d1"
+  file-new: "\e6d0"
+  file-new-alt: "\e6cf"
+  film: "\e6ce"
+  filter: "\e6cd"
+  fire: "\e6cc"
+  flag: "\e6cb"
+  flag-alt: "\e6ca"
+  flickr: "\e6c9"
+  folder: "\e6c8"
+  folder-close: "\e6c7"
+  folder-open: "\e6c6"
+  folder-sign: "\e6c5"
+  font: "\e6c4"
+  fontsize: "\e6c3"
+  fork: "\e6c2"
+  forward: "\e6c1"
+  forward-alt: "\e6c0"
+  foursquare: "\e6bf"
+  friendfeed: "\e6be"
+  friendfeed-rect: "\e6bd"
+  fullscreen: "\e6bc"
+  gbp: "\e6bb"
+  gift: "\e6ba"
+  github: "\e6b9"
+  github-text: "\e6b8"
+  glass: "\e6b7"
+  glasses: "\e6b6"
+  globe: "\e6b5"
+  globe-alt: "\e6b4"
+  googleplus: "\e6b3"
+  graph: "\e6b2"
+  graph-alt: "\e6b1"
+  group: "\e6b0"
+  group-alt: "\e6af"
+  guidedog: "\e6ae"
+  hand-down: "\e6ad"
+  hand-left: "\e6ac"
+  hand-right: "\e6ab"
+  hand-up: "\e6aa"
+  hdd: "\e6a9"
+  headphones: "\e6a8"
+  hearing-impaired: "\e6a7"
+  heart: "\e6a6"
+  heart-alt: "\e6a5"
+  heart-empty: "\e6a4"
+  home: "\e6a3"
+  home-alt: "\e6a2"
+  hourglass: "\e6a1"
+  idea: "\e6a0"
+  idea-alt: "\e69f"
+  inbox: "\e69e"
+  inbox-alt: "\e69d"
+  inbox-box: "\e69c"
+  indent-left: "\e69b"
+  indent-right: "\e69a"
+  info-sign: "\e699"
+  instagram: "\e698"
+  iphone-home: "\e697"
+  italic: "\e696"
+  key: "\e695"
+  laptop: "\e694"
+  laptop-alt: "\e693"
+  lastfm: "\e692"
+  leaf: "\e691"
+  lines: "\e690"
+  link: "\e68f"
+  linkedin: "\e68e"
+  list: "\e68d"
+  list-alt: "\e68c"
+  livejournal: "\e68b"
+  lock: "\e68a"
+  lock-alt: "\e689"
+  magic: "\e688"
+  magnet: "\e687"
+  male: "\e686"
+  map-marker: "\e685"
+  map-marker-alt: "\e684"
+  mic: "\e683"
+  mic-alt: "\e682"
+  minus: "\e681"
+  minus-sign: "\e680"
+  move: "\e67f"
+  music: "\e67e"
+  myspace: "\e67d"
+  network: "\e67c"
+  off: "\e67b"
+  ok: "\e67a"
+  ok-circle: "\e679"
+  ok-sign: "\e678"
+  opensource: "\e677"
+  paper-clip: "\e676"
+  paper-clip-alt: "\e675"
+  path: "\e674"
+  pause: "\e673"
+  pause-alt: "\e672"
+  pencil: "\e671"
+  pencil-alt: "\e670"
+  person: "\e66f"
+  phone: "\e66e"
+  phone-alt: "\e66d"
+  photo: "\e66c"
+  photo-alt: "\e66b"
+  picasa: "\e66a"
+  picture: "\e669"
+  pinterest: "\e668"
+  plane: "\e667"
+  play: "\e666"
+  play-alt: "\e665"
+  play-circle: "\e664"
+  plus: "\e663"
+  plus-sign: "\e662"
+  podcast: "\e661"
+  print: "\e660"
+  puzzle: "\e65f"
+  qrcode: "\e65e"
+  question: "\e65d"
+  question-sign: "\e65c"
+  quotes: "\e65b"
+  quotes-alt: "\e65a"
+  random: "\e659"
+  record: "\e658"
+  reddit: "\e657"
+  refresh: "\e656"
+  remove: "\e655"
+  remove-circle: "\e654"
+  remove-sign: "\e653"
+  repeat: "\e652"
+  repeat-alt: "\e651"
+  resize-full: "\e650"
+  resize-horizontal: "\e64f"
+  resize-small: "\e64e"
+  resize-vertical: "\e64d"
+  return-key: "\e64c"
+  retweet: "\e64b"
+  reverse-alt: "\e64a"
+  road: "\e649"
+  rss: "\e648"
+  scissors: "\e647"
+  screen: "\e646"
+  screen-alt: "\e645"
+  screenshot: "\e644"
+  search: "\e643"
+  search-alt: "\e642"
+  share: "\e641"
+  share-alt: "\e640"
+  shopping-cart: "\e63f"
+  shopping-cart-sign: "\e63e"
+  signal: "\e63d"
+  skype: "\e63c"
+  slideshare: "\e63b"
+  smiley: "\e63a"
+  smiley-alt: "\e639"
+  soundcloud: "\e638"
+  speaker: "\e637"
+  spotify: "\e636"
+  stackoverflow: "\e635"
+  star: "\e634"
+  star-alt: "\e633"
+  star-empty: "\e632"
+  step-backward: "\e631"
+  step-forward: "\e630"
+  stop: "\e62f"
+  stop-alt: "\e62e"
+  stumbleupon: "\e62d"
+  tag: "\e62c"
+  tags: "\e62b"
+  tasks: "\e62a"
+  text-height: "\e629"
+  text-width: "\e628"
+  th: "\e627"
+  th-large: "\e626"
+  th-list: "\e625"
+  thumbs-down: "\e624"
+  thumbs-up: "\e623"
+  time: "\e622"
+  time-alt: "\e621"
+  tint: "\e620"
+  torso: "\e61f"
+  trash: "\e61e"
+  trash-alt: "\e61d"
+  tumblr: "\e61c"
+  twitter: "\e61b"
+  universal-access: "\e61a"
+  unlock: "\e619"
+  unlock-alt: "\e618"
+  upload: "\e617"
+  usd: "\e616"
+  user: "\e615"
+  viadeo: "\e614"
+  video: "\e613"
+  video-alt: "\e612"
+  video-chat: "\e611"
+  view-mode: "\e610"
+  vimeo: "\e60f"
+  vkontakte: "\e60e"
+  volume-down: "\e60d"
+  volume-off: "\e60c"
+  volume-up: "\e60b"
+  w3c: "\e60a"
+  warning-sign: "\e609"
+  website: "\e608"
+  website-alt: "\e607"
+  wheelchair: "\e606"
+  wordpress: "\e605"
+  wrench: "\e604"
+  wrench-alt: "\e603"
+  youtube: "\e602"
+  zoom-in: "\e601"
+  zoom-out: "\e600"
+}
+

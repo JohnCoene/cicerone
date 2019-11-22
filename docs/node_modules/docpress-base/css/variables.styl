@@ -1,0 +1,17 @@
+@require './iconfonts/stylesheets/ionicons'
+
+$bg ?= white
+$black ?= #111
+$slate ?= #505d6b
+$accent ?= #4078C0
+$nav-width ?= 250px
+$collapsed-nav-width ?= 64px
+$xpad ?= 24px
+$line ?= rgba($black, 0.1)
+
+clearfix()
+  &:after
+    content: ''
+    display: table
+    clear: both
+    zoom: 1

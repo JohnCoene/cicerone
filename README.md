@@ -4,7 +4,7 @@
 
 [![Travis build status](https://travis-ci.org/JohnCoene/cicerone.svg?branch=master)](https://travis-ci.org/JohnCoene/cicerone)
 
-Provides an easy API to create guided tours for Shiny applications using [driver.js](https://kamranahmed.info/driver.js/).
+A convenient API to create guided tours of Shiny applications using [driver.js](https://kamranahmed.info/driver.js/).
 
 ## Installation
 
@@ -39,7 +39,7 @@ server <- function(input, output){
 shinyApp(ui, server)
 ```
 
-Now we can create a a guide to walk the user through the application: simply initialise a new guide from the `Cicerone` object then add `steps`.
+Now we can create a guide to walk the user through the application: simply initialise a new guide from the `Cicerone` object then add `steps`.
 
 ```r
 library(cicerone)
@@ -87,29 +87,4 @@ shinyApp(ui, server)
 
 ![](./man/figures/demo.gif)
 
-You are not limited to creating an entire guide and may simply use cicerone to highlight a single element.
-
-```r
-library(shiny)
-library(cicerone)
-
-ui <- fluidPage(
-  use_cicerone(),
-  textInput("text", "Text to print"),
-  actionButton("highlight", "highlight")
-)
-
-server <- function(input, output) {
-
-  initialise()
-
-  observeEvent(input$highlight, {
-    highlight("text", "SOME TEXT", "DESC")
-  })
-
-}
-
-shinyApp(ui, server)
-```
-
-All the options are detailed in the documentation of the object: `?Cicerone`. See the [post](https://blog.john-coene.com/posts/2019-11-20-cicerone/) for more information and some rambling on the logo and package name.
+All options are detailed in the documentation of the object: `?Cicerone`. See the [post](https://blog.john-coene.com/posts/2019-11-20-cicerone/) for more information and some rambling on the logo and package name.

@@ -1,0 +1,7 @@
+{
+  "source": "./src",
+  "destination": "./public",
+  "plugins": {
+    "metalsmith-layouts": {}
+  }
+}

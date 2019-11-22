@@ -1,0 +1,54 @@
+.doc-layout
+  width: 100%
+  height: 100%
+
+  .body
+    padding: 16px
+    padding-bottom: 16px + 64px
+
+//
+// Desktop layout
+//
+
+@media (min-width: 960px)
+  .doc-layout
+    .menu
+      width: $nav-width
+      position: fixed
+      top: 0
+      left: 0
+      height: 100%
+      overflow-y: auto
+
+    .body
+      padding-top: $xpad + 40px
+      padding-bottom: 64px + 64px
+      transition: all 250ms ease-in
+
+    .menu
+      display: block
+      transform: translate3d(-1 * $nav-width, 0, 0)
+      transition: all 250ms ease-in
+
+    .header-nav,
+    .footer-nav
+      transition: all 250ms ease-in
+      left: $collapsed-nav-width
+
+    .-menu-visible &
+      .header-nav,
+      .footer-nav
+        left: $nav-width
+
+      .body
+        padding-left: $nav-width + $xpad
+        padding-right: $xpad
+
+      .menu
+        transform: translate3d(0, 0, 0)
+
+        // compensate for toggle button
+        &:after
+          content: ''
+          display: block
+          height: 64px

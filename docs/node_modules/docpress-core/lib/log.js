@@ -1,0 +1,5 @@
+const debug = require('debug')
+module.exports = debug('docpress-core')
+module.exports.warn = debug('docpress-core')
+module.exports.error = debug('docpress-core')
+module.exports.info = debug('docpress-core')

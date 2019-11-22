@@ -1,0 +1,21 @@
+{
+  "github": "docpress/docpress",
+  "css": [
+    "http://ricostacruz.com/docpress-rsc/style.css",
+    "docs/assets/custom.css"
+  ],
+  "markdown": {
+    "typographer": true,
+    "plugins": {
+      "decorate": {}
+    }
+  },
+  "plugins": {
+    "docpress-core": {},
+    "docpress-base": {}
+  },
+  "googleAnalytics": {
+    "id": "UA-70057942-1",
+    "domain": "docpress.github.io"
+  }
+}

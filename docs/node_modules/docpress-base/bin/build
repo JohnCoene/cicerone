@@ -1,0 +1,20 @@
+#!/usr/bin/env node
+// Builds the assets for caching in the published version.
+
+var argv = process.argv.slice(2)
+
+if (argv[0] === '--css') {
+  buildWith(require('../lib/build_css'))
+} else if (argv[0] === '--js') {
+  buildWith(require('../lib/build_js'))
+} else {
+  console.log('usage: build --css|--js')
+  process.exit(1)
+}
+
+function buildWith (render) {
+  render({ compress: true }, (err, res) => {
+    if (err) throw err
+    process.stdout.write(res)
+  })
+}

@@ -1,0 +1,392 @@
+// Elusive v1.5.0
+// http://shoestrap.org/downloads/elusive-icons-webfont/
+// 
+// Less integration via https://github.com/rstacruz/iconfonts.
+// Usage:
+// 
+//    .el-font();
+//    .button:before {
+//      .el-icon("arrow");
+//    }
+// 
+// Output:
+// 
+//    @font-face {
+//      font-family: "Elusive"; ...
+//    }
+//    .button:before {
+//      font-family: "Elusive";
+//      content: '\f0123';
+//    }
+// 
+// Icon files:
+// 
+//     http://aristath.github.io/elusive-iconfont/assets/elusive-font/font/Elusive-Icons.eot
+//     http://aristath.github.io/elusive-iconfont/assets/elusive-font/font/Elusive-Icons.ttf
+//     http://aristath.github.io/elusive-iconfont/assets/elusive-font/font/Elusive-Icons.woff
+//     http://aristath.github.io/elusive-iconfont/assets/elusive-font/font/Elusive-Icons.svg
+
+@el-path: "http://aristath.github.io/elusive-iconfont/assets/elusive-font/font/";
+@el-name: "Elusive";
+@el-site: "http://shoestrap.org/downloads/elusive-icons-webfont/";
+@el-basename: "Elusive-Icons";
+@el-version: "1.5.0";
+@el-svghash: "#Elusive-Icons";
+@el-nativesize: "14px";
+
+// Embeds the @font-face.
+.el-font() {
+  @font-face {
+    font-family: @el-name;
+    src: url("@{el-path}@{el-basename}.eot?v=@{el-version}");
+    src: url("@{el-path}@{el-basename}.eot?#iefix&v=@{el-version}") format("embedded-opentype"),
+         url("@{el-path}@{el-basename}.woff?v=@{el-version}") format("woff"),
+         url("@{el-path}@{el-basename}.ttf?v=@{el-version}") format("truetype"),
+         url("@{el-path}@{el-basename}.svg?v=@{el-version}@{el-svghash}") format("svg");
+    font-weight: normal;
+    font-style: normal;
+  }
+}
+
+// Embeds the @font-face. Use this if you're using `less-rails`.
+.el-font-rails(@prefix: "") {
+  @font-face {
+    font-family: @el-name;
+    src: font-url("@{prefix}@{el-basename}.eot");
+    src: font-url("@{prefix}@{el-basename}.eot?#iefix") format("embedded-opentype"),
+         font-url("@{prefix}@{el-basename}.woff") format("woff"),
+         font-url("@{prefix}@{el-basename}.ttf") format("truetype"),
+         font-url("@{prefix}@{el-basename}.svg@{el-svghash}") format("svg");
+    font-weight: normal;
+    font-style: normal;
+  }
+}
+
+/*
+ * Uses a given icon.
+ *
+ *     .button:before {
+ *       el-icon("music");
+ *     }
+ */
+
+.el-icon(@type) {
+  &:extend(.el-icon-base);
+  @var: "el-icon-@{type}";
+  content: @@var;
+}
+
+.el-icon-base {
+  line-height: 1em;
+  font-family: @el-name;
+  font-weight: normal;
+  font-style: normal;
+  display: inline-block;
+  text-decoration: none;
+  vertical-align: middle;
+  text-rendering: optimizeLegibility !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+@el-icon-address-book: "\e729";
+@el-icon-address-book-alt: "\e728";
+@el-icon-adjust: "\e727";
+@el-icon-adjust-alt: "\e726";
+@el-icon-adult: "\e725";
+@el-icon-align-center: "\e724";
+@el-icon-align-justify: "\e723";
+@el-icon-align-left: "\e722";
+@el-icon-align-right: "\e721";
+@el-icon-arrow-down: "\e720";
+@el-icon-arrow-left: "\e71f";
+@el-icon-arrow-right: "\e71e";
+@el-icon-arrow-up: "\e71d";
+@el-icon-asl: "\e71c";
+@el-icon-asterisk: "\e72a";
+@el-icon-backward: "\e71b";
+@el-icon-ban-circle: "\e71a";
+@el-icon-barcode: "\e719";
+@el-icon-behance: "\e718";
+@el-icon-bell: "\e717";
+@el-icon-blind: "\e716";
+@el-icon-blogger: "\e715";
+@el-icon-bold: "\e714";
+@el-icon-book: "\e713";
+@el-icon-bookmark: "\e712";
+@el-icon-bookmark-empty: "\e711";
+@el-icon-braille: "\e710";
+@el-icon-briefcase: "\e70f";
+@el-icon-broom: "\e70e";
+@el-icon-brush: "\e70d";
+@el-icon-bulb: "\e70c";
+@el-icon-bullhorn: "\e70b";
+@el-icon-calendar: "\e70a";
+@el-icon-calendar-sign: "\e709";
+@el-icon-camera: "\e708";
+@el-icon-car: "\e707";
+@el-icon-caret-down: "\e706";
+@el-icon-caret-left: "\e705";
+@el-icon-caret-right: "\e704";
+@el-icon-caret-up: "\e703";
+@el-icon-cc: "\e702";
+@el-icon-certificate: "\e701";
+@el-icon-check: "\e700";
+@el-icon-check-empty: "\e6ff";
+@el-icon-chevron-down: "\e6fe";
+@el-icon-chevron-left: "\e6fd";
+@el-icon-chevron-right: "\e6fc";
+@el-icon-chevron-up: "\e6fb";
+@el-icon-child: "\e6fa";
+@el-icon-circle-arrow-down: "\e6f9";
+@el-icon-circle-arrow-left: "\e6f8";
+@el-icon-circle-arrow-right: "\e6f7";
+@el-icon-circle-arrow-up: "\e6f6";
+@el-icon-cloud: "\e6f5";
+@el-icon-cloud-alt: "\e6f4";
+@el-icon-cog: "\e6f3";
+@el-icon-cog-alt: "\e6f2";
+@el-icon-cogs: "\e6f1";
+@el-icon-comment: "\e6f0";
+@el-icon-comment-alt: "\e6ef";
+@el-icon-compass: "\e6ee";
+@el-icon-compass-alt: "\e6ed";
+@el-icon-credit-card: "\e6ec";
+@el-icon-css: "\e6eb";
+@el-icon-dashboard: "\e6ea";
+@el-icon-delicious: "\e6e9";
+@el-icon-deviantart: "\e6e8";
+@el-icon-digg: "\e6e7";
+@el-icon-download: "\e6e6";
+@el-icon-download-alt: "\e6e5";
+@el-icon-dribbble: "\e6e4";
+@el-icon-edit: "\e6e3";
+@el-icon-eject: "\e6e2";
+@el-icon-envelope: "\e6e1";
+@el-icon-envelope-alt: "\e6e0";
+@el-icon-error: "\e6df";
+@el-icon-error-alt: "\e6de";
+@el-icon-eur: "\e6dd";
+@el-icon-exclamation-sign: "\e6dc";
+@el-icon-eye-close: "\e6db";
+@el-icon-eye-open: "\e6da";
+@el-icon-facebook: "\e6d9";
+@el-icon-facetime-video: "\e6d8";
+@el-icon-fast-backward: "\e6d7";
+@el-icon-fast-forward: "\e6d6";
+@el-icon-female: "\e6d5";
+@el-icon-file: "\e6d4";
+@el-icon-file-alt: "\e6d3";
+@el-icon-file-edit: "\e6d2";
+@el-icon-file-edit-alt: "\e6d1";
+@el-icon-file-new: "\e6d0";
+@el-icon-file-new-alt: "\e6cf";
+@el-icon-film: "\e6ce";
+@el-icon-filter: "\e6cd";
+@el-icon-fire: "\e6cc";
+@el-icon-flag: "\e6cb";
+@el-icon-flag-alt: "\e6ca";
+@el-icon-flickr: "\e6c9";
+@el-icon-folder: "\e6c8";
+@el-icon-folder-close: "\e6c7";
+@el-icon-folder-open: "\e6c6";
+@el-icon-folder-sign: "\e6c5";
+@el-icon-font: "\e6c4";
+@el-icon-fontsize: "\e6c3";
+@el-icon-fork: "\e6c2";
+@el-icon-forward: "\e6c1";
+@el-icon-forward-alt: "\e6c0";
+@el-icon-foursquare: "\e6bf";
+@el-icon-friendfeed: "\e6be";
+@el-icon-friendfeed-rect: "\e6bd";
+@el-icon-fullscreen: "\e6bc";
+@el-icon-gbp: "\e6bb";
+@el-icon-gift: "\e6ba";
+@el-icon-github: "\e6b9";
+@el-icon-github-text: "\e6b8";
+@el-icon-glass: "\e6b7";
+@el-icon-glasses: "\e6b6";
+@el-icon-globe: "\e6b5";
+@el-icon-globe-alt: "\e6b4";
+@el-icon-googleplus: "\e6b3";
+@el-icon-graph: "\e6b2";
+@el-icon-graph-alt: "\e6b1";
+@el-icon-group: "\e6b0";
+@el-icon-group-alt: "\e6af";
+@el-icon-guidedog: "\e6ae";
+@el-icon-hand-down: "\e6ad";
+@el-icon-hand-left: "\e6ac";
+@el-icon-hand-right: "\e6ab";
+@el-icon-hand-up: "\e6aa";
+@el-icon-hdd: "\e6a9";
+@el-icon-headphones: "\e6a8";
+@el-icon-hearing-impaired: "\e6a7";
+@el-icon-heart: "\e6a6";
+@el-icon-heart-alt: "\e6a5";
+@el-icon-heart-empty: "\e6a4";
+@el-icon-home: "\e6a3";
+@el-icon-home-alt: "\e6a2";
+@el-icon-hourglass: "\e6a1";
+@el-icon-idea: "\e6a0";
+@el-icon-idea-alt: "\e69f";
+@el-icon-inbox: "\e69e";
+@el-icon-inbox-alt: "\e69d";
+@el-icon-inbox-box: "\e69c";
+@el-icon-indent-left: "\e69b";
+@el-icon-indent-right: "\e69a";
+@el-icon-info-sign: "\e699";
+@el-icon-instagram: "\e698";
+@el-icon-iphone-home: "\e697";
+@el-icon-italic: "\e696";
+@el-icon-key: "\e695";
+@el-icon-laptop: "\e694";
+@el-icon-laptop-alt: "\e693";
+@el-icon-lastfm: "\e692";
+@el-icon-leaf: "\e691";
+@el-icon-lines: "\e690";
+@el-icon-link: "\e68f";
+@el-icon-linkedin: "\e68e";
+@el-icon-list: "\e68d";
+@el-icon-list-alt: "\e68c";
+@el-icon-livejournal: "\e68b";
+@el-icon-lock: "\e68a";
+@el-icon-lock-alt: "\e689";
+@el-icon-magic: "\e688";
+@el-icon-magnet: "\e687";
+@el-icon-male: "\e686";
+@el-icon-map-marker: "\e685";
+@el-icon-map-marker-alt: "\e684";
+@el-icon-mic: "\e683";
+@el-icon-mic-alt: "\e682";
+@el-icon-minus: "\e681";
+@el-icon-minus-sign: "\e680";
+@el-icon-move: "\e67f";
+@el-icon-music: "\e67e";
+@el-icon-myspace: "\e67d";
+@el-icon-network: "\e67c";
+@el-icon-off: "\e67b";
+@el-icon-ok: "\e67a";
+@el-icon-ok-circle: "\e679";
+@el-icon-ok-sign: "\e678";
+@el-icon-opensource: "\e677";
+@el-icon-paper-clip: "\e676";
+@el-icon-paper-clip-alt: "\e675";
+@el-icon-path: "\e674";
+@el-icon-pause: "\e673";
+@el-icon-pause-alt: "\e672";
+@el-icon-pencil: "\e671";
+@el-icon-pencil-alt: "\e670";
+@el-icon-person: "\e66f";
+@el-icon-phone: "\e66e";
+@el-icon-phone-alt: "\e66d";
+@el-icon-photo: "\e66c";
+@el-icon-photo-alt: "\e66b";
+@el-icon-picasa: "\e66a";
+@el-icon-picture: "\e669";
+@el-icon-pinterest: "\e668";
+@el-icon-plane: "\e667";
+@el-icon-play: "\e666";
+@el-icon-play-alt: "\e665";
+@el-icon-play-circle: "\e664";
+@el-icon-plus: "\e663";
+@el-icon-plus-sign: "\e662";
+@el-icon-podcast: "\e661";
+@el-icon-print: "\e660";
+@el-icon-puzzle: "\e65f";
+@el-icon-qrcode: "\e65e";
+@el-icon-question: "\e65d";
+@el-icon-question-sign: "\e65c";
+@el-icon-quotes: "\e65b";
+@el-icon-quotes-alt: "\e65a";
+@el-icon-random: "\e659";
+@el-icon-record: "\e658";
+@el-icon-reddit: "\e657";
+@el-icon-refresh: "\e656";
+@el-icon-remove: "\e655";
+@el-icon-remove-circle: "\e654";
+@el-icon-remove-sign: "\e653";
+@el-icon-repeat: "\e652";
+@el-icon-repeat-alt: "\e651";
+@el-icon-resize-full: "\e650";
+@el-icon-resize-horizontal: "\e64f";
+@el-icon-resize-small: "\e64e";
+@el-icon-resize-vertical: "\e64d";
+@el-icon-return-key: "\e64c";
+@el-icon-retweet: "\e64b";
+@el-icon-reverse-alt: "\e64a";
+@el-icon-road: "\e649";
+@el-icon-rss: "\e648";
+@el-icon-scissors: "\e647";
+@el-icon-screen: "\e646";
+@el-icon-screen-alt: "\e645";
+@el-icon-screenshot: "\e644";
+@el-icon-search: "\e643";
+@el-icon-search-alt: "\e642";
+@el-icon-share: "\e641";
+@el-icon-share-alt: "\e640";
+@el-icon-shopping-cart: "\e63f";
+@el-icon-shopping-cart-sign: "\e63e";
+@el-icon-signal: "\e63d";
+@el-icon-skype: "\e63c";
+@el-icon-slideshare: "\e63b";
+@el-icon-smiley: "\e63a";
+@el-icon-smiley-alt: "\e639";
+@el-icon-soundcloud: "\e638";
+@el-icon-speaker: "\e637";
+@el-icon-spotify: "\e636";
+@el-icon-stackoverflow: "\e635";
+@el-icon-star: "\e634";
+@el-icon-star-alt: "\e633";
+@el-icon-star-empty: "\e632";
+@el-icon-step-backward: "\e631";
+@el-icon-step-forward: "\e630";
+@el-icon-stop: "\e62f";
+@el-icon-stop-alt: "\e62e";
+@el-icon-stumbleupon: "\e62d";
+@el-icon-tag: "\e62c";
+@el-icon-tags: "\e62b";
+@el-icon-tasks: "\e62a";
+@el-icon-text-height: "\e629";
+@el-icon-text-width: "\e628";
+@el-icon-th: "\e627";
+@el-icon-th-large: "\e626";
+@el-icon-th-list: "\e625";
+@el-icon-thumbs-down: "\e624";
+@el-icon-thumbs-up: "\e623";
+@el-icon-time: "\e622";
+@el-icon-time-alt: "\e621";
+@el-icon-tint: "\e620";
+@el-icon-torso: "\e61f";
+@el-icon-trash: "\e61e";
+@el-icon-trash-alt: "\e61d";
+@el-icon-tumblr: "\e61c";
+@el-icon-twitter: "\e61b";
+@el-icon-universal-access: "\e61a";
+@el-icon-unlock: "\e619";
+@el-icon-unlock-alt: "\e618";
+@el-icon-upload: "\e617";
+@el-icon-usd: "\e616";
+@el-icon-user: "\e615";
+@el-icon-viadeo: "\e614";
+@el-icon-video: "\e613";
+@el-icon-video-alt: "\e612";
+@el-icon-video-chat: "\e611";
+@el-icon-view-mode: "\e610";
+@el-icon-vimeo: "\e60f";
+@el-icon-vkontakte: "\e60e";
+@el-icon-volume-down: "\e60d";
+@el-icon-volume-off: "\e60c";
+@el-icon-volume-up: "\e60b";
+@el-icon-w3c: "\e60a";
+@el-icon-warning-sign: "\e609";
+@el-icon-website: "\e608";
+@el-icon-website-alt: "\e607";
+@el-icon-wheelchair: "\e606";
+@el-icon-wordpress: "\e605";
+@el-icon-wrench: "\e604";
+@el-icon-wrench-alt: "\e603";
+@el-icon-youtube: "\e602";
+@el-icon-zoom-in: "\e601";
+@el-icon-zoom-out: "\e600";
+

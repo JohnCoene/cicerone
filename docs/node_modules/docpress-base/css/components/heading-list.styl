@@ -1,0 +1,28 @@
+//
+// Headings menu
+//
+
+ul.heading-list
+  $pad = 24px
+
+  .hlink
+    text-decoration: none
+    padding: 6px $pad
+    display: block
+    height: 1em
+    text-overflow: ellipsis
+    overflow: hidden
+    white-space: nowrap
+
+    &, &:visited
+      color: $slate
+
+  .hlink:before
+    content: ''
+    display: inline-block
+    vertical-align: middle
+    margin-right: 8px
+    height: 2px
+    width: 12px
+    background: $slate
+    opacity: 0.3

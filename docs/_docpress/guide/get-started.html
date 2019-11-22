@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../assets/style.css?t=90051322">
+    <link rel="stylesheet" href="../css/style.css?t=48da64ce">
+    <script src="../assets/script.js?t=93f1a66c"></script>
+    <title>Get Started - cicerone</title>
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body class="-menu-visible">
+    <div class="doc-layout">
+      <div class="toggle menu-toggle js-menu-toggle"></div>
+      <div class="menu toc-menu">
+        <ul>
+          <li class="menu-item -level-0 -parent">
+            <ul class="submenu">
+              <li class="menu-item -level-1"><a class="link title  link-index" href="../index.html">cicerone</a>
+              </li>
+              <li class="menu-item -level-1 -parent"><span class="title">Guide</span>
+                <ul class="submenu">
+                  <li class="menu-item -level-2"><a class="link title -active link-guideget-started" href="../guide/get-started.html">Get Started</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-guideadvanced" href="../guide/advanced.html">Advanced</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="body page-guideget-started">
+        <div class="header-nav">
+          <div class="right"><a class="iconlink" href="https://github.com/JohnCoene/cicerone" data-title="JohnCoene/cicerone">
+              <!-- span.title Open in GitHub--><span class="icon -github"></span></a>
+          </div>
+        </div>
+        <div class="markdown-body"><h1 id="get-started">Get Started</h1>
+<p>Let&#x2019;s create a very basic Shiny app to demonstrate: it takes a text input and on hitting a button simply prints it.</p>
+<pre><code class="lang-r"><span class="pl-k">library</span>(shiny)
+
+ui &lt;- fluidPage(
+  textInput(<span class="pl-s">&quot;text_inputId&quot;</span>, <span class="pl-s">&quot;Enter some text&quot;</span>),
+  actionButton(<span class="pl-s">&quot;submit_inputId&quot;</span>, <span class="pl-s">&quot;Submit text&quot;</span>),
+  verbatimTextOutput(<span class="pl-s">&quot;print&quot;</span>)
+)
+
+server &lt;- <span class="pl-k">function</span>(input, output){
+  txt &lt;- eventReactive(input$submit_inputId, {
+    input$text_inputId
+  })
+
+  output$print &lt;- renderPrint(txt())
+}
+
+shinyApp(ui, server)
+</code></pre>
+<p>Now we can create a a guide to walk the user through the application: simply initialise a new guide from the <code>Cicerone</code> object then add <code>steps</code>.</p>
+<pre><code class="lang-r"><span class="pl-k">library</span>(cicerone)
+
+guide &lt;- Cicerone$
+  new()$ 
+  step(
+    el = <span class="pl-s">&quot;text_inputId&quot;</span>,
+    title = <span class="pl-s">&quot;Text Input&quot;</span>,
+    description = <span class="pl-s">&quot;This is where you enter the text you want to print.&quot;</span>
+  )$
+  step(
+    <span class="pl-s">&quot;submit_inputId&quot;</span>,
+    <span class="pl-s">&quot;Send the Text&quot;</span>,
+    <span class="pl-s">&quot;Send the text to the server for printing&quot;</span>
+  )
+</code></pre>
+<p>This is our guide created, we can now include it the Shiny app we created earlier and start the guide. Note to that you need to include <code>use_cicerone</code> in your UI.</p>
+<pre><code class="lang-r"><span class="pl-k">library</span>(shiny)
+
+ui &lt;- fluidPage(
+  use_cicerone(), <span class="pl-c">#&#xA0;include dependencies</span>
+  textInput(<span class="pl-s">&quot;text_inputId&quot;</span>, <span class="pl-s">&quot;Enter some text&quot;</span>),
+  actionButton(<span class="pl-s">&quot;submit_inputId&quot;</span>, <span class="pl-s">&quot;Submit text&quot;</span>),
+  verbatimTextOutput(<span class="pl-s">&quot;print&quot;</span>)
+)
+
+server &lt;- <span class="pl-k">function</span>(input, output){
+
+  <span class="pl-c"># initialise then start the guide</span>
+  guide$init()$start()
+
+  txt &lt;- eventReactive(input$submit_inputId, {
+    input$text_inputId
+  })
+
+  output$print &lt;- renderPrint(txt())
+}
+
+shinyApp(ui, server)
+</code></pre>
+
+        </div>
+        <div class="footer-nav">
+          <div class="left"><a href="../index.html"><span class="title">cicerone</span></a></div>
+          <div class="right"><a href="../guide/advanced.html"><span class="label">Next: </span><span class="title">Advanced</span></a></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

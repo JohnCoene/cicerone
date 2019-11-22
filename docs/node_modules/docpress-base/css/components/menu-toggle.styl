@@ -1,0 +1,44 @@
+//
+// Menu toggle
+//
+
+.menu-toggle
+  $size = 40px
+
+  &
+    display: none
+    box-sizing: content-box
+
+  @media (min-width: 769px)
+    display: block
+    width: $size + 12px
+    height: $size + 12px
+    line-height: $size
+
+    position: fixed
+    padding-left: 12px
+    left: 0
+    bottom: 0
+    color: $black
+    z-index: 10
+    cursor: pointer
+    background: transparent
+
+  &
+    // keep the white visible
+    transition: width 1ms linear 250ms, background-color 1ms linear 250ms, color 400ms linear
+
+  .-menu-visible &
+    width: $nav-width - 1px - 20px
+    background-color: $bg
+    transition: color 400ms linear
+
+  &:before
+    display: inline-block
+    ion-icon('navicon', 24px)
+    text-align: center
+    width: $size
+
+  &:hover
+    color: $accent
+    // transition: width 0 linear 250ms, background-color 0 linear 250ms, color 100ms linear
