@@ -21,12 +21,9 @@ function on_next(){
     previous = null;
   }
 
-  console.log(highlighted);
-  console.log(previous);
-
   var data = {
-    highlighted: highlighted,
-    previous: previous
+    previous: highlighted,
+    before_previous: previous
   }
 
   Shiny.onInputChange("cicerone_next", data);
@@ -52,8 +49,8 @@ function on_previous(){
   }
 
   var data = {
-    highlighted: highlighted,
-    previous: previous
+    previous: highlighted,
+    before_previous: previous
   }
   Shiny.onInputChange("cicerone_previous", data);
 }

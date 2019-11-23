@@ -8,3 +8,5 @@ Documentation
   * [Advanced](guide/advanced.md)
   * [Highlight](guide/highlight.md)
   * [Events](guide/events.md)
+* Examples
+  * [Glouton](examples/glouton.md)

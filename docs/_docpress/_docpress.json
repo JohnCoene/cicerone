@@ -53,6 +53,17 @@
             "slug": "guideevents"
           }
         ]
+      },
+      {
+        "title": "Examples",
+        "sections": [
+          {
+            "title": "Glouton",
+            "source": "docs/examples/glouton.md",
+            "url": "examples/glouton.html",
+            "slug": "examplesglouton"
+          }
+        ]
       }
     ]
   },
@@ -104,6 +115,12 @@
       "title": "Events - cicerone",
       "pageTitle": "Events",
       "slug": "guideevents"
+    },
+    "examples/glouton.html": {
+      "source": "docs/examples/glouton.md",
+      "title": "Glouton - cicerone",
+      "pageTitle": "Glouton",
+      "slug": "examplesglouton"
     }
   },
   "sources": {
@@ -113,6 +130,8 @@
     "docs/guide/advanced.md": "guide/advanced.html",
     "docs/guide/highlight.md": "guide/highlight.html",
     "docs/guide/events.md": "guide/events.html",
+    "docs/examples/glouton.md": "examples/glouton.html",
+    "docs/favicon.ico": "favicon.ico",
     "docs/css/style.css": "css/style.css",
     "docs/img/cicerone.png": "img/cicerone.png",
     "docs/img/cicerone_banner.png": "img/cicerone_banner.png",

@@ -114,7 +114,8 @@ A Cicerone object.
   show_btns = NULL,
   close_btn_text = NULL,
   next_btn_text = NULL,
-  prev_btn_text = NULL
+  prev_btn_text = NULL,
+  condition = NULL
 )}\if{html}{\out{</div>}}
 }
 

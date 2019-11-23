@@ -8,6 +8,10 @@ body, .footer-nav, .body{
   background-color: #D1D1D1 !important;
 }
 
+p>a{
+  color: #3B322D !important;
+}
+
 .menu, .menu-toggle {
   background-color: #C6BFB7 !important;
   color: #3B322D !important;

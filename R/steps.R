@@ -82,7 +82,7 @@ Cicerone <- R6::R6Class(
 #' @param prev_btn_text Previous button text.
     step = function(el, title = NULL, description = NULL, position = NULL, 
       class = NULL, show_btns = NULL, close_btn_text = NULL,
-      next_btn_text = NULL, prev_btn_text = NULL) {
+      next_btn_text = NULL, prev_btn_text = NULL, condition = NULL) {
 
       assertthat::assert_that(!missing(el), msg = "Must pass `el`.")
 
@@ -99,9 +99,10 @@ Cicerone <- R6::R6Class(
       if(!is.null(next_btn_text)) popover$nextBtnText <- next_btn_text
       if(!is.null(prev_btn_text)) popover$prevBtnText <- prev_btn_text
 
-      step = list(
-        element = el
-      )
+      step = list(element = el)
+
+      if(!is.null(condition))
+        step$onNext <- make_condition(condition)
 
       if(length(popover)) step$popover <- popover
 
