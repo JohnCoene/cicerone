@@ -33,6 +33,24 @@
             "source": "docs/guide/basics.md",
             "url": "guide/basics.html",
             "slug": "guidebasics"
+          },
+          {
+            "title": "Advanced",
+            "source": "docs/guide/advanced.md",
+            "url": "guide/advanced.html",
+            "slug": "guideadvanced"
+          },
+          {
+            "title": "Highlight",
+            "source": "docs/guide/highlight.md",
+            "url": "guide/highlight.html",
+            "slug": "guidehighlight"
+          },
+          {
+            "title": "Events",
+            "source": "docs/guide/events.md",
+            "url": "guide/events.html",
+            "slug": "guideevents"
           }
         ]
       }
@@ -68,14 +86,36 @@
       "title": "Basics - cicerone",
       "pageTitle": "Basics",
       "slug": "guidebasics"
+    },
+    "guide/advanced.html": {
+      "source": "docs/guide/advanced.md",
+      "title": "Advanced - cicerone",
+      "pageTitle": "Advanced",
+      "slug": "guideadvanced"
+    },
+    "guide/highlight.html": {
+      "source": "docs/guide/highlight.md",
+      "title": "Highlight - cicerone",
+      "pageTitle": "Highlight",
+      "slug": "guidehighlight"
+    },
+    "guide/events.html": {
+      "source": "docs/guide/events.md",
+      "title": "Events - cicerone",
+      "pageTitle": "Events",
+      "slug": "guideevents"
     }
   },
   "sources": {
     "README.md": "index.html",
     "docs/guide/get-started.md": "guide/get-started.html",
     "docs/guide/basics.md": "guide/basics.html",
+    "docs/guide/advanced.md": "guide/advanced.html",
+    "docs/guide/highlight.md": "guide/highlight.html",
+    "docs/guide/events.md": "guide/events.html",
     "docs/css/style.css": "css/style.css",
+    "docs/img/cicerone.png": "img/cicerone.png",
     "docs/img/cicerone_banner.png": "img/cicerone_banner.png",
-    "docs/img/cicerone.png": "img/cicerone.png"
+    "docs/img/home-cicerone.gif": "img/home-cicerone.gif"
   }
 }

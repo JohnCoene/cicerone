@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../assets/style.css?t=90051322">
+    <link rel="stylesheet" href="../css/style.css?t=1afde359">
+    <script src="../assets/script.js?t=93f1a66c"></script>
+    <title>Advanced - cicerone</title>
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body class="-menu-visible">
+    <div class="doc-layout">
+      <div class="toggle menu-toggle js-menu-toggle"></div>
+      <div class="menu toc-menu">
+        <ul>
+          <li class="menu-item -level-0 -parent">
+            <ul class="submenu">
+              <li class="menu-item -level-1"><a class="link title  link-index" href="../index.html">cicerone</a>
+              </li>
+              <li class="menu-item -level-1 -parent"><span class="title">Guide</span>
+                <ul class="submenu">
+                  <li class="menu-item -level-2"><a class="link title  link-guideget-started" href="../guide/get-started.html">Get Started</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-guidebasics" href="../guide/basics.html">Basics</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title -active link-guideadvanced" href="../guide/advanced.html">Advanced</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-guidehighlight" href="../guide/highlight.html">Highlight</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-guideevents" href="../guide/events.html">Events</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="body page-guideadvanced">
+        <div class="header-nav">
+          <div class="right"><a class="iconlink" href="https://github.com/JohnCoene/cicerone" data-title="JohnCoene/cicerone">
+              <!-- span.title Open in GitHub--><span class="icon -github"></span></a>
+          </div>
+        </div>
+        <div class="markdown-body"><h1 id="advanced">Advanced</h1>
+<p>So far we&#x2019;ve always highlighted Shiny inputs but you are of course not limited to those. The <code>el</code> argument of the <code>step</code> method takes the id of the element to highlight, it is not limited to ids of inputs. Moreover this can be useful for inputs that in html do not actually have a unique id, e.g.: <code>sliderInput</code>.</p>
+<p>For instance the following slider input.</p>
+<pre><code class="lang-r">shiny::sliderInput(<span class="pl-s">&quot;slider&quot;</span>, <span class="pl-s">&quot;Slider&quot;</span>, value = <span class="hljs-number">5</span>, min = <span class="hljs-number">0</span>, max = <span class="hljs-number">10</span>)
+</code></pre>
+<p>Creates this html in the Shiny ui.</p>
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="pl-s">&quot;form-group shiny-input-container&quot;</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">class</span>=<span class="pl-s">&quot;control-label&quot;</span> <span class="hljs-attr">for</span>=<span class="pl-s">&quot;slider&quot;</span>&gt;</span>Slider<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">class</span>=<span class="pl-s">&quot;js-range-slider&quot;</span> <span class="hljs-attr">id</span>=<span class="pl-s">&quot;slider&quot;</span> <span class="hljs-attr">data-min</span>=<span class="pl-s">&quot;0&quot;</span> <span class="hljs-attr">data-max</span>=<span class="pl-s">&quot;10&quot;</span> <span class="hljs-attr">data-from</span>=<span class="pl-s">&quot;5&quot;</span> <span class="hljs-attr">data-step</span>=<span class="pl-s">&quot;1&quot;</span> <span class="hljs-attr">data-grid</span>=<span class="pl-s">&quot;true&quot;</span> <span class="hljs-attr">data-grid-num</span>=<span class="pl-s">&quot;10&quot;</span> <span class="hljs-attr">data-grid-snap</span>=<span class="pl-s">&quot;false&quot;</span> <span class="hljs-attr">data-prettify-separator</span>=<span class="pl-s">&quot;,&quot;</span> <span class="hljs-attr">data-prettify-enabled</span>=<span class="pl-s">&quot;true&quot;</span> <span class="hljs-attr">data-keyboard</span>=<span class="pl-s">&quot;true&quot;</span> <span class="hljs-attr">data-data-type</span>=<span class="pl-s">&quot;number&quot;</span>/&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</code></pre>
+<p>Because it lacks a unique id we need to wrap it into another element in order to use cicerone.</p>
+<pre><code class="lang-r"><span class="pl-k">library</span>(shiny)
+<span class="pl-k">library</span>(cicerone)
+
+guide &lt;- Cicerone$
+  new()$
+  step(
+    <span class="pl-s">&quot;slider-wrapper&quot;</span>,
+    <span class="pl-s">&quot;Slider&quot;</span>,
+    <span class="pl-s">&quot;Slide this!&quot;</span>,
+    position = <span class="pl-s">&quot;bottom&quot;</span>
+  )
+
+ui &lt;- fluidPage(
+  use_cicerone(),
+  div(
+    id = <span class="pl-s">&quot;slider-wrapper&quot;</span>,
+    sliderInput(<span class="pl-s">&quot;slider&quot;</span>, <span class="pl-s">&quot;Slider&quot;</span>, value = <span class="hljs-number">5</span>, min = <span class="hljs-number">0</span>, max = <span class="hljs-number">10</span>)
+  )
+)
+
+server &lt;- <span class="pl-k">function</span>(input, output){
+  guide$init()$start()
+}
+
+shinyApp(ui, server)
+</code></pre>
+
+        </div>
+        <div class="footer-nav">
+          <div class="left"><a href="../guide/basics.html"><span class="title">Basics</span></a></div>
+          <div class="right"><a href="../guide/highlight.html"><span class="label">Next: </span><span class="title">Highlight</span></a></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

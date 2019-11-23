@@ -17,6 +17,10 @@ body, .footer-nav, .body{
   color: #3B322D !important;
 }
 
+.-active{
+  box-shadow: inset -2px 0 #3B322D !important;
+}
+
 li > .title{
   color: #3B322D !important;
 }

@@ -5,3 +5,6 @@ Documentation
 * Guide
   * [Get Started](guide/get-started.md)
   * [Basics](guide/basics.md)
+  * [Advanced](guide/advanced.md)
+  * [Highlight](guide/highlight.md)
+  * [Events](guide/events.md)

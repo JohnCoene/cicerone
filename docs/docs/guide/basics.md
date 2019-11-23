@@ -31,7 +31,7 @@ Let's a guide to walk users through. We'll pretend this app is truly complicated
 library(cicerone)
 
 guide <- Cicerone$
-  new()$
+  new(allow_close = FALSE)$
   step(
     "nobs",
     "Observations",

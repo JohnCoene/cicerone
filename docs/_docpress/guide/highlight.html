@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../assets/style.css?t=90051322">
+    <link rel="stylesheet" href="../css/style.css?t=1afde359">
+    <script src="../assets/script.js?t=93f1a66c"></script>
+    <title>Highlight - cicerone</title>
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body class="-menu-visible">
+    <div class="doc-layout">
+      <div class="toggle menu-toggle js-menu-toggle"></div>
+      <div class="menu toc-menu">
+        <ul>
+          <li class="menu-item -level-0 -parent">
+            <ul class="submenu">
+              <li class="menu-item -level-1"><a class="link title  link-index" href="../index.html">cicerone</a>
+              </li>
+              <li class="menu-item -level-1 -parent"><span class="title">Guide</span>
+                <ul class="submenu">
+                  <li class="menu-item -level-2"><a class="link title  link-guideget-started" href="../guide/get-started.html">Get Started</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-guidebasics" href="../guide/basics.html">Basics</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-guideadvanced" href="../guide/advanced.html">Advanced</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title -active link-guidehighlight" href="../guide/highlight.html">Highlight</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-guideevents" href="../guide/events.html">Events</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="body page-guidehighlight">
+        <div class="header-nav">
+          <div class="right"><a class="iconlink" href="https://github.com/JohnCoene/cicerone" data-title="JohnCoene/cicerone">
+              <!-- span.title Open in GitHub--><span class="icon -github"></span></a>
+          </div>
+        </div>
+        <div class="markdown-body"><h1 id="highlight">Highlight</h1>
+<p>Generally speaking using the reference class, initialising guides from the <code>Cicerone</code> object, is a good idea but if you want to simply highlight an element programmatically you can use the <code>highlight</code> function.</p>
+<pre><code class="lang-r"><span class="pl-k">library</span>(shiny)
+<span class="pl-k">library</span>(cicerone)
+
+ui &lt;- fluidPage(
+  use_cicerone(),
+  textInput(<span class="pl-s">&quot;text&quot;</span>, <span class="pl-s">&quot;Text goes here&quot;</span>),
+  actionButton(<span class="pl-s">&quot;guide&quot;</span>, <span class="pl-s">&quot;Highlight&quot;</span>)
+)
+
+server &lt;- <span class="pl-k">function</span>(input, output){
+
+  initialise()
+
+  observeEvent(input$guide, {
+    highlight(<span class="pl-s">&quot;text&quot;</span>)
+  })
+
+}
+
+shinyApp(ui, server)
+</code></pre>
+<p>The above is also doable from the reference class using the <code>highlight</code> method.</p>
+<pre><code class="lang-r"><span class="pl-k">library</span>(shiny)
+<span class="pl-k">library</span>(cicerone)
+
+guide &lt;- Cicerone$
+  new()$
+  step(
+    <span class="pl-s">&quot;text&quot;</span>,
+    <span class="pl-s">&quot;Text&quot;</span>,
+    <span class="pl-s">&quot;Text goes here&quot;</span>
+  )
+
+ui &lt;- fluidPage(
+  use_cicerone(),
+  textInput(<span class="pl-s">&quot;text&quot;</span>, <span class="pl-s">&quot;Text goes here&quot;</span>),
+  actionButton(<span class="pl-s">&quot;guide&quot;</span>, <span class="pl-s">&quot;Highlight&quot;</span>)
+)
+
+server &lt;- <span class="pl-k">function</span>(input, output){
+
+  guide$init()
+
+  observeEvent(input$guide, {
+    guide$highlight(<span class="pl-s">&quot;text&quot;</span>)
+  })
+
+}
+
+shinyApp(ui, server)
+</code></pre>
+
+        </div>
+        <div class="footer-nav">
+          <div class="left"><a href="../guide/advanced.html"><span class="title">Advanced</span></a></div>
+          <div class="right"><a href="../guide/events.html"><span class="label">Next: </span><span class="title">Events</span></a></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

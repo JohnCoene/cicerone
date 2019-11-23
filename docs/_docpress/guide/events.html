@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../assets/style.css?t=90051322">
+    <link rel="stylesheet" href="../css/style.css?t=1afde359">
+    <script src="../assets/script.js?t=93f1a66c"></script>
+    <title>Events - cicerone</title>
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body class="-menu-visible">
+    <div class="doc-layout">
+      <div class="toggle menu-toggle js-menu-toggle"></div>
+      <div class="menu toc-menu">
+        <ul>
+          <li class="menu-item -level-0 -parent">
+            <ul class="submenu">
+              <li class="menu-item -level-1"><a class="link title  link-index" href="../index.html">cicerone</a>
+              </li>
+              <li class="menu-item -level-1 -parent"><span class="title">Guide</span>
+                <ul class="submenu">
+                  <li class="menu-item -level-2"><a class="link title  link-guideget-started" href="../guide/get-started.html">Get Started</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-guidebasics" href="../guide/basics.html">Basics</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-guideadvanced" href="../guide/advanced.html">Advanced</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title  link-guidehighlight" href="../guide/highlight.html">Highlight</a>
+                  </li>
+                  <li class="menu-item -level-2"><a class="link title -active link-guideevents" href="../guide/events.html">Events</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="body page-guideevents">
+        <div class="header-nav">
+          <div class="right"><a class="iconlink" href="https://github.com/JohnCoene/cicerone" data-title="JohnCoene/cicerone">
+              <!-- span.title Open in GitHub--><span class="icon -github"></span></a>
+          </div>
+        </div>
+        <div class="markdown-body"><h1 id="events">Events</h1>
+<p>Cicerone lets you capture how users browse the guide by letting you retrieve the id of the element currently highlighted. The method <code>get_highlighted_el</code> will return the id the the currently highlighted step.</p>
+<pre><code class="lang-r"><span class="pl-k">library</span>(shiny)
+<span class="pl-k">library</span>(cicerone)
+
+guide &lt;- Cicerone$
+  new(opacity = <span class="hljs-number">.3</span>)$
+  step(<span class="pl-s">&quot;one&quot;</span>, <span class="pl-s">&quot;Try&quot;</span>, <span class="pl-s">&quot;Try&quot;</span>)$
+  step(<span class="pl-s">&quot;two&quot;</span>, <span class="pl-s">&quot;Cicerone&quot;</span>, <span class="pl-s">&quot;Cicerone&quot;</span>)$
+  step(<span class="pl-s">&quot;three&quot;</span>, <span class="pl-s">&quot;Right&quot;</span>, <span class="pl-s">&quot;right&quot;</span>)$
+  step(<span class="pl-s">&quot;four&quot;</span>, <span class="pl-s">&quot;Away&quot;</span>, <span class="pl-s">&quot;away&quot;</span>)
+
+ui &lt;- fluidPage(
+  use_cicerone(),
+  h1(<span class="pl-s">&quot;Try&quot;</span>, id = <span class="pl-s">&quot;one&quot;</span>),
+  h1(<span class="pl-s">&quot;cicerone&quot;</span>, id = <span class="pl-s">&quot;two&quot;</span>),
+  h1(<span class="pl-s">&quot;right&quot;</span>, id = <span class="pl-s">&quot;three&quot;</span>),
+  h1(<span class="pl-s">&quot;away&quot;</span>, id = <span class="pl-s">&quot;four&quot;</span>),
+  verbatimTextOutput(<span class="pl-s">&quot;highlighted&quot;</span>)
+)
+
+server &lt;- <span class="pl-k">function</span>(input, output){
+  guide$init()$start()
+
+  output$highlighted &lt;- renderPrint({
+    guide$get_highlighted_el()
+  })
+}
+
+shinyApp(ui, server)
+</code></pre>
+
+        </div>
+        <div class="footer-nav">
+          <div class="left"><a href="../guide/highlight.html"><span class="title">Highlight</span></a></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
