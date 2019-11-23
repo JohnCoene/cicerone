@@ -80,30 +80,30 @@ Cicerone <- R6::R6Class(
 #' @param close_btn_text Text on the close button.
 #' @param next_btn_text Next button text.
 #' @param prev_btn_text Previous button text.
-    step = function(el, title, description, position = "right", 
-      class = "popover-class", show_btns = NULL, close_btn_text = NULL,
+    step = function(el, title = NULL, description = NULL, position = NULL, 
+      class = NULL, show_btns = NULL, close_btn_text = NULL,
       next_btn_text = NULL, prev_btn_text = NULL) {
 
-      assertthat::assert_that(!missing(el), !missing(title), !missing(description))
+      assertthat::assert_that(!missing(el), msg = "Must pass `el`.")
 
       el <- paste0("#", el)
 
-      popover <- list(
-        className = class,
-        title = title,
-        description = description,
-        position = position
-      )
+      popover <- list()
 
+      if(!is.null(class)) popover$className <- class
+      if(!is.null(title)) popover$title <- title
+      if(!is.null(description)) popover$description <- description
+      if(!is.null(position)) popover$position <- position
       if(!is.null(show_btns)) popover$showButtons <- show_btns
       if(!is.null(close_btn_text)) popover$closeBtnText <- close_btn_text
       if(!is.null(next_btn_text)) popover$nextBtnText <- next_btn_text
       if(!is.null(prev_btn_text)) popover$prevBtnText <- prev_btn_text
 
       step = list(
-        element = el,
-        popover = popover
+        element = el
       )
+
+      if(length(popover)) step$popover <- popover
 
       private$steps <- append(private$steps, list(step))
       invisible(self)
@@ -180,7 +180,7 @@ Cicerone <- R6::R6Class(
 #' @param session A valid Shiny session if \code{NULL} the function
 #' attempts to get the session with \link[shiny]{getDefaultReactiveDomain}.
     highlight = function(el, session = NULL){
-      assertthat::assert_that(!missing(el), "Must pass `el`.")
+      assertthat::assert_that(!missing(el), msg = "Must pass `el`.")
       if(is.null(session))
         session <- shiny::getDefaultReactiveDomain()
       

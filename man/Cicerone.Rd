@@ -107,10 +107,10 @@ A Cicerone object.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Cicerone$step(
   el,
-  title,
-  description,
-  position = "right",
-  class = "popover-class",
+  title = NULL,
+  description = NULL,
+  position = NULL,
+  class = NULL,
   show_btns = NULL,
   close_btn_text = NULL,
   next_btn_text = NULL,
