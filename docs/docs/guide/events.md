@@ -32,3 +32,36 @@ server <- function(input, output){
 
 shinyApp(ui, server)
 ```
+
+You can also fetch the previously highlighted element with `get_previous_el`. There are also the `input$cicerone_next` and `input$cicerone_previous` which are triggered every time the user presses "next" or "previous". 
+
+```r
+library(shiny)
+library(cicerone)
+
+guide <- Cicerone$
+  new(opacity = .3)$
+  step("one", "Try", "Try")$
+  step("two", "Cicerone", "Cicerone")$
+  step("three", "Right", "right")$
+  step("four", "Away", "away")
+
+ui <- fluidPage(
+  use_cicerone(),
+  h1("Try", id = "one"),
+  h1("cicerone", id = "two"),
+  h1("right", id = "three"),
+  h1("away", id = "four"),
+  verbatimTextOutput("highlighted")
+)
+
+server <- function(input, output){
+  guide$init()$start()
+
+  output$highlighted <- renderPrint({
+    input$cicerone_next
+  })
+}
+
+shinyApp(ui, server)
+```
