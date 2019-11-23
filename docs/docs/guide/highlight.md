@@ -14,10 +14,12 @@ ui <- fluidPage(
 
 server <- function(input, output){
 
-  initialise()
+  id <- "hello"
+
+  initialise(id = id)
 
   observeEvent(input$guide, {
-    highlight("text")
+    highlight("text", id = id)
   })
 
 }
@@ -25,7 +27,7 @@ server <- function(input, output){
 shinyApp(ui, server)
 ```
 
-The above is also doable from the reference class using the `highlight` method.
+The above is also doable from the reference class using the `highlight` method, you will need to supply a unique `id`.
 
 ```r
 library(shiny)

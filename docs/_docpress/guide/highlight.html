@@ -60,17 +60,19 @@ ui &lt;- fluidPage(
 
 server &lt;- <span class="pl-k">function</span>(input, output){
 
-  initialise()
+  id &lt;- <span class="pl-s">&quot;hello&quot;</span>
+
+  initialise(id = id)
 
   observeEvent(input$guide, {
-    highlight(<span class="pl-s">&quot;text&quot;</span>)
+    highlight(<span class="pl-s">&quot;text&quot;</span>, id = id)
   })
 
 }
 
 shinyApp(ui, server)
 </code></pre>
-<p>The above is also doable from the reference class using the <code>highlight</code> method.</p>
+<p>The above is also doable from the reference class using the <code>highlight</code> method, you will need to supply a unique <code>id</code>.</p>
 <pre><code class="lang-r"><span class="pl-k">library</span>(shiny)
 <span class="pl-k">library</span>(cicerone)
 

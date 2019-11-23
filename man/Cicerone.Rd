@@ -55,7 +55,8 @@ Define cicerone steps.
   next_btn_text = "Next",
   prev_btn_text = "Previous",
   show_btns = TRUE,
-  keyboard_control = TRUE
+  keyboard_control = TRUE,
+  id = NULL
 )}\if{html}{\out{</div>}}
 }
 
@@ -90,6 +91,9 @@ highlighted element.}
 
 \item{\code{keyboard_control}}{Allow controlling through keyboard (escape 
 to close, arrow keys to move).}
+
+\item{\code{id}}{A unique identifier, useful if you are using more than one
+cicerone.}
 }
 \if{html}{\out{</div>}}
 }

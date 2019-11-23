@@ -40,13 +40,18 @@ Cicerone <- R6::R6Class(
 #' @param show_btns Do not show control buttons in footer.
 #' @param keyboard_control Allow controlling through keyboard (escape 
 #' to close, arrow keys to move).
+#' @param id A unique identifier, useful if you are using more than one
+#' cicerone.
 #' 
 #' @return A Cicerone object.
   public = list(
     initialize = function(animate = TRUE, opacity = .75, padding = 10,
       allow_close = TRUE, overlay_click_next  = FALSE, done_btn_text = "Done",
       close_btn_text = "Close", stage_background = "#ffffff", next_btn_text = "Next",
-      prev_btn_text = "Previous", show_btns = TRUE, keyboard_control = TRUE) {
+      prev_btn_text = "Previous", show_btns = TRUE, keyboard_control = TRUE, id = NULL) {
+
+      if(is.null(id))
+        id <- generate_id()
 
       private$globals <- list(
         animate = animate,
@@ -60,8 +65,11 @@ Cicerone <- R6::R6Class(
         nextBtnText = next_btn_text,
         prevBtnText = prev_btn_text,
         showButtons = show_btns,
-        keyboardControl = keyboard_control
+        keyboardControl = keyboard_control,
+        id = id
       )
+
+      private$id <- id
 
       invisible(self)
     },
@@ -117,7 +125,8 @@ Cicerone <- R6::R6Class(
       
       opts <- list(
         globals = private$globals,
-        steps = private$steps
+        steps = private$steps,
+        id = private$id
       )
 
       session$sendCustomMessage("cicerone-init", opts)
@@ -131,7 +140,7 @@ Cicerone <- R6::R6Class(
     reset = function(session = NULL){
       if(is.null(session))
         session <- shiny::getDefaultReactiveDomain()
-      session$sendCustomMessage("cicerone-reset", list())
+      session$sendCustomMessage("cicerone-reset", list(id = private$id))
       invisible(self)
     },
 #' @details
@@ -146,7 +155,7 @@ Cicerone <- R6::R6Class(
         session <- shiny::getDefaultReactiveDomain()
       
       step <- step - 1
-      session$sendCustomMessage("cicerone-start", list(step = step))
+      session$sendCustomMessage("cicerone-start", list(step = step, id = private$id))
       invisible(self)
     },
 #' @details
@@ -157,7 +166,7 @@ Cicerone <- R6::R6Class(
     move_forward = function(session = NULL){
       if(is.null(session))
         session <- shiny::getDefaultReactiveDomain()
-      session$sendCustomMessage("cicerone-next", list())
+      session$sendCustomMessage("cicerone-next", list(id = private$id))
       invisible(self)
     },
 #' @details
@@ -168,7 +177,7 @@ Cicerone <- R6::R6Class(
     move_backward = function(session = NULL){
       if(is.null(session))
         session <- shiny::getDefaultReactiveDomain()
-      session$sendCustomMessage("cicerone-previous", list())
+      session$sendCustomMessage("cicerone-previous", list(id = private$id))
       invisible(self)
     },
 #' @details
@@ -183,7 +192,7 @@ Cicerone <- R6::R6Class(
         session <- shiny::getDefaultReactiveDomain()
       
       el <- paste0("#", el)
-      session$sendCustomMessage("cicerone-highlight", list(el = el))
+      session$sendCustomMessage("cicerone-highlight", list(el = el, id = private$id))
       invisible(self)
     },
 #' @details
@@ -194,8 +203,9 @@ Cicerone <- R6::R6Class(
     get_highlighted_el = function(session = NULL){
       if(is.null(session))
         session <- shiny::getDefaultReactiveDomain()
-      session$sendCustomMessage("cicerone-get-highlighted", list(el = el))
-      id <- session$input[["cicerone_highlighted_element"]]
+      session$sendCustomMessage("cicerone-get-highlighted", list(el = el, id = private$id))
+      grab <- paste0(private$id, "_highlighted_element")
+      id <- session$input[[grab]]
       if(is.null(id))
         invisible(NULL)
 
@@ -209,8 +219,9 @@ Cicerone <- R6::R6Class(
     get_previous_el = function(session = NULL){
       if(is.null(session))
         session <- shiny::getDefaultReactiveDomain()
-      session$sendCustomMessage("cicerone-get-previous", list(el = el))
-      id <- session$input[["cicerone_previous_element"]]
+      session$sendCustomMessage("cicerone-get-previous", list(el = el, id = private$id))
+      grab <- paste0(private$id, "_previous_element")
+      id <- session$input[[grab]]
       if(is.null(id))
         invisible(NULL)
 
@@ -219,6 +230,7 @@ Cicerone <- R6::R6Class(
   ),
   private = list(
     steps = list(),
-    globals = list()
+    globals = list(),
+    id = NULL
   )
 )

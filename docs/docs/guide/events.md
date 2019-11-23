@@ -33,14 +33,17 @@ server <- function(input, output){
 shinyApp(ui, server)
 ```
 
-You can also fetch the previously highlighted element with `get_previous_el`. There are also the `input$cicerone_next` and `input$cicerone_previous` which are triggered every time the user presses "next" or "previous". 
+You can also fetch the previously highlighted element with `get_previous_el`. There are also the `input$ciceroneId_cicerone_next` and `input$ciceroneId_cicerone_previous` which are triggered every time the user presses "next" or "previous". Where `ciceroneId` is the id used when creating the guide. The id defaults to `NULL` and internally generates a random id; to capture those events you will have to supply the `id`.
 
 ```r
 library(shiny)
 library(cicerone)
 
 guide <- Cicerone$
-  new(opacity = .3)$
+  new(
+    opacity = .3, 
+    id = "guide" # supply id
+  )$
   step("one", "Try", "Try")$
   step("two", "Cicerone", "Cicerone")$
   step("three", "Right", "right")$
@@ -59,7 +62,7 @@ server <- function(input, output){
   guide$init()$start()
 
   output$highlighted <- renderPrint({
-    input$cicerone_next
+    input$guide_cicerone_next
   })
 }
 

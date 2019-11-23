@@ -3,6 +3,7 @@
 #' Initialise and highlight an element.
 #' 
 #' @param el Id of element to be highlighted.
+#' @param id Unique identifier of cicerone.
 #' @param title Title on the popover.
 #' @param description Body of the popover.
 #' @param position Where to position the popover. 
@@ -52,14 +53,15 @@
 #' 
 #' @name highlight
 #' @export
-highlight <- function(el, title = NULL, description = NULL, position = NULL, 
+highlight <- function(el, id, title = NULL, description = NULL, position = NULL, 
   class = NULL, show_btns = NULL, close_btn_text = NULL,
   next_btn_text = NULL, prev_btn_text = NULL, session = NULL) {
 
   if(is.null(session))
     session <- shiny::getDefaultReactiveDomain()
   
-  assertthat::assert_that(!missing(el))
+  assertthat::assert_that(!missing(el), msg = "Must pass `el`")
+  assertthat::assert_that(!missing(id), msg = "Must pass a unique `id`")
 
   el <- paste0("#", el)
 
@@ -75,6 +77,7 @@ highlight <- function(el, title = NULL, description = NULL, position = NULL,
   if(!is.null(prev_btn_text)) popover$prevBtnText <- prev_btn_text
 
   step = list(element = el)
+  step$id <- id
 
   if(length(popover))
     step$popover <- popover
@@ -86,10 +89,12 @@ highlight <- function(el, title = NULL, description = NULL, position = NULL,
 
 #' @rdname highlight
 #' @export
-initialise <- function(animate = TRUE, opacity = .75, padding = 10,
+initialise <- function(id, animate = TRUE, opacity = .75, padding = 10,
   allow_close = TRUE, overlay_click_next  = FALSE, done_btn_text = "Done",
   close_btn_text = "Close", stage_background = "#ffffff", next_btn_text = "Next",
   prev_btn_text = "Previous", show_btns = TRUE, keyboard_control = TRUE, session = NULL) {
+
+  assertthat::assert_that(!missing(id), msg = "Must pass a unique `id`")
 
   if(is.null(session))
     session <- shiny::getDefaultReactiveDomain()
@@ -106,7 +111,8 @@ initialise <- function(animate = TRUE, opacity = .75, padding = 10,
     nextBtnText = next_btn_text,
     prevBtnText = prev_btn_text,
     showButtons = show_btns,
-    keyboardControl = keyboard_control
+    keyboardControl = keyboard_control,
+    id = id
   )
 
   if(is.null(session))

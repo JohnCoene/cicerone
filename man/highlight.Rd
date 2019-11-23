@@ -7,6 +7,7 @@
 \usage{
 highlight(
   el,
+  id,
   title = NULL,
   description = NULL,
   position = NULL,
@@ -19,6 +20,7 @@ highlight(
 )
 
 initialise(
+  id,
   animate = TRUE,
   opacity = 0.75,
   padding = 10,
@@ -36,6 +38,8 @@ initialise(
 }
 \arguments{
 \item{el}{Id of element to be highlighted.}
+
+\item{id}{Unique identifier of cicerone.}
 
 \item{title}{Title on the popover.}
 
