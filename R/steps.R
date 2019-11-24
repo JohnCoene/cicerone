@@ -226,6 +226,22 @@ Cicerone <- R6::R6Class(
         invisible(NULL)
 
       gsub("#", "", id)
+    },
+#' @details
+#' Retrieve whether there is a next step.
+#' 
+#' @param session A valid Shiny session if \code{NULL} the function
+#' attempts to get the session with \link[shiny]{getDefaultReactiveDomain}.
+    has_next_step = function(session = NULL){
+      if(is.null(session))
+        session <- shiny::getDefaultReactiveDomain()
+      session$sendCustomMessage("cicerone-has-next", list(el = el, id = private$id))
+      grab <- paste0(private$id, "_has_next_step_man")
+      id <- session$input[[grab]]
+      if(is.null(id))
+        invisible(NULL)
+
+      gsub("#", "", id)
     }
   ),
   private = list(

@@ -36,6 +36,7 @@ Define cicerone steps.
 \item \href{#method-highlight}{\code{Cicerone$highlight()}}
 \item \href{#method-get_highlighted_el}{\code{Cicerone$get_highlighted_el()}}
 \item \href{#method-get_previous_el}{\code{Cicerone$get_previous_el()}}
+\item \href{#method-has_next_step}{\code{Cicerone$has_next_step()}}
 \item \href{#method-clone}{\code{Cicerone$clone()}}
 }
 }
@@ -314,6 +315,26 @@ attempts to get the session with \link[shiny]{getDefaultReactiveDomain}.}
 }
 \subsection{Details}{
 Retrieve the id of the previously highlighted element.
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-has_next_step"></a>}}
+\subsection{Method \code{has_next_step()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Cicerone$has_next_step(session = NULL)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{session}}{A valid Shiny session if \code{NULL} the function
+attempts to get the session with \link[shiny]{getDefaultReactiveDomain}.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Retrieve whether there is a next step.
 }
 
 }
