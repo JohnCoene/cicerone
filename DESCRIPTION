@@ -1,6 +1,7 @@
 Package: cicerone
 Title: Provide Tours of 'Shiny' Applications
-Version: 1.0.0.9000
+Version: 1.0.1
+Date: 2020-01-19
 Authors@R: 
     person(given = "John",
            family = "Coene",
@@ -15,4 +16,4 @@ Imports:
     R6,
     shiny,
     assertthat
-RoxygenNote: 7.0.0
+RoxygenNote: 7.0.2
