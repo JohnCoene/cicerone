@@ -4,7 +4,7 @@
 
 [![Travis build status](https://travis-ci.org/JohnCoene/cicerone.svg?branch=master)](https://travis-ci.org/JohnCoene/cicerone)
 
-A convenient API to create guided tours of Shiny applications using [driver.js](https://kamranahmed.info/driver.js/).
+A convenient API to create guided tours of Shiny applications using [driver.js](https://kamranahmed.info/driver.js/), visit the [website](https://cicerone.john-coene.com/) for more details.
 
 ## Installation
 
