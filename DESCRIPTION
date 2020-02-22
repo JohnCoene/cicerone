@@ -1,14 +1,14 @@
 Package: cicerone
 Title: Provide Tours of 'Shiny' Applications
 Version: 1.0.1
-Date: 2020-01-19
+Date: 2020-02-20
 Authors@R: 
     person(given = "John",
            family = "Coene",
            role = c("aut", "cre"),
            email = "jcoenep@gmail.com",
            comment = c(ORCID = "0000-0002-6637-4107"))
-Description: Provide tours of 'Shiny' applications.
+Description: Provide step by step guided tours of 'Shiny' applications.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -17,3 +17,5 @@ Imports:
     shiny,
     assertthat
 RoxygenNote: 7.0.2
+URL: https://cicerone.john-coene.com/
+BugReports: https://github.com/JohnCoene/cicerone/issues
