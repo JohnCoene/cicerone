@@ -1,4 +1,4 @@
-<img src="./man/figures/logo.png" align = "right" height=200/>
+<img src="./man/figures/logo.png" align = "right" height=250/>
 
 # cicerone 
 
