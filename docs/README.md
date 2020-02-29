@@ -17,17 +17,15 @@ There are already R packages that let you create a guide to your Shiny applicati
 
 ## Installation
 
-You can install cicerone from Github with using either `remotes` or `devtools`.
+You can install the stable version from CRAN with:
 
-```r
+``` r
+install.packages("cicerone")
+```
+
+You can install the development version from Github with:
+
+``` r
 # install.packages("remotes")
 remotes::install_github("JohnCoene/cicerone")
 ```
-
-Once installed load the library to confirm it has been installed correctly.
-
-```r
-library(cicerone)
-```
-
-If all worked fine you are good to go.

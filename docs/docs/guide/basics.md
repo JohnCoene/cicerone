@@ -1,4 +1,4 @@
-# Advanced
+# Basic Usage
 
 This documents a somewhat more advanced usage of cicerone. Below we build another application, we add a button that will allow users to restart the guide (we'll handle the server part later).
 

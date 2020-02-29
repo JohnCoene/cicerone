@@ -6,15 +6,6 @@
 
 A convenient API to create guided tours of Shiny applications using [driver.js](https://kamranahmed.info/driver.js/), visit the [website](https://cicerone.john-coene.com/) for more details.
 
-## Installation
-
-You can install {cicerone} from Github with:
-
-``` r
-# install.packages("remotes")
-remotes::install_github("JohnCoene/cicerone")
-```
-
 ## Usage
 
 Let's create a very basic Shiny app to demonstrate: it takes a text input and on hitting a button simply prints it.
@@ -88,3 +79,19 @@ shinyApp(ui, server)
 ![](./man/figures/demo.gif)
 
 All options are detailed in the documentation of the object: `?Cicerone`. See the [post](https://blog.john-coene.com/posts/2019-11-20-cicerone/) for more information and some rambling on the logo and package name.
+
+## Installation
+
+You can install the stable version from CRAN with:
+
+``` r
+install.packages("cicerone")
+```
+
+You can install the development version from Github with:
+
+``` r
+# install.packages("remotes")
+remotes::install_github("JohnCoene/cicerone")
+```
+
