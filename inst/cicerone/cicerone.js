@@ -1,15 +1,14 @@
 var driver = [],
     highlighted,
-    previous;
+    previous,
+    has_next;
 
 function on_next(id){
 
   return function(){
     highlighted = driver[id].getHighlightedElement();
     previous = driver[id].getLastHighlightedElement();
-
-    var has_next = driver[id].hasNextStep();
-    Shiny.onInputChange(id + "_has_next_step", has_next);
+    has_next = driver[id].hasNextStep();
   
     try{
       highlighted = highlighted.options.element.substr(1);
@@ -26,6 +25,8 @@ function on_next(id){
     }
   
     var data = {
+      highlighted: highlighted,
+      has_next: has_next,
       previous: highlighted,
       before_previous: previous
     }
@@ -39,6 +40,7 @@ function on_previous(id){
   return function(){
     highlighted = driver[id].getHighlightedElement();
     previous = driver[id].getLastHighlightedElement();
+    has_next = driver[id].hasNextStep();
   
     try{
       highlighted = highlighted.options.element.substr(1);
@@ -55,11 +57,13 @@ function on_previous(id){
     }
   
     var data = {
+      highlighted: highlighted,
+      has_next: has_next,
       previous: highlighted,
       before_previous: previous
     }
 
-    Shiny.onInputChange(id + "cicerone_previous", data);
+    Shiny.onInputChange(id + "_cicerone_previous", data);
   }
 }
 
@@ -95,21 +99,6 @@ Shiny.addCustomMessageHandler('cicerone-previous', function(opts) {
 
 Shiny.addCustomMessageHandler('cicerone-highlight-man', function(opts) {
   driver[opts.id].highlight(opts);
-});
-
-Shiny.addCustomMessageHandler('cicerone-get-highlighted', function(opts) {
-  highlighted = driver[opts.id].getHighlightedElement();
-  Shiny.onInputChange(opts.id + "_highlighted_element", highlighted.options.element, {priority: 'event'});
-});
-
-Shiny.addCustomMessageHandler('cicerone-get-previous', function(opts) {
-  highlighted = driver[opts.id].getLastHighlightedElement();
-  Shiny.onInputChange(opts.id + "_previous_element", highlighted.options.element, {priority: 'event'});
-});
-
-Shiny.addCustomMessageHandler('cicerone-has-next', function(opts) {
-  highlighted = driver[opts.id].hasNextStep();
-  Shiny.onInputChange(opts.id + "_has_next_step_man", highlighted.options.element, {priority: 'event'});
 });
 
 Shiny.addCustomMessageHandler('cicerone-highlight', function(opts) {

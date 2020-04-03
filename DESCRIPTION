@@ -1,6 +1,6 @@
 Package: cicerone
 Title: Provide Tours of 'Shiny' Applications
-Version: 1.0.1
+Version: 1.0.2
 Date: 2020-02-20
 Authors@R: 
     person(given = "John",

@@ -201,6 +201,7 @@ Cicerone <- R6::R6Class(
 #' @param session A valid Shiny session if \code{NULL} the function
 #' attempts to get the session with \link[shiny]{getDefaultReactiveDomain}.
     get_highlighted_el = function(session = NULL){
+      .Deprecated("get_next", package = "cicerone", "Use the `get_next` or `get_previous`")
       if(is.null(session))
         session <- shiny::getDefaultReactiveDomain()
       session$sendCustomMessage("cicerone-get-highlighted", list(el = el, id = private$id))
@@ -217,6 +218,7 @@ Cicerone <- R6::R6Class(
 #' @param session A valid Shiny session if \code{NULL} the function
 #' attempts to get the session with \link[shiny]{getDefaultReactiveDomain}.
     get_previous_el = function(session = NULL){
+      .Deprecated("get_next", package = "cicerone", "Use the `get_next` or `get_previous`")
       if(is.null(session))
         session <- shiny::getDefaultReactiveDomain()
       session$sendCustomMessage("cicerone-get-previous", list(el = el, id = private$id))
@@ -233,6 +235,7 @@ Cicerone <- R6::R6Class(
 #' @param session A valid Shiny session if \code{NULL} the function
 #' attempts to get the session with \link[shiny]{getDefaultReactiveDomain}.
     has_next_step = function(session = NULL){
+      .Deprecated("get_next", package = "cicerone", "Use the `get_next` or `get_previous`")
       if(is.null(session))
         session <- shiny::getDefaultReactiveDomain()
       session$sendCustomMessage("cicerone-has-next", list(el = el, id = private$id))
@@ -242,6 +245,28 @@ Cicerone <- R6::R6Class(
         invisible(NULL)
 
       gsub("#", "", id)
+    },
+#' @details Retrieve data that was fired when the user hit the "next" button.
+#' 
+#' @param session A valid Shiny session if \code{NULL} the function
+#' attempts to get the session with \link[shiny]{getDefaultReactiveDomain}.
+    get_next = function(session = NULL){
+      if(is.null(session))
+        session <- shiny::getDefaultReactiveDomain()
+      
+      grab <- paste0(private$id, "_cicerone_next")
+      session$input[[grab]]
+    },
+#' @details Retrieve data that was fired when the user hit the "previous" button.
+#' 
+#' @param session A valid Shiny session if \code{NULL} the function
+#' attempts to get the session with \link[shiny]{getDefaultReactiveDomain}.
+    get_previous = function(session = NULL){
+      if(is.null(session))
+        session <- shiny::getDefaultReactiveDomain()
+
+      grab <- paste0(private$id, "_cicerone_previous")
+      session$input[[grab]]
     }
   ),
   private = list(
