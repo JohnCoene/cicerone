@@ -77,6 +77,17 @@ Shiny.addCustomMessageHandler('cicerone-init', function(opts) {
 
   driver[id] = new Driver(opts.globals);
 
+  opts.steps.forEach((step, index) => {
+    if(opts.steps[index].tab_id){
+      opts.steps[index].onHighlightStarted = function(element){
+        var tabs = $('#' + step.tab_id);
+        Shiny.inputBindings.bindingNames['shiny.bootstrapTabInput'].binding.setValue(tabs, step.tab);
+      };
+    }
+  });
+
+  console.log(opts.steps);
+
   if(opts.steps)
     driver[id].defineSteps(opts.steps);
 });

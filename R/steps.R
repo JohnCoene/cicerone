@@ -88,11 +88,15 @@ Cicerone <- R6::R6Class(
 #' @param close_btn_text Text on the close button.
 #' @param next_btn_text Next button text.
 #' @param prev_btn_text Previous button text.
+#' @param tab_id The id of the tabs to activate in order to highlight \code{tab_id}.
+#' @param tab The name of the tab to set.
     step = function(el, title = NULL, description = NULL, position = NULL, 
       class = NULL, show_btns = NULL, close_btn_text = NULL,
-      next_btn_text = NULL, prev_btn_text = NULL) {
+      next_btn_text = NULL, prev_btn_text = NULL, tab = NULL, tab_id = NULL) {
 
       assertthat::assert_that(!missing(el), msg = "Must pass `el`.")
+
+      assertthat::assert_that(tabs_ok(tab, tab_id))
 
       el <- paste0("#", el)
 
@@ -107,7 +111,7 @@ Cicerone <- R6::R6Class(
       if(!is.null(next_btn_text)) popover$nextBtnText <- next_btn_text
       if(!is.null(prev_btn_text)) popover$prevBtnText <- prev_btn_text
 
-      step = list(element = el)
+      step = list(element = el, tab_id = tab_id, tab = tab)
 
       if(length(popover)) step$popover <- popover
 

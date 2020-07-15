@@ -16,6 +16,6 @@ Imports:
     R6,
     shiny,
     assertthat
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.1.9000
 URL: https://cicerone.john-coene.com/
 BugReports: https://github.com/JohnCoene/cicerone/issues
