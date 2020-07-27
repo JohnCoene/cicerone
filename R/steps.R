@@ -90,15 +90,18 @@ Cicerone <- R6::R6Class(
 #' @param prev_btn_text Previous button text.
 #' @param tab_id The id of the tabs to activate in order to highlight \code{tab_id}.
 #' @param tab The name of the tab to set.
+#' @param is_id Whether the selector passed to \code{el} is an HTML id, set to \code{FALSE} to use
+#' other selectors, e.g.: \code{.class}.
     step = function(el, title = NULL, description = NULL, position = NULL, 
       class = NULL, show_btns = NULL, close_btn_text = NULL,
-      next_btn_text = NULL, prev_btn_text = NULL, tab = NULL, tab_id = NULL) {
+      next_btn_text = NULL, prev_btn_text = NULL, tab = NULL, tab_id = NULL, is_id = TRUE) {
 
       assertthat::assert_that(!missing(el), msg = "Must pass `el`.")
 
       assertthat::assert_that(tabs_ok(tab, tab_id))
 
-      el <- paste0("#", el)
+      if(is_id)
+        el <- paste0("#", el)
 
       popover <- list()
 
@@ -190,12 +193,15 @@ Cicerone <- R6::R6Class(
 #' @param el Id of element to highlight
 #' @param session A valid Shiny session if \code{NULL} the function
 #' attempts to get the session with \link[shiny]{getDefaultReactiveDomain}.
-    highlight = function(el, session = NULL){
+#' @param is_id Whether the selector passed to \code{el} is an HTML id, set to \code{FALSE} to use
+#' other selectors, e.g.: \code{.class}.
+    highlight = function(el, session = NULL, is_id = TRUE){
       assertthat::assert_that(!missing(el), msg = "Must pass `el`.")
       if(is.null(session))
         session <- shiny::getDefaultReactiveDomain()
       
-      el <- paste0("#", el)
+      if(is_id)
+        el <- paste0("#", el)
       session$sendCustomMessage("cicerone-highlight", list(el = el, id = private$id))
       invisible(self)
     },

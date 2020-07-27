@@ -125,7 +125,8 @@ A Cicerone object.
   next_btn_text = NULL,
   prev_btn_text = NULL,
   tab = NULL,
-  tab_id = NULL
+  tab_id = NULL,
+  is_id = TRUE
 )}\if{html}{\out{</div>}}
 }
 
@@ -156,6 +157,9 @@ options.}
 \item{\code{tab}}{The name of the tab to set.}
 
 \item{\code{tab_id}}{The id of the tabs to activate in order to highlight \code{tab_id}.}
+
+\item{\code{is_id}}{Whether the selector passed to \code{el} is an HTML id, set to \code{FALSE} to use
+other selectors, e.g.: \code{.class}.}
 }
 \if{html}{\out{</div>}}
 }
@@ -276,7 +280,7 @@ Move Cicerone one step backward.
 \if{latex}{\out{\hypertarget{method-highlight}{}}}
 \subsection{Method \code{highlight()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Cicerone$highlight(el, session = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Cicerone$highlight(el, session = NULL, is_id = TRUE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -286,6 +290,9 @@ Move Cicerone one step backward.
 
 \item{\code{session}}{A valid Shiny session if \code{NULL} the function
 attempts to get the session with \link[shiny]{getDefaultReactiveDomain}.}
+
+\item{\code{is_id}}{Whether the selector passed to \code{el} is an HTML id, set to \code{FALSE} to use
+other selectors, e.g.: \code{.class}.}
 }
 \if{html}{\out{</div>}}
 }
