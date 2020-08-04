@@ -45,11 +45,11 @@ initialise(
 
 \item{description}{Body of the popover.}
 
-\item{position}{Where to position the popover. 
+\item{position}{Where to position the popover.
 See positions section.}
 
-\item{class}{className to wrap this specific step 
-popover in addition to the general className in Driver 
+\item{class}{className to wrap this specific step
+popover in addition to the general className in Driver
 options.}
 
 \item{show_btns}{Do not show control buttons in footer.}
@@ -60,29 +60,29 @@ options.}
 
 \item{prev_btn_text}{Previous button text for this step.}
 
-\item{session}{A valid Shiny session if \code{NULL} 
-the function attempts to get the session with 
-\link[shiny]{getDefaultReactiveDomain}.}
+\item{session}{A valid Shiny session if \code{NULL}
+the function attempts to get the session with
+\code{\link[shiny:domains]{shiny::getDefaultReactiveDomain()}}.}
 
 \item{animate}{Whether to animate or not.}
 
-\item{opacity}{Background opacity (0 means only popovers 
+\item{opacity}{Background opacity (0 means only popovers
 and without overlay).}
 
 \item{padding}{Distance of element from around the edges.}
 
-\item{allow_close}{Whether the click on overlay should close 
+\item{allow_close}{Whether the click on overlay should close
 or not.}
 
-\item{overlay_click_next}{Whether the click on overlay should 
+\item{overlay_click_next}{Whether the click on overlay should
 move next.}
 
 \item{done_btn_text}{Text on the final button.}
 
-\item{stage_background}{Background color for the staged behind 
+\item{stage_background}{Background color for the staged behind
 highlighted element.}
 
-\item{keyboard_control}{Allow controlling through keyboard (escape 
+\item{keyboard_control}{Allow controlling through keyboard (escape
 to close, arrow keys to move).}
 }
 \description{
@@ -90,18 +90,20 @@ Initialise and highlight an element.
 }
 \section{Position}{
 
-* left
-* right
-* left-center
-* left-bottom
-* top
-* top-center
-* top-right
-* right
-* right-center
-* right-bottom
-* bottom
-* bottom-center
-* mid-center
+\itemize{
+\item left
+\item right
+\item left-center
+\item left-bottom
+\item top
+\item top-center
+\item top-right
+\item right
+\item right-center
+\item right-bottom
+\item bottom
+\item bottom-center
+\item mid-center
+}
 }
 

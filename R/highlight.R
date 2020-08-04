@@ -32,9 +32,9 @@
 #' @param show_btns Do not show control buttons in footer.
 #' @param keyboard_control Allow controlling through keyboard (escape 
 #' to close, arrow keys to move).
-#' @param session A valid Shiny session if \code{NULL} 
+#' @param session A valid Shiny session if `NULL` 
 #' the function attempts to get the session with 
-#' \link[shiny]{getDefaultReactiveDomain}.
+#' [shiny::getDefaultReactiveDomain()].
 #' 
 #' @section Position:
 #' * left

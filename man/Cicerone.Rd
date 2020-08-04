@@ -8,19 +8,21 @@ Define cicerone steps.
 }
 \section{Position}{
 
-* left
-* right
-* left-center
-* left-bottom
-* top
-* top-center
-* top-right
-* right
-* right-center
-* right-bottom
-* bottom
-* bottom-center
-* mid-center
+\itemize{
+\item left
+\item right
+\item left-center
+\item left-bottom
+\item top
+\item top-center
+\item top-right
+\item right
+\item right-center
+\item right-bottom
+\item bottom
+\item bottom-center
+\item mid-center
+}
 }
 
 \section{Methods}{
@@ -69,22 +71,22 @@ Define cicerone steps.
 \describe{
 \item{\code{animate}}{Whether to animate or not.}
 
-\item{\code{opacity}}{Background opacity (0 means only popovers 
+\item{\code{opacity}}{Background opacity (0 means only popovers
 and without overlay).}
 
 \item{\code{padding}}{Distance of element from around the edges.}
 
-\item{\code{allow_close}}{Whether the click on overlay should close 
+\item{\code{allow_close}}{Whether the click on overlay should close
 or not.}
 
-\item{\code{overlay_click_next}}{Whether the click on overlay should 
+\item{\code{overlay_click_next}}{Whether the click on overlay should
 move next.}
 
 \item{\code{done_btn_text}}{Text on the final button.}
 
 \item{\code{close_btn_text}}{Text on the close button for this step.}
 
-\item{\code{stage_background}}{Background color for the staged behind 
+\item{\code{stage_background}}{Background color for the staged behind
 highlighted element.}
 
 \item{\code{next_btn_text}}{Next button text for this step.}
@@ -93,7 +95,7 @@ highlighted element.}
 
 \item{\code{show_btns}}{Do not show control buttons in footer.}
 
-\item{\code{keyboard_control}}{Allow controlling through keyboard (escape 
+\item{\code{keyboard_control}}{Allow controlling through keyboard (escape
 to close, arrow keys to move).}
 
 \item{\code{id}}{A unique identifier, useful if you are using more than one
@@ -102,7 +104,7 @@ cicerone.}
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Create a new `Cicerone` object.
+Create a new \code{Cicerone} object.
 }
 
 \subsection{Returns}{
@@ -139,11 +141,11 @@ A Cicerone object.
 
 \item{\code{description}}{Body of the popover.}
 
-\item{\code{position}}{Where to position the popover. 
+\item{\code{position}}{Where to position the popover.
 See positions section.}
 
-\item{\code{class}}{className to wrap this specific step 
-popover in addition to the general className in Driver 
+\item{\code{class}}{className to wrap this specific step
+popover in addition to the general className in Driver
 options.}
 
 \item{\code{show_btns}}{Whether to show control buttons.}
@@ -180,7 +182,7 @@ Add a step.
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{session}}{A valid Shiny session if \code{NULL} the function
-attempts to get the session with \link[shiny]{getDefaultReactiveDomain}.}
+attempts to get the session with \code{\link[shiny:domains]{shiny::getDefaultReactiveDomain()}}.}
 }
 \if{html}{\out{</div>}}
 }
@@ -201,7 +203,7 @@ Initialise Cicerone.
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{session}}{A valid Shiny session if \code{NULL} the function
-attempts to get the session with \link[shiny]{getDefaultReactiveDomain}.}
+attempts to get the session with \code{\link[shiny:domains]{shiny::getDefaultReactiveDomain()}}.}
 }
 \if{html}{\out{</div>}}
 }
@@ -224,7 +226,7 @@ Reset Cicerone.
 \item{\code{step}}{The step index at which to start.}
 
 \item{\code{session}}{A valid Shiny session if \code{NULL} the function
-attempts to get the session with \link[shiny]{getDefaultReactiveDomain}.}
+attempts to get the session with \code{\link[shiny:domains]{shiny::getDefaultReactiveDomain()}}.}
 }
 \if{html}{\out{</div>}}
 }
@@ -245,7 +247,7 @@ Start Cicerone.
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{session}}{A valid Shiny session if \code{NULL} the function
-attempts to get the session with \link[shiny]{getDefaultReactiveDomain}.}
+attempts to get the session with \code{\link[shiny:domains]{shiny::getDefaultReactiveDomain()}}.}
 }
 \if{html}{\out{</div>}}
 }
@@ -266,7 +268,7 @@ Move Cicerone one step.
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{session}}{A valid Shiny session if \code{NULL} the function
-attempts to get the session with \link[shiny]{getDefaultReactiveDomain}.}
+attempts to get the session with \code{\link[shiny:domains]{shiny::getDefaultReactiveDomain()}}.}
 }
 \if{html}{\out{</div>}}
 }
@@ -289,7 +291,7 @@ Move Cicerone one step backward.
 \item{\code{el}}{Id of element to highlight}
 
 \item{\code{session}}{A valid Shiny session if \code{NULL} the function
-attempts to get the session with \link[shiny]{getDefaultReactiveDomain}.}
+attempts to get the session with \code{\link[shiny:domains]{shiny::getDefaultReactiveDomain()}}.}
 
 \item{\code{is_id}}{Whether the selector passed to \code{el} is an HTML id, set to \code{FALSE} to use
 other selectors, e.g.: \code{.class}.}
@@ -313,7 +315,7 @@ Highlight a specific step.
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{session}}{A valid Shiny session if \code{NULL} the function
-attempts to get the session with \link[shiny]{getDefaultReactiveDomain}.}
+attempts to get the session with \code{\link[shiny:domains]{shiny::getDefaultReactiveDomain()}}.}
 }
 \if{html}{\out{</div>}}
 }
@@ -334,7 +336,7 @@ Retrieve the id of the currently highlighted element.
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{session}}{A valid Shiny session if \code{NULL} the function
-attempts to get the session with \link[shiny]{getDefaultReactiveDomain}.}
+attempts to get the session with \code{\link[shiny:domains]{shiny::getDefaultReactiveDomain()}}.}
 }
 \if{html}{\out{</div>}}
 }
@@ -355,7 +357,7 @@ Retrieve the id of the previously highlighted element.
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{session}}{A valid Shiny session if \code{NULL} the function
-attempts to get the session with \link[shiny]{getDefaultReactiveDomain}.}
+attempts to get the session with \code{\link[shiny:domains]{shiny::getDefaultReactiveDomain()}}.}
 }
 \if{html}{\out{</div>}}
 }
@@ -376,7 +378,7 @@ Retrieve whether there is a next step.
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{session}}{A valid Shiny session if \code{NULL} the function
-attempts to get the session with \link[shiny]{getDefaultReactiveDomain}.}
+attempts to get the session with \code{\link[shiny:domains]{shiny::getDefaultReactiveDomain()}}.}
 }
 \if{html}{\out{</div>}}
 }
@@ -397,7 +399,7 @@ Retrieve data that was fired when the user hit the "next" button.
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{session}}{A valid Shiny session if \code{NULL} the function
-attempts to get the session with \link[shiny]{getDefaultReactiveDomain}.}
+attempts to get the session with \code{\link[shiny:domains]{shiny::getDefaultReactiveDomain()}}.}
 }
 \if{html}{\out{</div>}}
 }
