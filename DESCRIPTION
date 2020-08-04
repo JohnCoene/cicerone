@@ -1,7 +1,7 @@
 Package: cicerone
 Title: Provide Tours of 'Shiny' Applications
 Version: 1.0.3
-Date: 2020-02-20
+Date: 2020-08-03
 Authors@R: 
     person(given = "John",
            family = "Coene",
@@ -17,5 +17,6 @@ Imports:
     shiny,
     assertthat
 RoxygenNote: 7.1.1.9000
+Roxygen: list(markdown = TRUE)
 URL: https://cicerone.john-coene.com/
 BugReports: https://github.com/JohnCoene/cicerone/issues
