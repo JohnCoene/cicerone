@@ -41,7 +41,7 @@ ui <- navbarPage(
   ),
   tabPanel(
     "tab",
-    h1("First tab", id = "tab_primary"),
+    h1("Second tab", id = "tab_primary"),
     textInput("tab_secondary", "Text")
   )
 )
@@ -50,12 +50,13 @@ server <- function(input, output, session){
 
   home_guide$init()$start()
 
-  observeEvent(input$homeGuide_has_next_step, {
-    next_step <- input$homeGuide_has_next_step
+  observeEvent(input$homeGuide_cicerone_next, {
+    next_step <- input$homeGuide_cicerone_next$has_next
+    
     if(is.null(next_step)) next_step <- TRUE
 
     if(!next_step){
-      updateTabsetPanel(session, "nav", "tab")
+      updateNavbarPage(session, "nav", "tab")
       tab_guide$init()$start()
     }
   })
