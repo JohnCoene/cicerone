@@ -64,16 +64,17 @@
             "slug": "examplesglouton"
           },
           {
-            "title": "Navbar",
-            "source": "docs/examples/navbar.md",
-            "url": "examples/navbar.html",
-            "slug": "examplesnavbar"
-          },
-          {
-            "title": "Tabs",
+            "title": "Tabs & Navbar",
             "source": "docs/examples/tabs.md",
             "url": "examples/tabs.html",
-            "slug": "examplestabs"
+            "slug": "examplestabs",
+            "headings": [
+              {
+                "title": "Navbar",
+                "depth": 2,
+                "id": "navbar"
+              }
+            ]
           }
         ]
       }
@@ -134,17 +135,18 @@
       "pageTitle": "Glouton",
       "slug": "examplesglouton"
     },
-    "examples/navbar.html": {
-      "source": "docs/examples/navbar.md",
-      "title": "Navbar - cicerone",
-      "pageTitle": "Navbar",
-      "slug": "examplesnavbar"
-    },
     "examples/tabs.html": {
       "source": "docs/examples/tabs.md",
-      "title": "Tabs - cicerone",
-      "pageTitle": "Tabs",
-      "slug": "examplestabs"
+      "title": "Tabs & Navbar - cicerone",
+      "pageTitle": "Tabs & Navbar",
+      "slug": "examplestabs",
+      "headings": [
+        {
+          "title": "Navbar",
+          "depth": 2,
+          "id": "navbar"
+        }
+      ]
     }
   },
   "sources": {
@@ -155,7 +157,6 @@
     "docs/guide/highlight.md": "guide/highlight.html",
     "docs/guide/events.md": "guide/events.html",
     "docs/examples/glouton.md": "examples/glouton.html",
-    "docs/examples/navbar.md": "examples/navbar.html",
     "docs/examples/tabs.md": "examples/tabs.html",
     "docs/favicon.ico": "favicon.ico",
     "docs/css/style.css": "css/style.css",

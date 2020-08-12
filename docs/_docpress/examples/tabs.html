@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="../assets/style.css?t=90051322">
     <link rel="stylesheet" href="../css/style.css?t=915666c1">
     <script src="../assets/script.js?t=93f1a66c"></script>
-    <title>Tabs - cicerone</title>
+    <title>Tabs &amp; Navbar - cicerone</title>
     <meta name="viewport" content="width=device-width">
   </head>
   <body class="-menu-visible">
@@ -35,9 +35,11 @@
                 <ul class="submenu">
                   <li class="menu-item -level-2"><a class="link title  link-examplesglouton" href="../examples/glouton.html">Glouton</a>
                   </li>
-                  <li class="menu-item -level-2"><a class="link title  link-examplesnavbar" href="../examples/navbar.html">Navbar</a>
-                  </li>
-                  <li class="menu-item -level-2"><a class="link title -active link-examplestabs" href="../examples/tabs.html">Tabs</a>
+                  <li class="menu-item -level-2"><a class="link title -active link-examplestabs" href="../examples/tabs.html">Tabs &amp; Navbar</a>
+                    <ul class="headings heading-list">
+                      <li class="heading-item -depth-2"><a class="hlink link-navbar" href="#navbar">Navbar</a>
+                      </li>
+                    </ul>
                   </li>
                 </ul>
               </li>
@@ -91,10 +93,64 @@ server &lt;- <span class="pl-k">function</span>(input, output){
 
 shinyApp(ui, server)
 </code></pre>
+<h2 id="navbar">Navbar</h2>
+<p>Same for the navbar.</p>
+<pre><code class="lang-r"><span class="pl-k">library</span>(shiny)
+<span class="pl-k">library</span>(cicerone)
+
+home_guide &lt;- Cicerone$
+  new(id = <span class="pl-s">&quot;homeGuide&quot;</span>)$
+  step(
+    <span class="pl-s">&quot;home_primary&quot;</span>,
+    <span class="pl-s">&quot;Hello&quot;</span>,
+    <span class="pl-s">&quot;Hello from tab 1&quot;</span>
+  )$
+  step(
+    <span class="pl-s">&quot;home_secondary&quot;</span>,
+    <span class="pl-s">&quot;Text&quot;</span>,
+    <span class="pl-s">&quot;This is an input&quot;</span>
+  )$
+  step(
+    <span class="pl-s">&quot;tab_primary&quot;</span>,
+    <span class="pl-s">&quot;Hello&quot;</span>,
+    <span class="pl-s">&quot;Hello from tab 2&quot;</span>,
+    tab = <span class="pl-s">&quot;tab&quot;</span>,
+    tab_id = <span class="pl-s">&quot;nav&quot;</span>
+  )$
+  step(
+    <span class="pl-s">&quot;tab_secondary&quot;</span>,
+    <span class="pl-s">&quot;Text&quot;</span>,
+    <span class="pl-s">&quot;This is an input&quot;</span>
+  )
+
+ui &lt;- navbarPage(
+  <span class="pl-s">&quot;cicerone&quot;</span>,
+  header = list(use_cicerone()),
+  id = <span class="pl-s">&quot;nav&quot;</span>,
+  tabPanel(
+    <span class="pl-s">&quot;home&quot;</span>,
+    h1(<span class="pl-s">&quot;First tab&quot;</span>, id = <span class="pl-s">&quot;home_primary&quot;</span>),
+    textInput(<span class="pl-s">&quot;home_secondary&quot;</span>, <span class="pl-s">&quot;Text&quot;</span>)
+  ),
+  tabPanel(
+    <span class="pl-s">&quot;tab&quot;</span>,
+    h1(<span class="pl-s">&quot;Second tab&quot;</span>, id = <span class="pl-s">&quot;tab_primary&quot;</span>),
+    textInput(<span class="pl-s">&quot;tab_secondary&quot;</span>, <span class="pl-s">&quot;Text&quot;</span>)
+  )
+)
+
+server &lt;- <span class="pl-k">function</span>(input, output, session){
+
+  home_guide$init()$start()
+
+}
+
+shinyApp(ui, server)
+</code></pre>
 
         </div>
         <div class="footer-nav">
-          <div class="left"><a href="../examples/navbar.html"><span class="title">Navbar</span></a></div>
+          <div class="left"><a href="../examples/glouton.html"><span class="title">Glouton</span></a></div>
         </div>
       </div>
     </div>

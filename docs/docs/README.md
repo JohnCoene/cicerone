@@ -10,5 +10,4 @@ Documentation
   * [Events](guide/events.md)
 * Examples
   * [Glouton](examples/glouton.md)
-  * [Navbar](examples/navbar.md)
-  * [Tabs](examples/tabs.md)
+  * [Tabs & Navbar](examples/tabs.md)

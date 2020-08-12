@@ -41,3 +41,61 @@ server <- function(input, output){
 
 shinyApp(ui, server)
 ```
+
+## Navbar
+
+Same for the navbar.
+
+```r
+library(shiny)
+library(cicerone)
+
+home_guide <- Cicerone$
+  new(id = "homeGuide")$
+  step(
+    "home_primary",
+    "Hello",
+    "Hello from tab 1"
+  )$
+  step(
+    "home_secondary",
+    "Text",
+    "This is an input"
+  )$
+  step(
+    "tab_primary",
+    "Hello",
+    "Hello from tab 2",
+    tab = "tab",
+    tab_id = "nav"
+  )$
+  step(
+    "tab_secondary",
+    "Text",
+    "This is an input"
+  )
+
+ui <- navbarPage(
+  "cicerone",
+  header = list(use_cicerone()),
+  id = "nav",
+  tabPanel(
+    "home",
+    h1("First tab", id = "home_primary"),
+    textInput("home_secondary", "Text")
+  ),
+  tabPanel(
+    "tab",
+    h1("Second tab", id = "tab_primary"),
+    textInput("tab_secondary", "Text")
+  )
+)
+
+server <- function(input, output, session){
+
+  home_guide$init()$start()
+
+}
+
+shinyApp(ui, server)
+```
