@@ -44,7 +44,7 @@ shinyApp(ui, server)
 
 ## Navbar
 
-Same for the navbar.
+By setting `is_id` to `FALSE` you can use any selector other than CSS/HTML `#id`s.
 
 ```r
 library(shiny)
@@ -53,26 +53,16 @@ library(cicerone)
 home_guide <- Cicerone$
   new(id = "homeGuide")$
   step(
-    "home_primary",
+    "[data-value='home']",
     "Hello",
-    "Hello from tab 1"
+    "Hello from tab 1",
+    is_id = FALSE
   )$
   step(
-    "home_secondary",
+    "[data-value='tab']",
     "Text",
-    "This is an input"
-  )$
-  step(
-    "tab_primary",
-    "Hello",
-    "Hello from tab 2",
-    tab = "tab",
-    tab_id = "nav"
-  )$
-  step(
-    "tab_secondary",
-    "Text",
-    "This is an input"
+    "This is an input",
+    is_id = FALSE
   )
 
 ui <- navbarPage(

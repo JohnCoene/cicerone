@@ -94,33 +94,23 @@ server &lt;- <span class="pl-k">function</span>(input, output){
 shinyApp(ui, server)
 </code></pre>
 <h2 id="navbar">Navbar</h2>
-<p>Same for the navbar.</p>
+<p>By setting <code>is_id</code> to <code>FALSE</code> you can use any selector other than CSS/HTML <code>#id</code>s.</p>
 <pre><code class="lang-r"><span class="pl-k">library</span>(shiny)
 <span class="pl-k">library</span>(cicerone)
 
 home_guide &lt;- Cicerone$
   new(id = <span class="pl-s">&quot;homeGuide&quot;</span>)$
   step(
-    <span class="pl-s">&quot;home_primary&quot;</span>,
+    <span class="pl-s">&quot;[data-value=&apos;home&apos;]&quot;</span>,
     <span class="pl-s">&quot;Hello&quot;</span>,
-    <span class="pl-s">&quot;Hello from tab 1&quot;</span>
+    <span class="pl-s">&quot;Hello from tab 1&quot;</span>,
+    is_id = <span class="pl-c1">FALSE</span>
   )$
   step(
-    <span class="pl-s">&quot;home_secondary&quot;</span>,
+    <span class="pl-s">&quot;[data-value=&apos;tab&apos;]&quot;</span>,
     <span class="pl-s">&quot;Text&quot;</span>,
-    <span class="pl-s">&quot;This is an input&quot;</span>
-  )$
-  step(
-    <span class="pl-s">&quot;tab_primary&quot;</span>,
-    <span class="pl-s">&quot;Hello&quot;</span>,
-    <span class="pl-s">&quot;Hello from tab 2&quot;</span>,
-    tab = <span class="pl-s">&quot;tab&quot;</span>,
-    tab_id = <span class="pl-s">&quot;nav&quot;</span>
-  )$
-  step(
-    <span class="pl-s">&quot;tab_secondary&quot;</span>,
-    <span class="pl-s">&quot;Text&quot;</span>,
-    <span class="pl-s">&quot;This is an input&quot;</span>
+    <span class="pl-s">&quot;This is an input&quot;</span>,
+    is_id = <span class="pl-c1">FALSE</span>
   )
 
 ui &lt;- navbarPage(
