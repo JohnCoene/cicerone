@@ -51,40 +51,60 @@ library(shiny)
 library(cicerone)
 
 home_guide <- Cicerone$
-  new(id = "homeGuide")$
-  step(
-    "[data-value='home']",
-    "Hello",
-    "Hello from tab 1",
-    is_id = FALSE
-  )$
-  step(
-    "[data-value='tab']",
-    "Text",
-    "This is an input",
-    is_id = FALSE
-  )
+    new(id = "homeGuide")$
+    step(
+        "[data-value='home']",
+        "Select by data attribute",
+        "based on data-value",
+        is_id = FALSE
+    )$
+    step(
+        ".trythis1",
+        "Select by CSS class",
+        "select the trythis1 class",
+        is_id = FALSE
+    )$
+    step(
+        ".trythis2 p span",
+        "Combined selector with deep levels",
+        "select the span under p tag in a trythis2 class",
+        is_id = FALSE
+    )$
+    step(
+        ".trythis3 p",
+        "only the first one will work",
+        "Parallel element under the same DOM node level, only the first one will work",
+        is_id = FALSE
+    )
 
 ui <- navbarPage(
-  "cicerone",
-  header = list(use_cicerone()),
-  id = "nav",
-  tabPanel(
-    "home",
-    h1("First tab", id = "home_primary"),
-    textInput("home_secondary", "Text")
-  ),
-  tabPanel(
-    "tab",
-    h1("Second tab", id = "tab_primary"),
-    textInput("tab_secondary", "Text")
-  )
+    "cicerone",
+    header = list(use_cicerone()),
+    id = "nav",
+    tabPanel(
+        "home",
+        h2("Select class", class = "trythis1"),
+        div(class = "trythis2",
+            h2("Select in deep HTML levels"),
+            p("not this one"), 
+            p("under this one",
+              br(),
+              span("select this one")
+            )
+        ),
+        div(class = "trythis3",
+            h2("Selector mataches more than one element"),
+            p("parallel 1"),
+            p("parallel 2"),
+            p("parallel 3")
+        )
+    )
 )
 
 server <- function(input, output, session){
-
-  home_guide$init()$start()
-
+    
+    home_guide$init()$start()
+    
 }
 
 shinyApp(ui, server)
