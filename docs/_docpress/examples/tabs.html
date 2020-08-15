@@ -99,40 +99,60 @@ shinyApp(ui, server)
 <span class="pl-k">library</span>(cicerone)
 
 home_guide &lt;- Cicerone$
-  new(id = <span class="pl-s">&quot;homeGuide&quot;</span>)$
-  step(
-    <span class="pl-s">&quot;[data-value=&apos;home&apos;]&quot;</span>,
-    <span class="pl-s">&quot;Hello&quot;</span>,
-    <span class="pl-s">&quot;Hello from tab 1&quot;</span>,
-    is_id = <span class="pl-c1">FALSE</span>
-  )$
-  step(
-    <span class="pl-s">&quot;[data-value=&apos;tab&apos;]&quot;</span>,
-    <span class="pl-s">&quot;Text&quot;</span>,
-    <span class="pl-s">&quot;This is an input&quot;</span>,
-    is_id = <span class="pl-c1">FALSE</span>
-  )
+    new(id = <span class="pl-s">&quot;homeGuide&quot;</span>)$
+    step(
+        <span class="pl-s">&quot;[data-value=&apos;home&apos;]&quot;</span>,
+        <span class="pl-s">&quot;Select by data attribute&quot;</span>,
+        <span class="pl-s">&quot;based on data-value&quot;</span>,
+        is_id = <span class="pl-c1">FALSE</span>
+    )$
+    step(
+        <span class="pl-s">&quot;.trythis1&quot;</span>,
+        <span class="pl-s">&quot;Select by CSS class&quot;</span>,
+        <span class="pl-s">&quot;select the trythis1 class&quot;</span>,
+        is_id = <span class="pl-c1">FALSE</span>
+    )$
+    step(
+        <span class="pl-s">&quot;.trythis2 p span&quot;</span>,
+        <span class="pl-s">&quot;Combined selector with deep levels&quot;</span>,
+        <span class="pl-s">&quot;select the span under p tag in a trythis2 class&quot;</span>,
+        is_id = <span class="pl-c1">FALSE</span>
+    )$
+    step(
+        <span class="pl-s">&quot;.trythis3 p&quot;</span>,
+        <span class="pl-s">&quot;only the first one will work&quot;</span>,
+        <span class="pl-s">&quot;Parallel element under the same DOM node level, only the first one will work&quot;</span>,
+        is_id = <span class="pl-c1">FALSE</span>
+    )
 
 ui &lt;- navbarPage(
-  <span class="pl-s">&quot;cicerone&quot;</span>,
-  header = list(use_cicerone()),
-  id = <span class="pl-s">&quot;nav&quot;</span>,
-  tabPanel(
-    <span class="pl-s">&quot;home&quot;</span>,
-    h1(<span class="pl-s">&quot;First tab&quot;</span>, id = <span class="pl-s">&quot;home_primary&quot;</span>),
-    textInput(<span class="pl-s">&quot;home_secondary&quot;</span>, <span class="pl-s">&quot;Text&quot;</span>)
-  ),
-  tabPanel(
-    <span class="pl-s">&quot;tab&quot;</span>,
-    h1(<span class="pl-s">&quot;Second tab&quot;</span>, id = <span class="pl-s">&quot;tab_primary&quot;</span>),
-    textInput(<span class="pl-s">&quot;tab_secondary&quot;</span>, <span class="pl-s">&quot;Text&quot;</span>)
-  )
+    <span class="pl-s">&quot;cicerone&quot;</span>,
+    header = list(use_cicerone()),
+    id = <span class="pl-s">&quot;nav&quot;</span>,
+    tabPanel(
+        <span class="pl-s">&quot;home&quot;</span>,
+        h2(<span class="pl-s">&quot;Select class&quot;</span>, class = <span class="pl-s">&quot;trythis1&quot;</span>),
+        div(class = <span class="pl-s">&quot;trythis2&quot;</span>,
+            h2(<span class="pl-s">&quot;Select in deep HTML levels&quot;</span>),
+            p(<span class="pl-s">&quot;not this one&quot;</span>), 
+            p(<span class="pl-s">&quot;under this one&quot;</span>,
+              br(),
+              span(<span class="pl-s">&quot;select this one&quot;</span>)
+            )
+        ),
+        div(class = <span class="pl-s">&quot;trythis3&quot;</span>,
+            h2(<span class="pl-s">&quot;Selector mataches more than one element&quot;</span>),
+            p(<span class="pl-s">&quot;parallel 1&quot;</span>),
+            p(<span class="pl-s">&quot;parallel 2&quot;</span>),
+            p(<span class="pl-s">&quot;parallel 3&quot;</span>)
+        )
+    )
 )
 
 server &lt;- <span class="pl-k">function</span>(input, output, session){
-
-  home_guide$init()$start()
-
+    
+    home_guide$init()$start()
+    
 }
 
 shinyApp(ui, server)
