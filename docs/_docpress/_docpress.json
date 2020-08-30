@@ -75,6 +75,12 @@
                 "id": "navbar"
               }
             ]
+          },
+          {
+            "title": "On highlighted",
+            "source": "docs/examples/on-highlighted.md",
+            "url": "examples/on-highlighted.html",
+            "slug": "exampleson-highlighted"
           }
         ]
       }
@@ -147,6 +153,12 @@
           "id": "navbar"
         }
       ]
+    },
+    "examples/on-highlighted.html": {
+      "source": "docs/examples/on-highlighted.md",
+      "title": "On highlighted - cicerone",
+      "pageTitle": "On highlighted",
+      "slug": "exampleson-highlighted"
     }
   },
   "sources": {
@@ -158,6 +170,7 @@
     "docs/guide/events.md": "guide/events.html",
     "docs/examples/glouton.md": "examples/glouton.html",
     "docs/examples/tabs.md": "examples/tabs.html",
+    "docs/examples/on-highlighted.md": "examples/on-highlighted.html",
     "docs/favicon.ico": "favicon.ico",
     "docs/css/style.css": "css/style.css",
     "docs/img/cicerone.png": "img/cicerone.png",

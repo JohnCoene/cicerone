@@ -11,3 +11,4 @@ Documentation
 * Examples
   * [Glouton](examples/glouton.md)
   * [Tabs & Navbar](examples/tabs.md)
+  * [On highlighted](examples/on-highlighted.md)

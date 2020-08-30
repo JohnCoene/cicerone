@@ -128,7 +128,8 @@ A Cicerone object.
   prev_btn_text = NULL,
   tab = NULL,
   tab_id = NULL,
-  is_id = TRUE
+  is_id = TRUE,
+  on_highlighted = NULL
 )}\if{html}{\out{</div>}}
 }
 
@@ -162,6 +163,9 @@ options.}
 
 \item{\code{is_id}}{Whether the selector passed to \code{el} is an HTML id, set to \code{FALSE} to use
 other selectors, e.g.: \code{.class}.}
+
+\item{\code{on_highlighted}}{An arbitrary piece of JavaScript code to run when the step is highlighted,
+generally a callback function. This is effectively a string that is evaluated JavaScript-side.}
 }
 \if{html}{\out{</div>}}
 }
