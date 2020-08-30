@@ -68,7 +68,8 @@ guide &lt;- Cicerone$
     <span class="pl-s">&quot;Text&quot;</span>,
     <span class="pl-s">&quot;Input has changed&quot;</span>,
     on_highlighted = <span class="pl-s">&quot;function(element){
-      $(&apos;#input1&apos;).val(50);
+      var el = document.getElementById(&apos;input1&apos;);
+      Shiny.inputBindings.bindingNames[&apos;shiny.textInput&apos;].binding.receiveMessage(el, {value: 20})
     }&quot;</span>
   )
 

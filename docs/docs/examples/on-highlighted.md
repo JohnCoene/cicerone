@@ -18,7 +18,8 @@ guide <- Cicerone$
     "Text",
     "Input has changed",
     on_highlighted = "function(element){
-      $('#input1').val(50);
+      var el = document.getElementById('input1');
+      Shiny.inputBindings.bindingNames['shiny.textInput'].binding.receiveMessage(el, {value: 20})
     }"
   )
 
