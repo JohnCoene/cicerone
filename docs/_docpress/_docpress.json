@@ -172,9 +172,9 @@
     "docs/examples/tabs.md": "examples/tabs.html",
     "docs/examples/on-highlighted.md": "examples/on-highlighted.html",
     "docs/favicon.ico": "favicon.ico",
-    "docs/css/style.css": "css/style.css",
+    "docs/img/home-cicerone.gif": "img/home-cicerone.gif",
     "docs/img/cicerone.png": "img/cicerone.png",
     "docs/img/cicerone_banner.png": "img/cicerone_banner.png",
-    "docs/img/home-cicerone.gif": "img/home-cicerone.gif"
+    "docs/css/style.css": "css/style.css"
   }
 }
