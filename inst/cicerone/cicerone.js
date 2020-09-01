@@ -1,83 +1,89 @@
 var driver = [],
-    highlighted,
-    previous,
-    has_next;
+  highlighted,
+  previous,
+  has_next;
 
 function on_next(id){
 
-  return function(){
-    highlighted = driver[id].getHighlightedElement();
-    previous = driver[id].getLastHighlightedElement();
-    has_next = driver[id].hasNextStep();
-  
-    try{
-      highlighted = highlighted.options.element.substr(1);
-    }
-    catch(err){
-      highlighted = null;
-    }
-  
-    try{
-      previous = previous.options.element.substr(1);
-    }
-    catch(err){
-      previous = null;
-    }
-  
-    var data = {
-      highlighted: highlighted,
-      has_next: has_next,
-      previous: highlighted,
-      before_previous: previous
-    }
-  
-    Shiny.onInputChange(id + "_cicerone_next", data);
+  highlighted = driver[id].getHighlightedElement();
+  previous = driver[id].getLastHighlightedElement();
+  has_next = driver[id].hasNextStep();
+
+  try{
+    highlighted = highlighted.options.element.substr(1);
   }
+  catch(err){
+    highlighted = null;
+  }
+
+  try{
+    previous = previous.options.element.substr(1);
+  }
+  catch(err){
+    previous = null;
+  }
+
+  var data = {
+    highlighted: highlighted,
+    has_next: has_next,
+    previous: highlighted,
+    before_previous: previous
+  }
+
+  Shiny.setInputValue(id + "_cicerone_next", data);
 }
 
 function on_previous(id){
 
-  return function(){
-    highlighted = driver[id].getHighlightedElement();
-    previous = driver[id].getLastHighlightedElement();
-    has_next = driver[id].hasNextStep();
-  
-    try{
-      highlighted = highlighted.options.element.substr(1);
-    }
-    catch(err){
-      highlighted = null;
-    }
-  
-    try{
-      previous = previous.options.element.substr(1);
-    }
-    catch(err){
-      previous = null;
-    }
-  
-    var data = {
-      highlighted: highlighted,
-      has_next: has_next,
-      previous: highlighted,
-      before_previous: previous
-    }
+  highlighted = driver[id].getHighlightedElement();
+  previous = driver[id].getLastHighlightedElement();
+  has_next = driver[id].hasNextStep();
 
-    Shiny.onInputChange(id + "_cicerone_previous", data);
+  try{
+    highlighted = highlighted.options.element.substr(1);
+  }
+  catch(err){
+    highlighted = null;
+  }
+
+  try{
+    previous = previous.options.element.substr(1);
+  }
+  catch(err){
+    previous = null;
+  }
+
+  var data = {
+    highlighted: highlighted,
+    has_next: has_next,
+    previous: highlighted,
+    before_previous: previous
+  }
+
+  Shiny.setInputValue(id + "_cicerone_previous", data);
+}
+
+function make_previous(id) {
+  return function() {
+    return on_previous(id);
+  }
+}
+
+function make_next(id) {
+  return function() {
+    return on_next(id);
   }
 }
 
 Shiny.addCustomMessageHandler('cicerone-init', function(opts) {
 
   var id = opts.globals.id;
-  var next_func = on_next(id);
-  var prev_func = on_previous(id);
+  var next_func = make_next(id);
+  var prev_func = make_previous(id);
   opts.globals.onNext = next_func;
   opts.globals.onPrevious = prev_func;
 
   driver[id] = new Driver(opts.globals);
-
-  console.log(opts.steps);
 
   opts.steps.forEach((step, index) => {
     if(opts.steps[index].tab_id){
@@ -92,8 +98,6 @@ Shiny.addCustomMessageHandler('cicerone-init', function(opts) {
     }
     
   });
-
-  console.log(opts.steps);
 
   if(opts.steps)
     driver[id].defineSteps(opts.steps);

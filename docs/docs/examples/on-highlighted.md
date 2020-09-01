@@ -4,7 +4,7 @@ The `on_highlighted` argument can be used to run arbitrary JavaScript function w
 
 ```r
 library(shiny)
-devtools::load_all()
+library(cicerone)
 
 guide <- Cicerone$
   new(id = "homeGuide")$
