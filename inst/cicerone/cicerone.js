@@ -96,6 +96,16 @@ Shiny.addCustomMessageHandler('cicerone-init', function(opts) {
     if(opts.steps[index].onHighlighted){
       opts.steps[index].onHighlighted = new Function("return " + opts.steps[index].onHighlighted)();
     }
+
+    if(opts.steps[index].onHighlightStarted){
+      console.log(opts.steps[index].onHighlightStarted);
+      opts.steps[index].onHighlightStarted = new Function("return " + opts.steps[index].onHighlightStarted)();
+    }
+
+    if(opts.steps[index].onNext){
+      console.log(opts.steps[index].onNext);
+      opts.steps[index].onNext = new Function("return " + opts.steps[index].onNext)();
+    }
     
   });
 

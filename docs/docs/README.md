@@ -12,3 +12,4 @@ Documentation
   * [Glouton](examples/glouton.md)
   * [Tabs & Navbar](examples/tabs.md)
   * [On highlighted](examples/on-highlighted.md)
+* [Changelog](changelog.md)

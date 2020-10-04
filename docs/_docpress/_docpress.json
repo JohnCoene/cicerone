@@ -83,6 +83,12 @@
             "slug": "exampleson-highlighted"
           }
         ]
+      },
+      {
+        "title": "Changelog",
+        "source": "docs/changelog.md",
+        "url": "changelog.html",
+        "slug": "changelog"
       }
     ]
   },
@@ -159,6 +165,12 @@
       "title": "On highlighted - cicerone",
       "pageTitle": "On highlighted",
       "slug": "exampleson-highlighted"
+    },
+    "changelog.html": {
+      "source": "docs/changelog.md",
+      "title": "Changelog - cicerone",
+      "pageTitle": "Changelog",
+      "slug": "changelog"
     }
   },
   "sources": {
@@ -171,10 +183,11 @@
     "docs/examples/glouton.md": "examples/glouton.html",
     "docs/examples/tabs.md": "examples/tabs.html",
     "docs/examples/on-highlighted.md": "examples/on-highlighted.html",
+    "docs/changelog.md": "changelog.html",
     "docs/favicon.ico": "favicon.ico",
-    "docs/img/home-cicerone.gif": "img/home-cicerone.gif",
+    "docs/css/style.css": "css/style.css",
     "docs/img/cicerone.png": "img/cicerone.png",
     "docs/img/cicerone_banner.png": "img/cicerone_banner.png",
-    "docs/css/style.css": "css/style.css"
+    "docs/img/home-cicerone.gif": "img/home-cicerone.gif"
   }
 }
