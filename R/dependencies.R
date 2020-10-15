@@ -21,8 +21,13 @@ use_cicerone <- function() {
     shiny::tags$head(
       shiny::tags$link(
         href = "driver-assets/css/driver.min.css",
-        rel="stylesheet",
-        type="text/css"
+        rel= "stylesheet",
+        type= "text/css"
+      ),
+      shiny::tags$link(
+        href = "cicerone-assets/custom.css",
+        rel = "stylesheet",
+        type = "text/css"
       ),
       shiny::tags$script(
         src = "driver-assets/js/driver.min.js"
