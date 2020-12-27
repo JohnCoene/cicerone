@@ -1,3 +1,8 @@
+# cicerone 1.0.4
+
+- Force `title` and `description` so one can use htmltools tags.
+- Support for mathjax, see online guide for details.
+
 # cicerone 1.0.3
 
 - Add `tab` and `tab_id` arguments to trigger open tabs.

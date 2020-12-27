@@ -8,6 +8,7 @@ Documentation
   * [Advanced](guide/advanced.md)
   * [Highlight](guide/highlight.md)
   * [Events](guide/events.md)
+  * [MathJax](guide/mathjax.md)
 * Examples
   * [Glouton](examples/glouton.md)
   * [Tabs & Navbar](examples/tabs.md)

@@ -42,13 +42,15 @@ Cicerone <- R6::R6Class(
 #' to close, arrow keys to move).
 #' @param id A unique identifier, useful if you are using more than one
 #' cicerone.
+#' @param mathjax Whether to use MathJax in the steps.
 #' 
 #' @return A Cicerone object.
   public = list(
     initialize = function(animate = TRUE, opacity = .75, padding = 10,
       allow_close = TRUE, overlay_click_next  = FALSE, done_btn_text = "Done",
       close_btn_text = "Close", stage_background = "#ffffff", next_btn_text = "Next",
-      prev_btn_text = "Previous", show_btns = TRUE, keyboard_control = TRUE, id = NULL) {
+      prev_btn_text = "Previous", show_btns = TRUE, keyboard_control = TRUE, id = NULL,
+      mathjax = FALSE) {
 
       if(is.null(id))
         id <- generate_id()
@@ -70,6 +72,7 @@ Cicerone <- R6::R6Class(
       )
 
       private$id <- id
+      private$mathjax <- mathjax
 
       invisible(self)
     },
@@ -112,9 +115,9 @@ Cicerone <- R6::R6Class(
 
       popover <- list()
 
-      if(!is.null(class)) popover$className <- class
-      if(!is.null(title)) popover$title <- title
-      if(!is.null(description)) popover$description <- description
+      if(!is.null(class)) popover$className <- as.character(class)
+      if(!is.null(title)) popover$title <- as.character(title)
+      if(!is.null(description)) popover$description <- as.character(description)
       if(!is.null(position)) popover$position <- position
       if(!is.null(show_btns)) popover$showButtons <- show_btns
       if(!is.null(close_btn_text)) popover$closeBtnText <- close_btn_text
@@ -128,6 +131,11 @@ Cicerone <- R6::R6Class(
       if(!is.null(on_next)) step$onNext <- on_next
 
       if(length(popover)) step$popover <- popover
+
+      if(private$mathjax)
+        step$onHighlighted <- "function(element){setTimeout(function(){
+          MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
+        }, 300)}"   
 
       private$steps <- append(private$steps, list(step))
       invisible(self)
@@ -293,6 +301,7 @@ Cicerone <- R6::R6Class(
   private = list(
     steps = list(),
     globals = list(),
-    id = NULL
+    id = NULL,
+    mathjax = FALSE
   )
 )
