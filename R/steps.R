@@ -126,16 +126,15 @@ Cicerone <- R6::R6Class(
 
       step = list(element = el, tab_id = tab_id, tab = tab)
 
-      if(!is.null(on_highlighted)) step$onHighlighted <- on_highlighted
+      if(private$mathjax)
+        step$onHighlighted <- paste0("function(element){setTimeout(function(){
+          MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
+        }, 300);", on_highlighted, "}")
+      
       if(!is.null(on_highlight_started)) step$onHighlightStarted <- on_highlight_started
       if(!is.null(on_next)) step$onNext <- on_next
 
       if(length(popover)) step$popover <- popover
-
-      if(private$mathjax)
-        step$onHighlighted <- "function(element){setTimeout(function(){
-          MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
-        }, 300)}"   
 
       private$steps <- append(private$steps, list(step))
       invisible(self)
