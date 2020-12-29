@@ -127,9 +127,10 @@ Cicerone <- R6::R6Class(
       step = list(element = el, tab_id = tab_id, tab = tab)
 
       if(private$mathjax) {
-        step$onHighlighted <- "function(element){setTimeout(function(){
+        step$onHighlighted <- paste0("function(element){setTimeout(function(){
           MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
-        }, 300)}"   
+        }, 300);", on_highlighted, "}")
+        
       } else {
         if(!is.null(on_highlighted)) step$onHighlighted <- on_highlighted
       }
