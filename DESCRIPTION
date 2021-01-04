@@ -12,7 +12,7 @@ Authors@R:
     person(given = "Etienne", 
            family = "Bacher", 
            role = "ctb", 
-           email = "etienne.bacher@orange.fr")
+           email = "etienne.bacher@protonmail.com")
   )
 Description: Provide step by step guided tours of 'Shiny' applications.
 License: MIT + file LICENSE
