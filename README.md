@@ -81,7 +81,7 @@ shinyApp(ui, server)
 
 ![](./man/figures/demo.gif)
 
-All options are detailed in the documentation of the object: `?Cicerone`. See the [post](https://blog.john-coene.com/posts/2019-11-20-cicerone/) for more information and some rambling on the logo and package name.
+All options are detailed in the documentation of the object: `?Cicerone`. See the [site](https//cicerone.john-coene.com) for more information.
 
 ## Installation
 
