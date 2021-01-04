@@ -1,8 +1,0 @@
-{
-  "custom": true,
-  "plugins": {
-    "docpress-core": {},
-    "docpress-search": {},
-    "docpress-base": {}
-  }
-}
