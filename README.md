@@ -2,8 +2,8 @@
 
 # cicerone 
 
-[![Travis build status](https://travis-ci.org/JohnCoene/cicerone.svg?branch=master)](https://travis-ci.org/JohnCoene/cicerone)
 <!-- badges: start -->
+[![Travis build status](https://travis-ci.org/JohnCoene/cicerone.svg?branch=master)](https://travis-ci.org/JohnCoene/cicerone)
 [![CRAN status](https://www.r-pkg.org/badges/version/cicerone)](https://CRAN.R-project.org/package=cicerone)
 <!-- badges: end -->
 
