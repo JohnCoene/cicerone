@@ -62,7 +62,8 @@ Define cicerone steps.
   prev_btn_text = "Previous",
   show_btns = TRUE,
   keyboard_control = TRUE,
-  id = NULL
+  id = NULL,
+  mathjax = FALSE
 )}\if{html}{\out{</div>}}
 }
 
@@ -100,6 +101,8 @@ to close, arrow keys to move).}
 
 \item{\code{id}}{A unique identifier, useful if you are using more than one
 cicerone.}
+
+\item{\code{mathjax}}{Whether to use MathJax in the steps.}
 }
 \if{html}{\out{</div>}}
 }
