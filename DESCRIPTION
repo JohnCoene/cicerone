@@ -1,6 +1,6 @@
 Package: cicerone
 Title: Provide Tours of 'Shiny' Applications
-Version: 1.0.4
+Version: 1.0.5.9000
 Date: 2021-01-10
 Authors@R: 
   c(
