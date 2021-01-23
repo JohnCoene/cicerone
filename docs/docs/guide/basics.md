@@ -25,8 +25,7 @@ server <- function(input, output){
 shinyApp(ui, server)
 ```
 
-Let's a guide to walk users through. We'll pretend this app is truly complicated and that we want to force users to go through the guide before they can interact with our app by setting `allow_close` to `TRUE`.
-
+Let's create a guide to walk users through. We'll pretend this app is truly complicated and that we want to force users to go through the guide before they can interact with our app by setting `allow_close` to `FALSE`.
 ```r
 library(cicerone)
 
