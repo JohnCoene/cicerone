@@ -2,7 +2,10 @@
 
 # cicerone 
 
+<!-- badges: start -->
 [![Travis build status](https://travis-ci.org/JohnCoene/cicerone.svg?branch=master)](https://travis-ci.org/JohnCoene/cicerone)
+[![CRAN status](https://www.r-pkg.org/badges/version/cicerone)](https://CRAN.R-project.org/package=cicerone)
+<!-- badges: end -->
 
 A convenient API to create guided tours of Shiny applications using [driver.js](https://kamranahmed.info/driver.js/), visit the [website](https://cicerone.john-coene.com/) for more details.
 
@@ -78,7 +81,7 @@ shinyApp(ui, server)
 
 ![](./man/figures/demo.gif)
 
-All options are detailed in the documentation of the object: `?Cicerone`. See the [post](https://blog.john-coene.com/posts/2019-11-20-cicerone/) for more information and some rambling on the logo and package name.
+All options are detailed in the documentation of the object: `?Cicerone`. See the [site](https://cicerone.john-coene.com) for more information.
 
 ## Installation
 

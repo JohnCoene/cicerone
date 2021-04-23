@@ -82,6 +82,9 @@ Shiny.addCustomMessageHandler('cicerone-init', function(opts) {
   var prev_func = make_previous(id);
   opts.globals.onNext = next_func;
   opts.globals.onPrevious = prev_func;
+  opts.globals.onReset = function(){
+    Shiny.setInputValue('cicerone_reset', true, {priority: 'event'})
+  }
 
   driver[id] = new Driver(opts.globals);
 

@@ -1,7 +1,7 @@
 Package: cicerone
 Title: Provide Tours of 'Shiny' Applications
-Version: 1.0.4
-Date: 2020-08-03
+Version: 1.0.5.9000
+Date: 2021-01-10
 Authors@R: 
   c(
     person(given = "John",
@@ -12,7 +12,7 @@ Authors@R:
     person(given = "Etienne", 
            family = "Bacher", 
            role = "ctb", 
-           email = "etienne.bacher@orange.fr")
+           email = "etienne.bacher@protonmail.com")
   )
 Description: Provide step by step guided tours of 'Shiny' applications.
 License: MIT + file LICENSE

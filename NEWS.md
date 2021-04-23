@@ -1,3 +1,7 @@
+# cicerone 1.0.5
+
+- Add `cicerone_reset` event
+
 # cicerone 1.0.4
 
 - Force `title` and `description` so one can use htmltools tags.
