@@ -1,0 +1,38 @@
+{
+  "name": "cicerone",
+  "version": "1.0.0",
+  "description": "<img src=\"./man/figures/logo.png\" align = \"right\" height=250/>",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "man": "man"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "none": "webpack --config webpack.dev.js --mode=none",
+    "development": "webpack --config webpack.dev.js",
+    "production": "webpack --config webpack.prod.js",
+    "watch": "webpack --config webpack.config.js -d --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JohnCoene/cicerone.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JohnCoene/cicerone/issues"
+  },
+  "homepage": "https://github.com/JohnCoene/cicerone#readme",
+  "devDependencies": {
+    "css-loader": "^5.2.7",
+    "style-loader": "^3.1.0",
+    "webpack": "^5.44.0",
+    "webpack-cli": "^4.7.2",
+    "webpack-merge": "^5.8.0"
+  },
+  "dependencies": {
+    "driver.js": "^0.9.8"
+  }
+}

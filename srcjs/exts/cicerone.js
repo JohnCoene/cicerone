@@ -1,9 +1,16 @@
-var driver = [],
-  highlighted,
-  previous,
-  has_next;
+import 'shiny';
+import 'jquery';
+import Driver from 'driver.js';
+import 'driver.js/dist/driver.min.css';
 
-function on_next(id){
+import './custom.css';
+
+let driver = [];
+let highlighted;
+let previous;
+let has_next;
+
+const on_next = (id) => {
 
   highlighted = driver[id].getHighlightedElement();
   previous = driver[id].getLastHighlightedElement();
@@ -33,7 +40,7 @@ function on_next(id){
   Shiny.setInputValue(id + "_cicerone_next", data);
 }
 
-function on_previous(id){
+const on_previous = (id) => {
 
   highlighted = driver[id].getHighlightedElement();
   previous = driver[id].getLastHighlightedElement();
@@ -63,13 +70,13 @@ function on_previous(id){
   Shiny.setInputValue(id + "_cicerone_previous", data);
 }
 
-function make_previous(id) {
+const make_previous = (id) => {
   return function() {
     return on_previous(id);
   }
 }
 
-function make_next(id) {
+const make_next = (id) => {
   return function() {
     return on_next(id);
   }

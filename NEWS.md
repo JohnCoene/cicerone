@@ -1,6 +1,7 @@
 # cicerone 1.0.5
 
 - Add `cicerone_reset` event
+- Use webpack (via {packer}) to optimise JavaScript
 
 # cicerone 1.0.4
 

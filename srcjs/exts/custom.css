@@ -1,5 +1,4 @@
 /* Make highlighted element transparent so that tab title can be read when navbar is fixed */
-
 #driver-highlighted-element-stage, #driver-page-overlay {
   background: transparent !important;
   outline: 5000px solid rgba(0, 0, 0, .75)
