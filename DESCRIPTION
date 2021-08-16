@@ -21,8 +21,9 @@ LazyData: true
 Imports:
     R6,
     shiny,
+    htmltools,
     assertthat
-RoxygenNote: 7.1.1.9000
+RoxygenNote: 7.1.1
 Roxygen: list(markdown = TRUE)
 URL: https://cicerone.john-coene.com/
 BugReports: https://github.com/JohnCoene/cicerone/issues
