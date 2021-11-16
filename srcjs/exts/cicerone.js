@@ -93,32 +93,37 @@ Shiny.addCustomMessageHandler('cicerone-init', function(opts) {
     Shiny.setInputValue('cicerone_reset', true, {priority: 'event'})
   }
 
-  driver[id] = new Driver(opts.globals);
-
-  opts.steps.forEach((step, index) => {
-    if(opts.steps[index].tab_id){
-      opts.steps[index].onHighlightStarted = function(element){
-        var tabs = $('#' + step.tab_id);
-        Shiny.inputBindings.bindingNames['shiny.bootstrapTabInput'].binding.setValue(tabs, step.tab);
-      };
-    }
-
-    if(opts.steps[index].onHighlighted){
-      opts.steps[index].onHighlighted = new Function("return " + opts.steps[index].onHighlighted)();
-    }
-
-    if(opts.steps[index].onHighlightStarted){
-      opts.steps[index].onHighlightStarted = new Function("return " + opts.steps[index].onHighlightStarted)();
-    }
-
-    if(opts.steps[index].onNext){
-      opts.steps[index].onNext = new Function("return " + opts.steps[index].onNext)();
-    }
+  setTimeout(function() {
+  
+    driver[id] = new Driver(opts.globals);
+  
+    opts.steps.forEach((step, index) => {
+      if(opts.steps[index].tab_id){
+        opts.steps[index].onHighlightStarted = function(element){
+          var tabs = $('#' + step.tab_id);
+          Shiny.inputBindings.bindingNames['shiny.bootstrapTabInput'].binding.setValue(tabs, step.tab);
+        };
+      }
+  
+      if(opts.steps[index].onHighlighted){
+        opts.steps[index].onHighlighted = new Function("return " + opts.steps[index].onHighlighted)();
+      }
+  
+      if(opts.steps[index].onHighlightStarted){
+        opts.steps[index].onHighlightStarted = new Function("return " + opts.steps[index].onHighlightStarted)();
+      }
+  
+      if(opts.steps[index].onNext){
+        opts.steps[index].onNext = new Function("return " + opts.steps[index].onNext)();
+      }
+      
+    });
+  
+    if(opts.steps)
+      driver[id].defineSteps(opts.steps);
     
-  });
-
-  if(opts.steps)
-    driver[id].defineSteps(opts.steps);
+  }, 50)
+  
 });
 
 Shiny.addCustomMessageHandler('cicerone-start', function(opts) {
