@@ -20,6 +20,7 @@ Encoding: UTF-8
 LazyData: true
 Imports:
     R6,
+    rlang,
     shiny,
     htmltools,
     assertthat
