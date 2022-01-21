@@ -134,7 +134,9 @@ A Cicerone object.
   is_id = TRUE,
   on_highlighted = NULL,
   on_highlight_started = NULL,
-  on_next = NULL
+  on_next = NULL,
+  element,
+  onNext = NULL
 )}\if{html}{\out{</div>}}
 }
 
@@ -177,6 +179,10 @@ highlighted, generally a callback function. This is effectively a string that is
 
 \item{\code{on_next}}{A JavaScript function to run when the next button is clicked (or its event triggered),
 generally a callback function. This is effectively a string that is evaluated JavaScript-side.}
+
+\item{\code{element}}{Same as above}
+
+\item{\code{onNext}}{alternative to above.}
 }
 \if{html}{\out{</div>}}
 }

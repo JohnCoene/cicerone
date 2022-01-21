@@ -23,7 +23,7 @@ Imports:
     shiny,
     htmltools,
     assertthat
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Roxygen: list(markdown = TRUE)
 URL: https://cicerone.john-coene.com/
 BugReports: https://github.com/JohnCoene/cicerone/issues

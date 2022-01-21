@@ -3,3 +3,4 @@ test.R
 docs/node_modules/
 node_modules
 .Rproj.user
+.DS_Store

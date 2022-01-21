@@ -80,6 +80,7 @@ Cicerone <- R6::R6Class(
 #' Add a step.
 #' 
 #' @param el Id of element to be highlighted.
+#' @param element Same as above
 #' @param title Title on the popover.
 #' @param description Body of the popover.
 #' @param position Where to position the popover. 
@@ -101,11 +102,15 @@ Cicerone <- R6::R6Class(
 #' highlighted, generally a callback function. This is effectively a string that is evaluated JavaScript-side.
 #' @param on_next A JavaScript function to run when the next button is clicked (or its event triggered), 
 #' generally a callback function. This is effectively a string that is evaluated JavaScript-side.
+#' @param onNext alternative to above.
     step = function(el, title = NULL, description = NULL, position = NULL, 
       class = NULL, show_btns = NULL, close_btn_text = NULL,
       next_btn_text = NULL, prev_btn_text = NULL, tab = NULL, tab_id = NULL, is_id = TRUE,
-      on_highlighted = NULL, on_highlight_started = NULL, on_next = NULL) {
+      on_highlighted = NULL, on_highlight_started = NULL, on_next = NULL, element, onNext = NULL) {
 
+      if (!missing(element))
+        el <- element
+      on_next = onNext %||% on_next
       assertthat::assert_that(!missing(el), msg = "Must pass `el`")
 
       assertthat::assert_that(tabs_ok(tab, tab_id))
