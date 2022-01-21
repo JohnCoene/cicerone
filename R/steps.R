@@ -110,7 +110,9 @@ Cicerone <- R6::R6Class(
 
       assertthat::assert_that(tabs_ok(tab, tab_id))
 
-      if(is_id)
+      # If a class
+      is_id <- !grepl("^\\.", el)
+      if(is_id && !grepl("^\\#", el))
         el <- paste0("#", el)
 
       popover <- list()

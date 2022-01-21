@@ -13,3 +13,5 @@
 ^webpack\.dev\.js$
 ^webpack\.prod\.js$
 ^webpack\.common\.js$
+^.*\.Rproj$
+^\.Rproj\.user$

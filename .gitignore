@@ -2,3 +2,4 @@ test.R
 .vscode
 docs/node_modules/
 node_modules
+.Rproj.user
