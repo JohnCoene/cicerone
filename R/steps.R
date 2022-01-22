@@ -94,8 +94,6 @@ Cicerone <- R6::R6Class(
 #' @param prev_btn_text Previous button text.
 #' @param tab_id The id of the tabs to activate in order to highlight `tab_id`.
 #' @param tab The name of the tab to set.
-#' @param is_id Whether the selector passed to `el` is an HTML id, set to `FALSE` to use
-#' other selectors, e.g.: `.class`.
 #' @param on_highlighted A JavaScript function to run when the step is highlighted,
 #' generally a callback function. This is effectively a string that is evaluated JavaScript-side.
 #' @param on_highlight_started A JavaScript function to run when the step is just aobut to be 
@@ -105,7 +103,7 @@ Cicerone <- R6::R6Class(
 #' @param onNext alternative to above.
     step = function(el, title = NULL, description = NULL, position = NULL, 
       class = NULL, show_btns = NULL, close_btn_text = NULL,
-      next_btn_text = NULL, prev_btn_text = NULL, tab = NULL, tab_id = NULL, is_id = TRUE,
+      next_btn_text = NULL, prev_btn_text = NULL, tab = NULL, tab_id = NULL,
       on_highlighted = NULL, on_highlight_started = NULL, on_next = NULL, element, onNext = NULL) {
 
       if (!missing(element))
@@ -115,10 +113,8 @@ Cicerone <- R6::R6Class(
 
       assertthat::assert_that(tabs_ok(tab, tab_id))
 
-      # If a class
-      is_id <- !grepl("^\\.", el)
-      if(is_id && !grepl("^\\#", el))
-        el <- paste0("#", el)
+      
+      el <- prep_element(el)
 
       popover <- list()
 
@@ -222,15 +218,13 @@ Cicerone <- R6::R6Class(
 #' @param el Id of element to highlight
 #' @param session A valid Shiny session if `NULL` the function
 #' attempts to get the session with [shiny::getDefaultReactiveDomain()].
-#' @param is_id Whether the selector passed to `el` is an HTML id, set to `FALSE` to use
-#' other selectors, e.g.: `.class`.
-    highlight = function(el, session = NULL, is_id = TRUE){
+    highlight = function(el, session = NULL){
       assertthat::assert_that(!missing(el), msg = "Must pass `el`.")
       if(is.null(session))
         session <- shiny::getDefaultReactiveDomain()
       
-      if(is_id)
-        el <- paste0("#", el)
+      el <- prep_element(el)
+        
       session$sendCustomMessage("cicerone-highlight", list(el = el, id = private$id))
       invisible(self)
     },
