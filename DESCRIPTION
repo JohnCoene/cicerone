@@ -12,7 +12,11 @@ Authors@R:
     person(given = "Etienne", 
            family = "Bacher", 
            role = "ctb", 
-           email = "etienne.bacher@protonmail.com")
+           email = "etienne.bacher@protonmail.com"),
+    person(given = "Stephen",
+           family = "Holsenbeck",
+           role = "ctb",
+           email = "sholsen@alumni.emory.edu")
   )
 Description: Provide step by step guided tours of 'Shiny' applications.
 License: MIT + file LICENSE
@@ -23,7 +27,7 @@ Imports:
     shiny,
     htmltools,
     assertthat
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Roxygen: list(markdown = TRUE)
 URL: https://cicerone.john-coene.com/
 BugReports: https://github.com/JohnCoene/cicerone/issues
