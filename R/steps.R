@@ -186,10 +186,11 @@ Cicerone <- R6::R6Class(
 #' attempts to get the session with [shiny::getDefaultReactiveDomain()].
     start = function(step = 1, session = NULL){
       
-      if (private$runs %||% 1 < 1) {
+      if (private$runs %||% 0 < 1) {
         if(is.null(session))
           session <- shiny::getDefaultReactiveDomain()
-        private$runs <- 1
+        if (isFALSE(private$runs %||% FALSE))
+          private$runs <- 1
         step <- step - 1
         session$sendCustomMessage("cicerone-start", list(step = step, id = private$id))
         private$run_once <- FALSE
