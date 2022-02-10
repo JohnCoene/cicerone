@@ -131,11 +131,10 @@ A Cicerone object.
   prev_btn_text = NULL,
   tab = NULL,
   tab_id = NULL,
+  is_id = NULL,
   on_highlighted = NULL,
   on_highlight_started = NULL,
-  on_next = NULL,
-  element,
-  onNext = NULL
+  on_next = NULL
 )}\if{html}{\out{</div>}}
 }
 
@@ -167,6 +166,9 @@ options.}
 
 \item{\code{tab_id}}{The id of the tabs to activate in order to highlight \code{tab_id}.}
 
+\item{\code{is_id}}{\strong{Deprecated} Whether the selector passed to \code{el} is an HTML id, set to \code{FALSE} to use
+other selectors, e.g.: \code{.class}.}
+
 \item{\code{on_highlighted}}{A JavaScript function to run when the step is highlighted,
 generally a callback function. This is effectively a string that is evaluated JavaScript-side.}
 
@@ -175,10 +177,6 @@ highlighted, generally a callback function. This is effectively a string that is
 
 \item{\code{on_next}}{A JavaScript function to run when the next button is clicked (or its event triggered),
 generally a callback function. This is effectively a string that is evaluated JavaScript-side.}
-
-\item{\code{element}}{Same as above}
-
-\item{\code{onNext}}{alternative to above.}
 }
 \if{html}{\out{</div>}}
 }
@@ -192,7 +190,7 @@ Add a step.
 \if{latex}{\out{\hypertarget{method-init}{}}}
 \subsection{Method \code{init()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Cicerone$init(session = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Cicerone$init(session = NULL, run_once = FALSE)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -200,6 +198,8 @@ Add a step.
 \describe{
 \item{\code{session}}{A valid Shiny session if \code{NULL} the function
 attempts to get the session with \code{\link[shiny:domains]{shiny::getDefaultReactiveDomain()}}.}
+
+\item{\code{run_once}}{\code{(lgl)} whether to only run the guide once. \strong{DEFAULT: FALSE}}
 }
 \if{html}{\out{</div>}}
 }
