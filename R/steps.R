@@ -184,11 +184,15 @@ Cicerone <- R6::R6Class(
 #' @param session A valid Shiny session if `NULL` the function
 #' attempts to get the session with [shiny::getDefaultReactiveDomain()].
     start = function(step = 1, session = NULL){
-      if(is.null(session))
-        session <- shiny::getDefaultReactiveDomain()
-      
-      step <- step - 1
-      session$sendCustomMessage("cicerone-start", list(step = step, id = private$id))
+      if (private$run_once) {
+        if(is.null(session))
+          session <- shiny::getDefaultReactiveDomain()
+        
+        step <- step - 1
+        session$sendCustomMessage("cicerone-start", list(step = step, id = private$id))
+        private$run_once <- FALSE
+      }
+        
       invisible(self)
     },
 #' @details
