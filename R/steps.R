@@ -150,7 +150,8 @@ Cicerone <- R6::R6Class(
 #' 
 #' @param session A valid Shiny session if `NULL` the function
 #' attempts to get the session with [shiny::getDefaultReactiveDomain()].
-    init = function(session = NULL){
+#' @param run_once \code{(lgl)} whether to only run the guide once. **DEFAULT: FALSE**
+    init = function(session = NULL, run_once = FALSE){
       if(is.null(session))
         session <- shiny::getDefaultReactiveDomain()
       
@@ -160,6 +161,7 @@ Cicerone <- R6::R6Class(
         id = private$id
       )
 
+      private$run_once <- run_once
       session$sendCustomMessage("cicerone-init", opts)
       invisible(self)
     },
