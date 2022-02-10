@@ -185,10 +185,11 @@ Cicerone <- R6::R6Class(
 #' @param session A valid Shiny session if `NULL` the function
 #' attempts to get the session with [shiny::getDefaultReactiveDomain()].
     start = function(step = 1, session = NULL){
-      
+      # If private$runs isn't initialized this will be TRUE, IE run_once = FALSE will run contained code
       if (private$runs %||% 0 < 1) {
         if(is.null(session))
           session <- shiny::getDefaultReactiveDomain()
+        # If private$runs is initialized this will return TRUE and increment `private$runs` preventing future runs
         if (isFALSE(private$runs %||% FALSE))
           private$runs <- 1
         step <- step - 1
