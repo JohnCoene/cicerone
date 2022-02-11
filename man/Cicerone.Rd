@@ -199,7 +199,8 @@ Add a step.
 \item{\code{session}}{A valid Shiny session if \code{NULL} the function
 attempts to get the session with \code{\link[shiny:domains]{shiny::getDefaultReactiveDomain()}}.}
 
-\item{\code{run_once}}{\code{(lgl)} whether to only run the guide once. \strong{DEFAULT: FALSE}}
+\item{\code{run_once}}{Whether to only run the guide once. If \code{TRUE}
+any subsequent calls of the method will not run the guide.}
 }
 \if{html}{\out{</div>}}
 }

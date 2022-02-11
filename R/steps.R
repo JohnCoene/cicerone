@@ -150,7 +150,8 @@ Cicerone <- R6::R6Class(
 #' 
 #' @param session A valid Shiny session if `NULL` the function
 #' attempts to get the session with [shiny::getDefaultReactiveDomain()].
-#' @param run_once \code{(lgl)} whether to only run the guide once. **DEFAULT: FALSE**
+#' @param run_once Whether to only run the guide once. If `TRUE`
+#' any subsequent calls of the method will not run the guide.
     init = function(session = NULL, run_once = FALSE){
       if(is.null(session))
         session <- shiny::getDefaultReactiveDomain()
@@ -161,8 +162,7 @@ Cicerone <- R6::R6Class(
         id = private$id
       )
 
-      if (run_once)
-        private$runs <- 0
+      private$run_once <- run_once
       session$sendCustomMessage("cicerone-init", opts)
       invisible(self)
     },
@@ -181,22 +181,20 @@ Cicerone <- R6::R6Class(
 #' Start Cicerone.
 #' 
 #' @param step The step index at which to start.
-#' 
 #' @param session A valid Shiny session if `NULL` the function
 #' attempts to get the session with [shiny::getDefaultReactiveDomain()].
     start = function(step = 1, session = NULL){
-      # If private$runs isn't initialized this will be TRUE, IE run_once = FALSE will run contained code
-      if (private$runs %||% 0 < 1) {
-        if(is.null(session))
-          session <- shiny::getDefaultReactiveDomain()
-        # If private$runs is initialized this will return TRUE and increment `private$runs` preventing future runs
-        if (isFALSE(private$runs %||% FALSE))
-          private$runs <- 1
-        step <- step - 1
-        session$sendCustomMessage("cicerone-start", list(step = step, id = private$id))
-        private$run_once <- FALSE
-      }
-        
+      if(is.null(session))
+        session <- shiny::getDefaultReactiveDomain()
+
+      # we run it once and it already did
+      if(private$run_once && private$runs > 0L)
+        return(invisible(self))
+
+      private$runs <- private$runs + 1L
+      step <- step - 1
+      session$sendCustomMessage("cicerone-start", list(step = step, id = private$id))
+
       invisible(self)
     },
 #' @details
@@ -315,7 +313,8 @@ Cicerone <- R6::R6Class(
     steps = list(),
     globals = list(),
     id = NULL,
-    runs = NULL,
+    runs = 0L,
+    run_once = FALSE,
     mathjax = FALSE
   )
 )
