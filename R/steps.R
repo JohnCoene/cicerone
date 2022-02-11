@@ -315,6 +315,7 @@ Cicerone <- R6::R6Class(
     steps = list(),
     globals = list(),
     id = NULL,
+    runs = NULL,
     mathjax = FALSE
   )
 )
