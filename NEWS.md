@@ -1,3 +1,8 @@
+# cicerone 1.0.5.9000
+
+- Added `run_once` argument.
+- Allow more selectors, no longer limited to `id`.
+
 # cicerone 1.0.5
 
 - Add `cicerone_reset` event
