@@ -98,6 +98,7 @@ Shiny.addCustomMessageHandler('cicerone-init', function(opts) {
   opts.steps.forEach((step, index) => {
     if(opts.steps[index].tab_id){
       opts.steps[index].onHighlightStarted = function(element){
+        step = element.options
         var tabs = $('#' + step.tab_id);
         Shiny.inputBindings.bindingNames['shiny.bootstrapTabInput'].binding.setValue(tabs, step.tab);
       };
