@@ -28,25 +28,25 @@ Define cicerone steps.
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{Cicerone$new()}}
-\item \href{#method-step}{\code{Cicerone$step()}}
-\item \href{#method-init}{\code{Cicerone$init()}}
-\item \href{#method-reset}{\code{Cicerone$reset()}}
-\item \href{#method-start}{\code{Cicerone$start()}}
-\item \href{#method-move_forward}{\code{Cicerone$move_forward()}}
-\item \href{#method-move_backward}{\code{Cicerone$move_backward()}}
-\item \href{#method-highlight}{\code{Cicerone$highlight()}}
-\item \href{#method-get_highlighted_el}{\code{Cicerone$get_highlighted_el()}}
-\item \href{#method-get_previous_el}{\code{Cicerone$get_previous_el()}}
-\item \href{#method-has_next_step}{\code{Cicerone$has_next_step()}}
-\item \href{#method-get_next}{\code{Cicerone$get_next()}}
-\item \href{#method-get_previous}{\code{Cicerone$get_previous()}}
-\item \href{#method-clone}{\code{Cicerone$clone()}}
+\item \href{#method-Cicerone-new}{\code{Cicerone$new()}}
+\item \href{#method-Cicerone-step}{\code{Cicerone$step()}}
+\item \href{#method-Cicerone-init}{\code{Cicerone$init()}}
+\item \href{#method-Cicerone-reset}{\code{Cicerone$reset()}}
+\item \href{#method-Cicerone-start}{\code{Cicerone$start()}}
+\item \href{#method-Cicerone-move_forward}{\code{Cicerone$move_forward()}}
+\item \href{#method-Cicerone-move_backward}{\code{Cicerone$move_backward()}}
+\item \href{#method-Cicerone-highlight}{\code{Cicerone$highlight()}}
+\item \href{#method-Cicerone-get_highlighted_el}{\code{Cicerone$get_highlighted_el()}}
+\item \href{#method-Cicerone-get_previous_el}{\code{Cicerone$get_previous_el()}}
+\item \href{#method-Cicerone-has_next_step}{\code{Cicerone$has_next_step()}}
+\item \href{#method-Cicerone-get_next}{\code{Cicerone$get_next()}}
+\item \href{#method-Cicerone-get_previous}{\code{Cicerone$get_previous()}}
+\item \href{#method-Cicerone-clone}{\code{Cicerone$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-Cicerone-new"></a>}}
+\if{latex}{\out{\hypertarget{method-Cicerone-new}{}}}
 \subsection{Method \code{new()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Cicerone$new(
@@ -115,8 +115,8 @@ A Cicerone object.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-step"></a>}}
-\if{latex}{\out{\hypertarget{method-step}{}}}
+\if{html}{\out{<a id="method-Cicerone-step"></a>}}
+\if{latex}{\out{\hypertarget{method-Cicerone-step}{}}}
 \subsection{Method \code{step()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Cicerone$step(
@@ -186,8 +186,8 @@ Add a step.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-init"></a>}}
-\if{latex}{\out{\hypertarget{method-init}{}}}
+\if{html}{\out{<a id="method-Cicerone-init"></a>}}
+\if{latex}{\out{\hypertarget{method-Cicerone-init}{}}}
 \subsection{Method \code{init()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Cicerone$init(session = NULL, run_once = FALSE)}\if{html}{\out{</div>}}
@@ -210,8 +210,8 @@ Initialise Cicerone.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-reset"></a>}}
-\if{latex}{\out{\hypertarget{method-reset}{}}}
+\if{html}{\out{<a id="method-Cicerone-reset"></a>}}
+\if{latex}{\out{\hypertarget{method-Cicerone-reset}{}}}
 \subsection{Method \code{reset()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Cicerone$reset(session = NULL)}\if{html}{\out{</div>}}
@@ -231,8 +231,8 @@ Reset Cicerone.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-start"></a>}}
-\if{latex}{\out{\hypertarget{method-start}{}}}
+\if{html}{\out{<a id="method-Cicerone-start"></a>}}
+\if{latex}{\out{\hypertarget{method-Cicerone-start}{}}}
 \subsection{Method \code{start()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Cicerone$start(step = 1, session = NULL)}\if{html}{\out{</div>}}
@@ -254,8 +254,8 @@ Start Cicerone.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-move_forward"></a>}}
-\if{latex}{\out{\hypertarget{method-move_forward}{}}}
+\if{html}{\out{<a id="method-Cicerone-move_forward"></a>}}
+\if{latex}{\out{\hypertarget{method-Cicerone-move_forward}{}}}
 \subsection{Method \code{move_forward()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Cicerone$move_forward(session = NULL)}\if{html}{\out{</div>}}
@@ -275,8 +275,8 @@ Move Cicerone one step.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-move_backward"></a>}}
-\if{latex}{\out{\hypertarget{method-move_backward}{}}}
+\if{html}{\out{<a id="method-Cicerone-move_backward"></a>}}
+\if{latex}{\out{\hypertarget{method-Cicerone-move_backward}{}}}
 \subsection{Method \code{move_backward()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Cicerone$move_backward(session = NULL)}\if{html}{\out{</div>}}
@@ -296,8 +296,8 @@ Move Cicerone one step backward.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-highlight"></a>}}
-\if{latex}{\out{\hypertarget{method-highlight}{}}}
+\if{html}{\out{<a id="method-Cicerone-highlight"></a>}}
+\if{latex}{\out{\hypertarget{method-Cicerone-highlight}{}}}
 \subsection{Method \code{highlight()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Cicerone$highlight(el, session = NULL)}\if{html}{\out{</div>}}
@@ -319,8 +319,8 @@ Highlight a specific step.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_highlighted_el"></a>}}
-\if{latex}{\out{\hypertarget{method-get_highlighted_el}{}}}
+\if{html}{\out{<a id="method-Cicerone-get_highlighted_el"></a>}}
+\if{latex}{\out{\hypertarget{method-Cicerone-get_highlighted_el}{}}}
 \subsection{Method \code{get_highlighted_el()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Cicerone$get_highlighted_el(session = NULL)}\if{html}{\out{</div>}}
@@ -340,8 +340,8 @@ Retrieve the id of the currently highlighted element.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_previous_el"></a>}}
-\if{latex}{\out{\hypertarget{method-get_previous_el}{}}}
+\if{html}{\out{<a id="method-Cicerone-get_previous_el"></a>}}
+\if{latex}{\out{\hypertarget{method-Cicerone-get_previous_el}{}}}
 \subsection{Method \code{get_previous_el()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Cicerone$get_previous_el(session = NULL)}\if{html}{\out{</div>}}
@@ -361,8 +361,8 @@ Retrieve the id of the previously highlighted element.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-has_next_step"></a>}}
-\if{latex}{\out{\hypertarget{method-has_next_step}{}}}
+\if{html}{\out{<a id="method-Cicerone-has_next_step"></a>}}
+\if{latex}{\out{\hypertarget{method-Cicerone-has_next_step}{}}}
 \subsection{Method \code{has_next_step()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Cicerone$has_next_step(session = NULL)}\if{html}{\out{</div>}}
@@ -382,8 +382,8 @@ Retrieve whether there is a next step.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_next"></a>}}
-\if{latex}{\out{\hypertarget{method-get_next}{}}}
+\if{html}{\out{<a id="method-Cicerone-get_next"></a>}}
+\if{latex}{\out{\hypertarget{method-Cicerone-get_next}{}}}
 \subsection{Method \code{get_next()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Cicerone$get_next(session = NULL)}\if{html}{\out{</div>}}
@@ -403,8 +403,8 @@ Retrieve data that was fired when the user hit the "next" button.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get_previous"></a>}}
-\if{latex}{\out{\hypertarget{method-get_previous}{}}}
+\if{html}{\out{<a id="method-Cicerone-get_previous"></a>}}
+\if{latex}{\out{\hypertarget{method-Cicerone-get_previous}{}}}
 \subsection{Method \code{get_previous()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Cicerone$get_previous(session = NULL)}\if{html}{\out{</div>}}
@@ -424,8 +424,8 @@ Retrieve data that was fired when the user hit the "previous" button.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-Cicerone-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-Cicerone-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{
