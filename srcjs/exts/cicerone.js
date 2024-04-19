@@ -1,19 +1,19 @@
 import "shiny";
 import "jquery";
-import Driver from "driver.js";
-import "driver.js/dist/driver.min.css";
+import { driver } from "driver.js";
+import "driver.js/dist/driver.css";
 
 import "./custom.css";
 
-let driver = [];
+let drivers = [];
 let highlighted;
 let previous;
 let has_next;
 
 const on_next = (id) => {
-  highlighted = driver[id].getHighlightedElement();
-  previous = driver[id].getLastHighlightedElement();
-  has_next = driver[id].hasNextStep();
+  highlighted = drivers[id].getHighlightedElement();
+  previous = drivers[id].getLastHighlightedElement();
+  has_next = drivers[id].hasNextStep();
 
   try {
     highlighted = highlighted.options.element.substr(1);
@@ -38,9 +38,9 @@ const on_next = (id) => {
 };
 
 const on_previous = (id) => {
-  highlighted = driver[id].getHighlightedElement();
-  previous = driver[id].getLastHighlightedElement();
-  has_next = driver[id].hasNextStep();
+  highlighted = drivers[id].getHighlightedElement();
+  previous = drivers[id].getLastHighlightedElement();
+  has_next = drivers[id].hasNextStep();
 
   try {
     highlighted = highlighted.options.element.substr(1);
@@ -77,16 +77,14 @@ const make_next = (id) => {
 };
 
 Shiny.addCustomMessageHandler("cicerone-init", function (opts) {
-  var id = opts.globals.id;
-  var next_func = make_next(id);
-  var prev_func = make_previous(id);
+  const id = opts.globals.id;
+  const next_func = make_next(id);
+  const prev_func = make_previous(id);
   opts.globals.onNext = next_func;
   opts.globals.onPrevious = prev_func;
   opts.globals.onReset = function () {
     Shiny.setInputValue("cicerone_reset", true, { priority: "event" });
   };
-
-  driver[id] = new Driver(opts.globals);
 
   opts.steps.forEach((step, index) => {
     if (opts.steps[index].tab_id) {
@@ -116,8 +114,10 @@ Shiny.addCustomMessageHandler("cicerone-init", function (opts) {
   });
 
   if (opts.steps) {
-    driver[id].defineSteps(opts.steps);
+    opts.globals.steps = opts.steps;
   }
+
+  drivers[id] = driver(opts.globals);
 });
 
 const onHighlightTab = ({ tab_id, tab }) => ({
@@ -126,31 +126,32 @@ const onHighlightTab = ({ tab_id, tab }) => ({
   getFn(element) {
     var tabs = $("#" + this.tab_id);
     console.log(this.tab_id);
-    Shiny.inputBindings.bindingNames["shiny.bootstrapTabInput"].binding
-      .setValue(tabs, this.tab);
+    Shiny.inputBindings.bindingNames[
+      "shiny.bootstrapTabInput"
+    ].binding.setValue(tabs, this.tab);
   },
 });
 
 Shiny.addCustomMessageHandler("cicerone-start", function (opts) {
-  driver[opts.id].start(opts.step);
+  drivers[opts.id].drive(opts.step);
 });
 
 Shiny.addCustomMessageHandler("cicerone-reset", function (opts) {
-  driver[opts.id].reset();
+  drivers[opts.id].reset();
 });
 
 Shiny.addCustomMessageHandler("cicerone-next", function (opts) {
-  driver[opts.id].moveNext();
+  drivers[opts.id].moveNext();
 });
 
 Shiny.addCustomMessageHandler("cicerone-previous", function (opts) {
-  driver[opts.id].movePrevious();
+  drivers[opts.id].movePrevious();
 });
 
 Shiny.addCustomMessageHandler("cicerone-highlight-man", function (opts) {
-  driver[opts.id].highlight(opts);
+  drivers[opts.id].highlight(opts);
 });
 
 Shiny.addCustomMessageHandler("cicerone-highlight", function (opts) {
-  driver[opts.id].highlight(opts.el);
+  drivers[opts.id].highlight(opts.el);
 });

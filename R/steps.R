@@ -18,7 +18,7 @@
 #' * mid-center
 #' 
 #' @export
-Cicerone <- R6::R6Class(
+Cicerone <- R6::R6Class( # nolint
   "Cicerone",
 #' @details
 #' Create a new `Cicerone` object.
@@ -43,6 +43,7 @@ Cicerone <- R6::R6Class(
 #' @param id A unique identifier, useful if you are using more than one
 #' cicerone.
 #' @param mathjax Whether to use MathJax in the steps.
+#' @param ... Other options to pass to the driver.js initialisation.
 #' 
 #' @return A Cicerone object.
   public = list(
@@ -50,7 +51,7 @@ Cicerone <- R6::R6Class(
       allow_close = TRUE, overlay_click_next  = FALSE, done_btn_text = "Done",
       close_btn_text = "Close", stage_background = "#ffffff", next_btn_text = "Next",
       prev_btn_text = "Previous", show_btns = TRUE, keyboard_control = TRUE, id = NULL,
-      mathjax = FALSE) {
+      mathjax = FALSE, ...) {
 
       if(is.null(id))
         id <- generate_id()
@@ -68,7 +69,8 @@ Cicerone <- R6::R6Class(
         prevBtnText = prev_btn_text,
         showButtons = show_btns,
         keyboardControl = keyboard_control,
-        id = id
+        id = id,
+        ...
       )
 
       private$id <- id
