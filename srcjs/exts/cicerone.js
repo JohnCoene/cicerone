@@ -13,8 +13,8 @@ let previous;
 let has_next;
 
 const on_next = (id) => {
-  highlighted = drivers[id].getHighlightedElement();
-  previous = drivers[id].getLastHighlightedElement();
+  highlighted = drivers[id].getActiveElement();
+  previous = drivers[id].getPreviousElement();
   has_next = drivers[id].hasNextStep();
 
   try {
@@ -35,13 +35,12 @@ const on_next = (id) => {
     previous: highlighted,
     before_previous: previous,
   };
-
   Shiny.setInputValue(id + "_cicerone_next", data);
 };
 
 const on_previous = (id) => {
-  highlighted = drivers[id].getHighlightedElement();
-  previous = drivers[id].getLastHighlightedElement();
+  highlighted = drivers[id].getActiveElement();
+  previous = drivers[id].getPreviousElement();
   has_next = drivers[id].hasNextStep();
 
   try {
@@ -79,11 +78,11 @@ const make_next = (id) => {
 };
 
 Shiny.addCustomMessageHandler("cicerone-init", function (opts) {
-  const id = opts.globals.id;
-  const next_func = make_next(id);
-  const prev_func = make_previous(id);
-  opts.globals.onNext = next_func;
-  opts.globals.onPrevious = prev_func;
+  var id = opts.globals.id;
+  var next_func = make_next(id);
+  var prev_func = make_previous(id);
+  opts.globals.onNextClick = next_func;
+  opts.globals.onPreviousClick = prev_func;
   opts.globals.onReset = function () {
     Shiny.setInputValue("cicerone_reset", true, { priority: "event" });
   };
@@ -108,17 +107,18 @@ Shiny.addCustomMessageHandler("cicerone-init", function (opts) {
       )();
     }
 
-    if (opts.steps[index].onNext) {
-      opts.steps[index].onNext = new Function(
+    if (opts.steps[index].onNextClick) {
+      debugger;
+      opts.steps[index].onNextClick = new Function(
         "return " + opts.steps[index].onNext,
       )();
     }
   });
-
+  
   if (opts.steps) {
     opts.globals.steps = opts.steps;
   }
-
+  debugger;
   drivers[id] = driver(opts.globals);
 });
 
