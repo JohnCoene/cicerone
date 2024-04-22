@@ -112,15 +112,41 @@ const callback_make = {
   }
 }
 
+
+
 Shiny.addCustomMessageHandler("cicerone-init", function (opts) {
   var id = opts.globals.id;
-  var next_func = make_next(id);
-  var prev_func = make_previous(id);
-  opts.globals.onNextClick = next_func;
-  opts.globals.onPreviousClick = prev_func;
-  opts.globals.onReset = function () {
-    Shiny.setInputValue("cicerone_reset", true, { priority: "event" });
-  };
+  
+  // Retrieve all the on... callback functions
+  let callbacks = keep_at(opts.globals, (x) => {
+    return x.startsWith("on")
+  })
+  // Evaluate the character strings to create JS Functions
+  let nms = Object.keys(callbacks)
+  for (let index = 0; index < nms.length; index++) {
+    let nm = nms[index];
+    let the_nm = null;
+    switch (nm) {
+      case onNextClick:
+        the_nm = 'next';
+        break;
+      case onPreviousClick:
+        the_nm = 'previous';
+        break;
+      case onDestroyStarted:
+        the_nm = 'destroy';
+        break;
+      default:
+        the_nm = 'default';
+        break;
+    }
+    
+    opts.globals[nm] = callback_make[the_nm](callbacks[nm], id)
+  }
+  // Set the reset value to null, it will be set to true when the guide finishes
+  Shiny.setInputValue(id + "_cicerone_reset", null);
+
+  
 
   opts.steps.forEach((step, index) => {
     if (opts.steps[index].tab_id) {
