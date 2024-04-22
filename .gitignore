@@ -5,3 +5,6 @@ node_modules
 .Rproj.user
 .DS_Store
 .Rhistory
+cicerone.code-workspace
+
+tailwind.config.js
