@@ -12,6 +12,25 @@ let highlighted;
 let previous;
 let has_next;
 
+/**
+ * Keep elements with name returning true from callback
+ * @param {Object} object 
+ * @param {Function} fn A callback function which takes a single argument, the name of the item, and returns a Boolean
+ * @returns {Object} with the subset of entries matching criteria
+ */
+function keep_at(object, fn = (x) => {return true;}) {
+  let nms = Object.keys(object);
+  let out = {};
+  for (let index = 0; index < nms.length; index++) {
+    let nm = nms[index];
+    if (fn(nm)) {
+      out[nm] = object[nm];
+    }
+    
+  }
+  return out;
+}
+
 const on_next = (id) => {
   highlighted = drivers[id].getActiveElement();
   previous = drivers[id].getPreviousElement();
