@@ -84,17 +84,33 @@ const on_previous = (id) => {
   Shiny.setInputValue(id + "_cicerone_previous", data);
 };
 
-const make_previous = (id) => {
-  return function () {
-    return on_previous(id);
-  };
-};
-
-const make_next = (id) => {
-  return function () {
-    return on_next(id);
-  };
-};
+const on_destroy = (id) => {
+  Shiny.setInputValue(id + "_cicerone_reset", true);
+}
+/**
+ * Create an callback
+ * @param {String} body The body of the user supplied callback
+ * @param {String} id Of the guide
+ * @returns {Function} with arguments element, index, options and a body that includes the user supplied code and the corresponding internal function.
+ */
+const callback_make = {
+  next: (body, id) => {
+    let fn = new Function ('element, index, options', body + "let id = " + id + ";\non_next(id);")
+    return fn;
+  },
+  previous: (body, id) => {
+    let fn = new Function ('element, index, options', body + "let id = " + id + ";\non_previous(id);")
+    return fn;
+  },
+  destroy: (body, id) => {
+    let fn = new Function ('element, index, options', body + "let id = " + id + ";\non_destroy(id);")
+    return fn;
+  },
+  default: (body, id) => {
+    let fn = new Function ('element, index, options', body)
+    return fn;
+  }
+}
 
 Shiny.addCustomMessageHandler("cicerone-init", function (opts) {
   var id = opts.globals.id;
