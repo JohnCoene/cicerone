@@ -22,22 +22,34 @@ Cicerone <- R6::R6Class( # nolint
   "Cicerone",
 #' @details
 #' Create a new `Cicerone` object.
-#' 
-#' @param animate Whether to animate or not.
-#' @param opacity Background opacity (0 means only popovers 
-#' and without overlay).
-#' @param padding Distance of element from around the edges.
-#' @param allow_close Whether the click on overlay should close 
-#' or not.
-#' @param overlay_click_next Whether the click on overlay should 
-#' move next.
-#' @param done_btn_text Text on the final button.
-#' @param close_btn_text Text on the close button for this step.
-#' @param stage_background Background color for the staged behind 
-#' highlighted element.
-#' @param next_btn_text Next button text for this step.
-#' @param prev_btn_text Previous button text for this step.
-#' @param show_btns Do not show control buttons in footer.
+#' @param steps Array of steps to highlight. You should pass this when you want to setup a product tour.
+#' @param animate Whether to animate the product tour. (default: true)
+#' @param overlay_color Overlay color. (default: black). This is useful when you have a dark background and want to highlight elements with a light background color.
+#' @param smooth_scroll Whether to smooth scroll to the highlighted element. (default: false)
+#' @param allow_close Whether to allow closing the popover by clicking on the backdrop. (default: true)
+#' @param overlay_opacity Opacity of the backdrop. (default: 0.5)
+#' @param stage_padding Distance between the highlighted element and the cutout. (default: 10)
+#' @param stage_radius Radius of the cutout around the highlighted element. (default: 5)
+#' @param allow_keyboard_control Whether to allow keyboard navigation. (default: true)
+#' @param disable_active_interaction Whether to disable interaction with the highlighted element. (default: false)
+#' @param popover_class If you want to add custom class to the popover
+#' @param popover_offset Distance between the popover and the highlighted element. (default: 10)
+#' @param show_buttons Array of buttons to show in the popover. Defaults to ["next", "previous", "close"] for product tours and [] for single element highlighting.
+#' @param disable_buttons Array of buttons to disable. This is useful when you want to show some of the buttons, but disable some of them.
+#' @param show_progress Whether to show the progress text in popover. (default: false)
+#' @param progress_text Template for the progress text. You can use the following placeholders in the template: {{current}}: The current step number, {{total}}: Total number of steps
+#' @param next_btn_text Text to show in the next button.
+#' @param prev_btn_text Text to show in the previous button.
+#' @param done_btn_text Text to show in the done button. `doneBtnText` is used on the last step of a tour.
+#' @param on_popover_render Called after the popover is rendered. PopoverDOM is an object with references to the popover DOM elements such as buttons title, descriptions, body, container etc.
+#' @param on_highlight_started Hooks to run before highlighting each step. Each hook receives the following parameters: element: The target DOM element of the step, step: The step object configured for the step, options.config: The current configuration options, options.state: The current state of the driver
+#' @param on_highlighted Hooks to run after highlighting each step. Each hook receives the following parameters: element: The target DOM element of the step, step: The step object configured for the step, options.config: The current configuration options, options.state: The current state of the driver
+#' @param on_deselected Hooks to run after deselecting each step. Each hook receives the following parameters: element: The target DOM element of the step, step: The step object configured for the step, options.config: The current configuration options, options.state: The current state of the driver
+#' @param on_destroy_started Hooks to run before destroying the driver. Each hook receives the following parameters: element: Currently active element, step: The step object configured for the currently active, options.config: The current configuration options, options.state: The current state of the driver
+#' @param on_destroyed Hooks to run after destroying the driver. Each hook receives the following parameters: element: Currently active element, step: The step object configured for the currently active, options.config: The current configuration options, options.state: The current state of the driver
+#' @param on_next_click Hooks to run on next button click. Each hook receives the following parameters: element: The current DOM element of the step, step: The step object configured for the step, options.config: The current configuration options, options.state: The current state of the driver
+#' @param on_prev_click Hooks to run on previous button click. Each hook receives the following parameters: element: The current DOM element of the step, step: The step object configured for the step, options.config: The current configuration options, options.state: The current state of the driver
+#' @param on_close_click Hooks to run on close button click. Each hook receives the following parameters: element: The current DOM element of the step, step: The step object configured for the step, options.config: The current configuration options, options.state: The current state of the driver
 #' @param keyboard_control Allow controlling through keyboard (escape 
 #' to close, arrow keys to move).
 #' @param id A unique identifier, useful if you are using more than one
@@ -47,30 +59,105 @@ Cicerone <- R6::R6Class( # nolint
 #' 
 #' @return A Cicerone object.
   public = list(
-    initialize = function(animate = TRUE, opacity = .75, padding = 10,
-      allow_close = TRUE, overlay_click_next  = FALSE, done_btn_text = "Done",
-      close_btn_text = "Close", stage_background = "#ffffff", next_btn_text = "Next",
-      prev_btn_text = "Previous", show_btns = TRUE, keyboard_control = TRUE, id = NULL,
-      mathjax = FALSE, ...) {
+    initialize = function(animate = TRUE,
+                          overlay_opacity = .75,
+                          padding = 10,
+                          allow_close = TRUE,
+                          done_btn_text = "Done",
+                          stage_background = "#ffffff",
+                          next_btn_text = "Next",
+                          prev_btn_text = "Previous",
+                          allow_keyboard_control = TRUE,
+                          overlay_color = "black",
+                          smooth_scroll = FALSE,
+                          stage_radius = 5,
+                          disable_active_interaction = FALSE,
+                          popover_class = NULL,
+                          popover_offset = 10,
+                          show_buttons = c("next", "previous", "close"),
+                          disable_buttons = NULL,
+                          show_progress = FALSE,
+                          progress_text = NULL,
+                          on_popover_render = NULL,
+                          # Placeholder for function
+                          on_highlight_started = NULL,
+                          # Placeholder for function
+                          on_highlighted = NULL,
+                          # Placeholder for function
+                          on_deselected = NULL,
+                          # Placeholder for function
+                          on_destroy_started = NULL,
+                          # Placeholder for function
+                          on_destroyed = NULL,
+                          # Placeholder for function
+                          on_next_click = NULL,
+                          # Placeholder for function
+                          on_prev_click = NULL,
+                          # Placeholder for function
+                          on_close_click = NULL,
+                          # Placeholder for function
+                          id = NULL,
+                          mathjax = FALSE,
+                          overlay_click_next = NULL,
+                          close_btn_text = NULL,
+                          opacity = NULL,
+                          show_btns = NULL,
+                          keyboard_control = NULL) {
+      
 
       if(is.null(id))
         id <- generate_id()
-
+      
+      deprecated <-
+        list(
+          show_btns = list(val = show_btns, with = "Cicerone$new(show_buttons)"),
+          overlay_click_next = list(val = overlay_click_next, with = NULL),
+          close_btn_text = list(val = close_btn_text, with = NULL),
+          opacity = list(val = opacity, with = "Cicerone$new(overlay_opacity)", details = "`overlay_opacity` has been provisionally replaced with the value supplied for `opacity` in this function call.", replace = "overlay_opacity"),
+          keyboard_control = list(val = keyboard_control, with = "Cicerone$new(allow_keyboard_control)", details = "`allow_keyboard_control` has been provisionally replaced with the value supplied for `keyboard_control` in this function call.", replace = "allow_keyboard_control")
+        )
+      e <- environment()
+      mapply(.x = deprecated, .y = names(deprecated), FUN = \(.x, .y) {
+        if (!is.null(.x$val))
+          lifecycle::deprecate_warn(
+            when = ver_upgrade, 
+            what = sprintf("Cicerone$new(%s)", .y),
+            with = .x$with,
+            details = .x$details,
+            env = e,
+            user_env = e)
+        if (is.character(.x$replace))
+          e[[.x$replace]] <- .x$val
+      })
+      
       private$globals <- list(
         animate = animate,
-        opacity = opacity,
-        padding = padding,
+        overlayColor = overlay_color,
+        smoothScroll = smooth_scroll,
         allowClose = allow_close,
-        overlayClickNext = overlay_click_next,
-        doneBtnText = done_btn_text,
-        closeBtnText = close_btn_text,
-        stageBackground = stage_background,
+        overlayOpacity = opacity,
+        stagePadding = padding,
+        stageRadius = stage_radius,
+        allowKeyboardControl = keyboard_control,
+        disableActiveInteraction = disable_active_interaction,
+        popoverClass = popover_class,
+        popoverOffset = popover_offset,
+        showButtons = show_buttons,
+        disableButtons = disable_buttons,
+        showProgress = show_progress,
+        progressText = progress_text,
         nextBtnText = next_btn_text,
         prevBtnText = prev_btn_text,
-        showButtons = show_btns,
-        keyboardControl = keyboard_control,
-        id = id,
-        ...
+        doneBtnText = done_btn_text,
+        on_popover_render = on_popover_render,  # Placeholder for function
+        on_highlight_started = on_highlight_started,  # Placeholder for function
+        on_highlighted = on_highlighted,  # Placeholder for function
+        on_deselected = on_deselected,  # Placeholder for function
+        on_destroy_started = on_destroy_started,  # Placeholder for function
+        on_destroyed = on_destroyed,  # Placeholder for function
+        on_next_click = on_next_click,  # Placeholder for function
+        on_prev_click = on_prev_click,  # Placeholder for function
+        on_close_click = on_close_click  # Placeholder for function
       )
 
       private$id <- id
