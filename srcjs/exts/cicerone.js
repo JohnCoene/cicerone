@@ -162,46 +162,24 @@ function createCallbacks(obj, id, type = 'config') {
         break;
     }
     
-    opts.globals[nm] = callback_make[the_nm](callbacks[nm], id)
-  }
-  // Set the reset value to null, it will be set to true when the guide finishes
-  Shiny.setInputValue(id + "_cicerone_reset", null);
+    obj[nm] = callback_make[the_nm](obj[nm], id)
+  }  
+  return obj;
+}
 
-  
-
-  opts.steps.forEach((step, index) => {
-    if (opts.steps[index].tab_id) {
-      opts.steps[index].onHighlightStarted = onHighlightTab({
-        tab_id: step.tab_id,
-        tab: step.tab,
-      }).getFn;
-    }
-
-    if (opts.steps[index].onHighlighted) {
-      opts.steps[index].onHighlighted = new Function(
-        "return " + opts.steps[index].onHighlighted,
-      )();
-    }
-
-    if (opts.steps[index].onHighlightStarted && !opts.steps[index].tab_id) {
-      opts.steps[index].onHighlightStarted = new Function(
-        "return " + opts.steps[index].onHighlightStarted,
-      )();
-    }
-
-    if (opts.steps[index].onNextClick) {
-      debugger;
-      opts.steps[index].onNextClick = new Function(
-        "return " + opts.steps[index].onNext,
-      )();
-    }
-  });
-  
-  if (opts.steps) {
-    opts.globals.steps = opts.steps;
-  }
-  debugger;
-  drivers[id] = driver(opts.globals);
+Shiny.addCustomMessageHandler("cicerone-init", function (opts) {
+  var id = opts.id;
+  // Prep global callbacks
+  opts.config = createCallbacks(opts.config, id);
+  let steps = opts.config.steps;
+  // Prep callbacks
+  steps.forEach((step, index) => {
+    steps[index] = createCallbacks(step, id, "step");
+    steps[index].popover = createCallbacks(step.popover, id, "popover");
+  })
+  // Reassign
+ opts.config.steps = steps;
+  drivers[id] = driver(opts.config);
 });
 
 const onHighlightTab = ({ tab_id, tab }) => ({
@@ -217,11 +195,13 @@ const onHighlightTab = ({ tab_id, tab }) => ({
 });
 
 Shiny.addCustomMessageHandler("cicerone-start", function (opts) {
+  // Set the reset value to null, it will be set to true when the guide finishes
+  Shiny.setInputValue(opts.id + "_cicerone_reset", null);
   drivers[opts.id].drive(opts.step);
 });
 
 Shiny.addCustomMessageHandler("cicerone-reset", function (opts) {
-  drivers[opts.id].reset();
+  drivers[opts.id].destroy();
 });
 
 Shiny.addCustomMessageHandler("cicerone-next", function (opts) {
