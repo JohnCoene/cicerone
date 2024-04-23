@@ -12,3 +12,17 @@ prep_element <- function (el) {
   else x
 }
 
+deprecate_replace <- function(deprecated, e = rlang::caller_env()) {
+  mapply(.x = deprecated, .y = names(deprecated), FUN = \(.x, .y) {
+    if (!is.null(.x$val))
+      lifecycle::deprecate_warn(
+        when = ver_upgrade, 
+        what = sprintf("Cicerone$new(%s)", .y),
+        with = .x$with,
+        details = .x$details,
+        env = e,
+        user_env = e)
+    if (is.character(.x$replace))
+      e[[.x$replace]] <- .x$val
+  })
+}
