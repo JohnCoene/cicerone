@@ -102,46 +102,59 @@ const on_destroy = (id) => {
  * @returns {Function} with arguments element, index, options and a body that includes the user supplied code and the corresponding internal function.
  */
 const callback_make = {
+  // Callbacks for step object
+  step: ["onDeselected", "onHighlightStarted", "onHighlighted"],
+  // Callbacks for config object
+  config: ["onDeselected", "onHighlightStarted", "onHighlighted", "onPopoverRender", "onDestroyStarted", "onDestroyed", "onNextClick", "onPreviousClick", "onCloseClick"],
+  // Callbacks for popover object
+  popover: ["onPopoverRender", "onNextClick", "onPrevClick", "onCloseClick"],
+  // Required callbacks
+  required: ["onNextClick", "onPreviousClick", "onDestroyStarted"],
   next: (body, id) => {
-    let fn = new Function ('element, index, options', body + "let id = " + id + ";\non_next(id);")
-    return fn;
+    body = body || ''
+    return new Function ('element, index, options', body + "\nlet id = '" + id + "';\non_next(id);");
   },
   previous: (body, id) => {
-    let fn = new Function ('element, index, options', body + "let id = " + id + ";\non_previous(id);")
-    return fn;
+    body = body || ''
+    return new Function ('element, index, options', body + "\nlet id = '" + id + "';\non_previous(id);");
   },
   destroy: (body, id) => {
-    let fn = new Function ('element, index, options', body + "let id = " + id + ";\non_destroy(id);")
-    return fn;
+    body = body || ''
+    return new Function ('element, index, options', body + "\nlet id = '" + id + "';\non_destroy(id);");
   },
   default: (body, id) => {
-    let fn = new Function ('element, index, options', body)
-    return fn;
+    body = body || ''
+    return new Function ('element, index, options', body);
   }
 }
 
-
-
-Shiny.addCustomMessageHandler("cicerone-init", function (opts) {
-  var id = opts.globals.id;
-  
+/**
+ * Combine user supplied callback body with required callback functionality
+ * @param {Object} obj the object for which to prep the callbacks
+ * @param {String} id the id of the driver
+ * @param {String} type='config' One of config, step, popover
+ * @returns {Object} The original object with callback functions.
+ */
+function createCallbacks(obj, id, type = 'config') {
   // Retrieve all the on... callback functions
-  let callbacks = keep_at(opts.globals, (x) => {
+  let callbacks = keep_at(obj, (x) => {
     return x.startsWith("on")
-  })
-  // Evaluate the character strings to create JS Functions
-  let nms = Object.keys(callbacks)
-  for (let index = 0; index < nms.length; index++) {
-    let nm = nms[index];
+  });
+  // Get the required callbacks for the object
+  let req = intersect(callback_make.required, callback_make[type]);
+  // Get the user-declared callback functions
+  req.push(...Object.keys(callbacks));
+  for (let index = 0; index < req.length; index++) {
+    let nm = req[index];
     let the_nm = null;
     switch (nm) {
-      case onNextClick:
+      case 'onNextClick':
         the_nm = 'next';
         break;
-      case onPreviousClick:
+      case 'onPreviousClick':
         the_nm = 'previous';
         break;
-      case onDestroyStarted:
+      case 'onDestroyStarted':
         the_nm = 'destroy';
         break;
       default:
