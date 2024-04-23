@@ -53,71 +53,184 @@
 #' 
 #' @name highlight
 #' @export
-highlight <- function(el, id, title = NULL, description = NULL, position = NULL, 
-  class = NULL, show_btns = NULL, close_btn_text = NULL,
-  next_btn_text = NULL, prev_btn_text = NULL, session = NULL) {
+highlight <- function(
+    el = NULL,
+    title = NULL,
+    description = NULL,
+    side = NULL,
+    align = NULL,
+    show_buttons = c("close"),
+    disable_buttons = NULL,
+    done_btn_text = "Done",
+    next_btn_text = "Next",
+    prev_btn_text = "Previous",
+    show_progress = FALSE,
+    progress_text = NULL,
+    popover_class = NULL,
+    element = NULL,
+    animate = TRUE,
+    overlay_opacity = .75,
+    stage_padding = 10,
+    allow_close = TRUE,
+    allow_keyboard_control = TRUE,
+    overlay_color = "black",
+    smooth_scroll = FALSE,
+    stage_radius = 5,
+    disable_active_interaction = FALSE,
+    popover_offset = 10,
+    on_popover_render = NULL,
+    on_next_click = NULL,
+    on_prev_click = NULL,
+    on_close_click = NULL,
+    on_deselected = NULL,
+    on_highlighted = NULL,
+    on_highlight_started = NULL,
+    # Placeholder for function
+    on_destroy_started = NULL,
+    # Placeholder for function
+    on_destroyed = NULL,
+    mathjax = FALSE,
+    padding = NULL,
+    position = NULL,
+    stage_background = NULL,
+    overlay_click_next = NULL,
+    close_btn_text = NULL,
+    opacity = NULL,
+    show_btns = NULL,
+    keyboard_control = NULL,
+    class = NULL,
+    ...,
+    session = shiny::getDefaultReactiveDomain()) {
+  element <- el %||% element
+  deprecate_replace(
+    list(
+      show_btns = list(val = show_btns, with = "Cicerone$new(show_buttons)"),
+      overlay_click_next = list(val = overlay_click_next, with = NULL),
+      close_btn_text = list(val = close_btn_text, details = "Close button is now an icon."),
+      opacity = list(
+        val = opacity,
+        with = "Cicerone$new(overlay_opacity)",
+        details = "`overlay_opacity` has been provisionally replaced with the value supplied for `opacity` in this function call.",
+        replace = "overlay_opacity"
+      ),
+      keyboard_control = list(
+        val = keyboard_control,
+        with = "Cicerone$new(allow_keyboard_control)",
+        details = "`allow_keyboard_control` has been provisionally replaced with the value supplied for `keyboard_control` in this function call.",
+        replace = "allow_keyboard_control"
+      ),
+      stage_background = list(
+        val = stage_background,
+        with = "Cicerone$new(stage_background)",
+        details = "`overlay_color` has been provisionally replaced with the value supplied for `stage_background` in this function call.",
+        replace = "overlay_color"
+      ),
+      padding = list(
+        val = padding,
+        with = "Cicerone$new(padding)",
+        details = "`stage_padding` has been provisionally replaced with the value supplied for `padding` in this function call.",
+        replace = "stage_padding"
+      ),
+      class = list(
+        val = class,
+        with = "Cicerone$step(class)",
+        details = "`popover_class` has been provisionally replaced with the value supplied for `class` in this function call.",
+        replace = "popover_class"
+      ),
+      position = list(
+        val = position,
+        with = "Cicerone$step(position)",
+        details = "See `side` and `align`"
+      )
+    )
+  )
 
-  if(is.null(session))
-    session <- shiny::getDefaultReactiveDomain()
   
-  assertthat::assert_that(!missing(el), msg = "Must pass `el`")
-  assertthat::assert_that(!missing(id), msg = "Must pass a unique `id`")
+  el <- prep_element(element)
+  
+  if (mathjax) {
+    on_highlighted <- paste0(
+      "setTimeout(function(){
+          MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
+        }, 300);\n",
+      on_highlighted
+    )
+  }
+  
+  
+  highlight <- purrr::compact(list(
+    config = purrr::compact(list(
+      animate = animate,
+      overlayColor = overlay_color,
+      smoothScroll = smooth_scroll,
+      allowClose = allow_close,
+      overlayOpacity = overlay_opacity,
+      stagePadding = padding,
+      stageRadius = stage_radius,
+      allowKeyboardControl = keyboard_control,
+      disableActiveInteraction = disable_active_interaction,
+      popoverClass = popover_class,
+      popoverOffset = popover_offset,
+      showButtons = show_buttons,
+      disableButtons = disable_buttons,
+      showProgress = show_progress,
+      progressText = progress_text,
+      nextBtnText = next_btn_text,
+      prevBtnText = prev_btn_text,
+      doneBtnText = done_btn_text,
+      onPopoverRender = on_popover_render,
+      # Placeholder for function
+      onHighlightStarted = on_highlight_started,
+      # Placeholder for function
+      onHighlighted = on_highlighted,
+      # Placeholder for function
+      onDeselected = on_deselected,
+      # Placeholder for function
+      onDestroyStarted = on_destroy_started,
+      # Placeholder for function
+      onDestroyed = on_destroyed,
+      # Placeholder for function
+      onNextClick = on_next_click,
+      # Placeholder for function
+      onPrevClick = on_prev_click,
+      # Placeholder for function
+      onCloseClick = on_close_click,
+      # Placeholder for function
+      ...
+    )),
+    highlight = list(
+      element = element,
+      popover = purrr::compact(
+        list(
+          title = title,
+          description = description,
+          side = side,
+          align = align,
+          showButtons = show_buttons,
+          disableButtons = disable_buttons,
+          nextBtnText = next_btn_text,
+          prevBtnText = prev_btn_text,
+          doneBtnText = done_btn_text,
+          showProgress = show_progress,
+          progressText = progress_text,
+          popoverClass = popover_class,
+          onPopoverRender = on_popover_render,
+          onNextClick = on_next_click,
+          onPrevClick = on_prev_click,
+          onCloseClick = on_close_click
+        )
+      ),
+      onDeselected = on_deselected,
+      onHighlighted = on_highlighted,
+      onHighlightStarted = on_highlight_started
+    )
+  ))
 
-  el <- paste0("#", el)
-
-  popover <- list()
-
-  if(!is.null(class)) popover$className <- class
-  if(!is.null(title)) popover$title <- title
-  if(!is.null(description)) popover$description <- description
-  if(!is.null(position)) popover$position <- position
-  if(!is.null(show_btns)) popover$showButtons <- show_btns
-  if(!is.null(close_btn_text)) popover$closeBtnText <- close_btn_text
-  if(!is.null(next_btn_text)) popover$nextBtnText <- next_btn_text
-  if(!is.null(prev_btn_text)) popover$prevBtnText <- prev_btn_text
-
-  step = list(element = el)
-  step$id <- id
-
-  if(length(popover))
-    step$popover <- popover
-
-  session$sendCustomMessage("cicerone-highlight-man", step)
+  session$sendCustomMessage("cicerone-highlight", highlight)
 
   invisible()
 }
 
 #' @rdname highlight
 #' @export
-initialise <- function(id, animate = TRUE, opacity = .75, padding = 10,
-  allow_close = TRUE, overlay_click_next  = FALSE, done_btn_text = "Done",
-  close_btn_text = "Close", stage_background = "#ffffff", next_btn_text = "Next",
-  prev_btn_text = "Previous", show_btns = TRUE, keyboard_control = TRUE, session = NULL) {
-
-  assertthat::assert_that(!missing(id), msg = "Must pass a unique `id`")
-
-  if(is.null(session))
-    session <- shiny::getDefaultReactiveDomain()
-
-  globals <- list(
-    animate = animate,
-    opacity = opacity,
-    padding = padding,
-    allowClose = allow_close,
-    overlayClickNext = overlay_click_next,
-    doneBtnText = done_btn_text,
-    closeBtnText = close_btn_text,
-    stageBackground = stage_background,
-    nextBtnText = next_btn_text,
-    prevBtnText = prev_btn_text,
-    showButtons = show_btns,
-    keyboardControl = keyboard_control,
-    id = id
-  )
-
-  if(is.null(session))
-    session <- shiny::getDefaultReactiveDomain()
-
-  session$sendCustomMessage("cicerone-init", list(globals = globals))
-  invisible()
-}
+initialise <- highlight
