@@ -25,7 +25,29 @@ ui <- fluidPage(
       "guide",
       "Run Guide"
     )
+  ),
+  rlang::exec(div,
+              class = "flex flex-row w-100",
+              !!!lapply(1:3, \(.x) {
+                div(class = "basis-1/3",
+                    id = sprintf("el_%s", .x),
+                    sprintf("Element %s", .x))
+              })
+  ),
+  div(
+    sliderInput(
+      "el_highlight",
+      "Element",
+      1,
+      3,
+      step = 1, value = 1
+    ),
+    actionButton(
+      "highlight",
+      "Highlight Element"
+    )
   )
+  
 )
 
 server <- function(input, output, session) {
@@ -45,12 +67,20 @@ server <- function(input, output, session) {
   })
   
   observeEvent(input$guide_1_cicerone_next, {
+    print("Next:")
     print(input$guide_1_cicerone_next)
   })
   
   observeEvent(input$guide_1_cicerone_previous, {
-    print(input$guide_1_cicerone_next)
+    print("Previous:")
+    print(input$guide_1_cicerone_previous)
   })
+  
+  observeEvent(input$guide_1_cicerone_state, {
+    print("State:")
+    print(str(input$guide_1_cicerone_state))
+  })
+  
   
   observeEvent(
     input$guide,
@@ -59,6 +89,15 @@ server <- function(input, output, session) {
       g$drive(step = input$step)
     }
   )
+  
+  observeEvent(input$highlight, {
+    .x <- input$el_highlight
+    highlight(
+      el = sprintf("#el_%s", .x),
+      title = sprintf("This is Element %s", .x),
+      description = sprintf("This is the description for Element %s", .x),
+    )
+  })
 }
 
 shinyApp(ui, server)
