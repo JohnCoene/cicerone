@@ -114,7 +114,7 @@ Cicerone <- R6::R6Class(
         list(
           show_btns = list(val = show_btns, with = "Cicerone$new(show_buttons)"),
           overlay_click_next = list(val = overlay_click_next, with = NULL),
-          close_btn_text = list(val = close_btn_text, with = NULL),
+          close_btn_text = list(val = close_btn_text, details = "Close button is now an icon."),
           opacity = list(
             val = opacity,
             with = "Cicerone$new(overlay_opacity)",
