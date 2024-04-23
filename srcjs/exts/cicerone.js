@@ -9,7 +9,10 @@ import "./custom.css";
 
 let drivers = [];
 let highlighted;
+let next;
 let previous;
+let before_previous = null;
+let move_iterator = 0;
 let has_next;
 
 /**
@@ -38,63 +41,84 @@ function intersect(a, b) {
       return b.indexOf(e) > -1;
   });
 }
-
-const on_next = (id) => {
-  highlighted = drivers[id].getActiveElement();
-  previous = drivers[id].getPreviousElement();
-  has_next = drivers[id].hasNextStep();
-
+function get_el(obj) {
+  let out;
   try {
-    highlighted = highlighted.options.element.substr(1);
+    out = obj.element;
   } catch (err) {
-    highlighted = null;
+    out = null;
   }
-
-  try {
-    previous = previous.options.element.substr(1);
-  } catch (err) {
-    previous = null;
-  }
-
-  var data = {
-    highlighted: highlighted,
-    has_next: has_next,
-    previous: highlighted,
-    before_previous: previous,
-  };
-  Shiny.setInputValue(id + "_cicerone_next", data);
-};
-
-const on_previous = (id) => {
-  highlighted = drivers[id].getActiveElement();
-  previous = drivers[id].getPreviousElement();
-  has_next = drivers[id].hasNextStep();
-
-  try {
-    highlighted = highlighted.options.element.substr(1);
-  } catch (err) {
-    highlighted = null;
-  }
-
-  try {
-    previous = previous.options.element.substr(1);
-  } catch (err) {
-    previous = null;
-  }
-
-  var data = {
-    highlighted: highlighted,
-    has_next: has_next,
-    previous: highlighted,
-    before_previous: previous,
-  };
-
-  Shiny.setInputValue(id + "_cicerone_previous", data);
-};
-
-const on_destroy = (id) => {
-  Shiny.setInputValue(id + "_cicerone_reset", true);
+  return out;
 }
+const cicerone_on = {
+  data: (current_driver, type = "prev") => {
+    highlighted = current_driver.getActiveStep();
+    has_next = current_driver.hasNextStep();
+    let config = current_driver.getConfig();
+    let i = current_driver.getActiveIndex();
+    let is_prev = type == "prev"
+    if (is_prev) {
+      previous = config.steps[i];
+      next = config.steps[i - 1];
+    } else {
+      previous = current_driver.getPreviousStep(); 
+      next = has_next;
+    }
+    
+    let elements = {
+      highlighted: get_el(highlighted),
+      previous: get_el(previous),
+      next: get_el(next)
+    };
+    // Increment the number of moves for assigning `before_previous`
+    move_iterator++
+    // Moving backwards?
+    // Give the user the info
+    let out = {
+      //Highlighted element
+      highlighted: elements.highlighted,
+      // Highlighted: full object
+      highlighted_full: highlighted,
+      // Next element (varies if moving backwards or forwards)
+      next:  elements.next,
+      // Next: full object
+      next_full: next,
+      // Previous element (varies if moving backwards or forwards)
+      previous: elements.previous,
+      previous_full: previous,
+      // Before previous element
+      before_previous: before_previous,
+      has_next: has_next,
+    };
+    if (move_iterator > 1) {
+      before_previous = elements.previous;
+    }
+    return out
+  },
+  next: (id) => {
+    // Current Driver
+    let cd = drivers[id];
+    let data = cicerone_on.data(cd, "next");
+    Shiny.setInputValue(id + "_cicerone_next", data);
+    if (cd.isLastStep()) {
+      debugger;
+      Shiny.setInputValue(id + "_cicerone_reset", true);
+    }
+    cd.moveNext()
+  },
+  previous: (id) => {
+    let cd = drivers[id];
+    let data = cicerone_on.data(cd);
+    Shiny.setInputValue(id + "_cicerone_previous", data);
+    cd.movePrevious()
+  },
+  highlight: (id) => {
+    let cd = drivers[id];
+    let data = cd.getState()
+    Shiny.setInputValue(id + "_cicerone_state", data);
+  }
+}
+
 /**
  * Create an callback
  * @param {String} body The body of the user supplied callback
@@ -105,26 +129,30 @@ const callback_make = {
   // Callbacks for step object
   step: ["onDeselected", "onHighlightStarted", "onHighlighted"],
   // Callbacks for config object
-  config: ["onDeselected", "onHighlightStarted", "onHighlighted", "onPopoverRender", "onDestroyStarted", "onDestroyed", "onNextClick", "onPreviousClick", "onCloseClick"],
+  config: ["onDeselected", "onHighlightStarted", "onHighlighted", "onPopoverRender", "onDestroyStarted", "onDestroyed", "onNextClick", "onPrevClick", "onCloseClick"],
   // Callbacks for popover object
   popover: ["onPopoverRender", "onNextClick", "onPrevClick", "onCloseClick"],
   // Required callbacks
-  required: ["onNextClick", "onPreviousClick", "onDestroyStarted"],
+  required: ["onNextClick", "onPrevClick", "onDestroyed", "onHighlightStarted"],
   next: (body, id) => {
     body = body || ''
-    return new Function ('element, index, options', body + "\nlet id = '" + id + "';\non_next(id);");
+    return new Function ('element, index, options', body + "\nlet id = '" + id + "';\nthis.next(id);").bind(cicerone_on);
   },
   previous: (body, id) => {
     body = body || ''
-    return new Function ('element, index, options', body + "\nlet id = '" + id + "';\non_previous(id);");
+    return new Function ('element, index, options', body + "\nlet id = '" + id + "';\nthis.previous(id);").bind(cicerone_on);
+  },
+  highlight: (body, id) => {
+    body = body || ''
+    return new Function ('element, index, options', body + "\nlet id = '" + id + "';\nthis.highlight(id);").bind(cicerone_on);
   },
   destroy: (body, id) => {
     body = body || ''
-    return new Function ('element, index, options', body + "\nlet id = '" + id + "';\non_destroy(id);");
+    return new Function ('element, index, options', body + "\nlet id = '" + id + "';\nthis.destroy(id);");
   },
   default: (body, id) => {
     body = body || ''
-    return new Function ('element, index, options', body);
+    return new Function ('element, index, options', body).bind(cicerone_on);
   }
 }
 
@@ -151,11 +179,14 @@ function createCallbacks(obj, id, type = 'config') {
       case 'onNextClick':
         the_nm = 'next';
         break;
-      case 'onPreviousClick':
+      case 'onPrevClick':
         the_nm = 'previous';
         break;
-      case 'onDestroyStarted':
+      case 'onDestroyed':
         the_nm = 'destroy';
+        break;
+      case 'onHighlightStarted':
+        the_nm = 'highlight';
         break;
       default:
         the_nm = 'default';
@@ -166,21 +197,27 @@ function createCallbacks(obj, id, type = 'config') {
   }  
   return obj;
 }
-
-Shiny.addCustomMessageHandler("cicerone-init", function (opts) {
+function init(opts) {
   var id = opts.id;
   // Prep global callbacks
   opts.config = createCallbacks(opts.config, id);
   let steps = opts.config.steps;
   // Prep callbacks
-  steps.forEach((step, index) => {
-    steps[index] = createCallbacks(step, id, "step");
-    steps[index].popover = createCallbacks(step.popover, id, "popover");
-  })
-  // Reassign
- opts.config.steps = steps;
-  drivers[id] = driver(opts.config);
-});
+  if (steps) {
+    steps.forEach((step, index) => {
+      steps[index] = createCallbacks(step, id, "step");
+      steps[index].popover = createCallbacks(step.popover, id, "popover");
+    })
+    // Reassign
+    opts.config.steps = steps;
+  }
+  // Create driver
+  let out = driver(opts.config);
+  if (id) {
+    drivers[id] = out;
+  }
+  return out;
+}
 
 const onHighlightTab = ({ tab_id, tab }) => ({
   tab_id,
@@ -192,7 +229,9 @@ const onHighlightTab = ({ tab_id, tab }) => ({
       "shiny.bootstrapTabInput"
     ].binding.setValue(tabs, this.tab);
   },
-});
+})
+
+Shiny.addCustomMessageHandler("cicerone-init", init);
 
 Shiny.addCustomMessageHandler("cicerone-start", function (opts) {
   // Set the reset value to null, it will be set to true when the guide finishes
@@ -212,10 +251,9 @@ Shiny.addCustomMessageHandler("cicerone-previous", function (opts) {
   drivers[opts.id].movePrevious();
 });
 
-Shiny.addCustomMessageHandler("cicerone-highlight-man", function (opts) {
-  drivers[opts.id].highlight(opts);
-});
-
 Shiny.addCustomMessageHandler("cicerone-highlight", function (opts) {
-  drivers[opts.id].highlight(opts.el);
+  debugger;
+  let d = init({id: "highlight", config: opts.config});
+  // TODO need to fix onCloseClick for highlight
+  d.highlight(opts.highlight);
 });
