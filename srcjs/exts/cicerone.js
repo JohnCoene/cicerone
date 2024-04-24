@@ -153,7 +153,7 @@ const callback_make = {
   // Callbacks for popover object
   popover: ["onPopoverRender", "onNextClick", "onPrevClick", "onCloseClick"],
   // Required callbacks
-  required: ["onNextClick", "onPrevClick", "onDestroyed", "onHighlightStarted"],
+  required: ["onNextClick", "onPrevClick", "onDestroyed", "onHighlightStarted", "onCloseClick"],
   next: (body, id) => {
     body = body || ''
     return new Function ('element, index, options', ideclare(id) + body + ";\nthis.next(id);").bind(cicerone_on);
