@@ -18,7 +18,6 @@ Cicerone <- R6::R6Class(
   "Cicerone",
   #' @details
   #' Create a new `Cicerone` object.
-  #' @param steps Array of steps to highlight. You should pass this when you want to setup a product tour.
   #' @param animate Whether to animate the product tour. (default: true)
   #' @param overlay_color Overlay color. (default: black). This is useful when you have a dark background and want to highlight elements with a light background color.
   #' @param smooth_scroll Whether to smooth scroll to the highlighted element. (default: false)
