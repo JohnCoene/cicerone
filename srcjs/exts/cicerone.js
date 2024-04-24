@@ -209,7 +209,7 @@ const callback_make = {
     body = ideclare(id) + (body || '') + ";\nthis.highlight(id);"
     return new Function ('element, index, options', body).bind(cicerone_on);
   },
-  destroy: (body, id) => {
+  close: (body, id) => {
     body = ideclare(id) + (body || '') + ";\nthis.destroy(id);"
     return new Function ('element, index, options', body).bind(cicerone_on);
   },
@@ -267,8 +267,8 @@ function createCallbacks(obj, id, type = 'config') {
       case 'onPrevClick':
         the_nm = 'previous';
         break;
-      case 'onDestroyed':
-        the_nm = 'destroy';
+      case 'onCloseClick':
+        the_nm = 'close';
         break;
       case 'onHighlightStarted':
         the_nm = 'highlight';
