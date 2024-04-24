@@ -86,23 +86,14 @@ Cicerone <- R6::R6Class(
                           show_progress = FALSE,
                           progress_text = NULL,
                           on_popover_render = NULL,
-                          # Placeholder for function
                           on_highlight_started = NULL,
-                          # Placeholder for function
                           on_highlighted = NULL,
-                          # Placeholder for function
                           on_deselected = NULL,
-                          # Placeholder for function
                           on_destroy_started = NULL,
-                          # Placeholder for function
                           on_destroyed = NULL,
-                          # Placeholder for function
                           on_next_click = NULL,
-                          # Placeholder for function
                           on_prev_click = NULL,
-                          # Placeholder for function
                           on_close_click = NULL,
-                          # Placeholder for function
                           id = NULL,
                           mathjax = FALSE,
                           padding = NULL,
