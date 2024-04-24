@@ -22,6 +22,7 @@ The function body can use the following parameters:
 \item step: The step object configured for the step
 \item options.config: The current configuration options
 \item options.state: The current state of the driver
+\item id: the id of the driver
 \item this.get_driver(id): returns the driver object for calling API methods on the driver itself.
 The callback needs only the function body, and not the leading arguments or brackets. IE the arrow function syntax represented below is unnecessary and will break the callback:
 }
@@ -131,7 +132,7 @@ instead supply just the code!
 
 \item{\code{popover_offset}}{Distance between the popover and the highlighted element. (default: 10)}
 
-\item{\code{show_buttons}}{Array of buttons to show in the popover. Defaults to \link{"next", "previous", "close"} for product tours and [] for single element highlighting.}
+\item{\code{show_buttons}}{Array of buttons to show in the popover. Defaults to \link{"next", "previous", "close"} for product tours and \link{'close'} for single element highlighting.}
 
 \item{\code{disable_buttons}}{Array of buttons to disable. This is useful when you want to show some of the buttons, but disable some of them.}
 

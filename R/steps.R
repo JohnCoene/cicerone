@@ -11,6 +11,7 @@
 #'   - step: The step object configured for the step
 #'   - options.config: The current configuration options
 #'   - options.state: The current state of the driver
+#'   - id: the id of the driver
 #'   - this.get_driver(id): returns the driver object for calling API methods on the driver itself.
 #' The callback needs only the function body, and not the leading arguments or brackets. IE the arrow function syntax represented below is unnecessary and will break the callback:
 #' ```js
@@ -36,7 +37,7 @@ Cicerone <- R6::R6Class(
   #' @param disable_active_interaction Whether to disable interaction with the highlighted element. (default: false)
   #' @param popover_class If you want to add custom class to the popover
   #' @param popover_offset Distance between the popover and the highlighted element. (default: 10)
-  #' @param show_buttons Array of buttons to show in the popover. Defaults to ["next", "previous", "close"] for product tours and [] for single element highlighting.
+  #' @param show_buttons Array of buttons to show in the popover. Defaults to ["next", "previous", "close"] for product tours and ['close'] for single element highlighting.
   #' @param disable_buttons Array of buttons to disable. This is useful when you want to show some of the buttons, but disable some of them.
   #' @param show_progress Whether to show the progress text in popover. (default: false)
   #' @param progress_text Template for the progress text. You can use the following placeholders in the template: {{current}}: The current step number, {{total}}: Total number of steps
