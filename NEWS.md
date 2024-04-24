@@ -1,3 +1,5 @@
+# cicerone 2.0.0
+
 # cicerone 1.0.5.9000
 
 - Added `run_once` argument.
