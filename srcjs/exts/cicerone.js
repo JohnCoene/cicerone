@@ -122,18 +122,18 @@ const cicerone_on = {
     cd.moveNext()
   },
   previous: (id) => {
-    let cd = drivers[id];
+    let cd = cicerone_on.get_driver(id);
     let data = cicerone_on.data(cd);
     Shiny.setInputValue(id + "_cicerone_previous", data);
     cd.movePrevious()
   },
   highlight: (id) => {
-    let cd = drivers[id];
+    let cd = cicerone_on.get_driver(id);
     let data = cd.getState()
     Shiny.setInputValue(id + "_cicerone_state", data);
   },
   destroy: (id) => {
-    let cd = drivers[id];
+    let cd = cicerone_on.get_driver(id);
     Shiny.setInputValue(id + "_cicerone_reset", null);
     cd.destroy();
   }
