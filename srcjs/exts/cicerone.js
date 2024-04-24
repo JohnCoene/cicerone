@@ -33,7 +33,9 @@ function keep_at(object, fn = (x) => {return true;}) {
   }
   return out;
 }
-
+function ideclare(id) {
+  return 'let id = "' + id + '";'
+}
 function intersect(a, b) {
   var t;
   if (b.length > a.length) t = b, b = a, a = t; // indexOf to loop over shorter
@@ -136,19 +138,19 @@ const callback_make = {
   required: ["onNextClick", "onPrevClick", "onDestroyed", "onHighlightStarted"],
   next: (body, id) => {
     body = body || ''
-    return new Function ('element, index, options', body + "\nlet id = '" + id + "';\nthis.next(id);").bind(cicerone_on);
+    return new Function ('element, index, options', ideclare(id) + body + "';\nthis.next(id);").bind(cicerone_on);
   },
   previous: (body, id) => {
     body = body || ''
-    return new Function ('element, index, options', body + "\nlet id = '" + id + "';\nthis.previous(id);").bind(cicerone_on);
+    return new Function ('element, index, options', ideclare(id) + body + "';\nthis.previous(id);").bind(cicerone_on);
   },
   highlight: (body, id) => {
     body = body || ''
-    return new Function ('element, index, options', body + "\nlet id = '" + id + "';\nthis.highlight(id);").bind(cicerone_on);
+    return new Function ('element, index, options', ideclare(id) + body + "';\nthis.highlight(id);").bind(cicerone_on);
   },
   destroy: (body, id) => {
     body = body || ''
-    return new Function ('element, index, options', body + "\nlet id = '" + id + "';\nthis.destroy(id);");
+    return new Function ('element, index, options', ideclare(id) + body + "';\nthis.destroy(id);").bind(cicerone_on);
   },
   default: (body, id) => {
     body = body || ''
