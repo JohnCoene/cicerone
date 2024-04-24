@@ -161,7 +161,7 @@ const callback_make = {
   },
   default: (body, id) => {
     body = body || ''
-    return new Function ('element, index, options', ideclare(id) + body);
+    return new Function ('element, index, options', ideclare(id) + body).bind(cicerone_on);
   }
 }
 
