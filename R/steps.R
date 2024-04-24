@@ -262,9 +262,7 @@ Cicerone <- R6::R6Class(
     #' attempts to get the session with [shiny::getDefaultReactiveDomain()].
     #' @param run_once Whether to only run the guide once. If `TRUE`
     #' any subsequent calls of the method will not run the guide.
-    init = function(session = NULL, run_once = FALSE) {
-      if (is.null(session))
-        session <- shiny::getDefaultReactiveDomain()
+    init = function(run_once = FALSE, session = shiny::getDefaultReactiveDomain()) {
       private$config$steps <- private$steps
       opts <- list(config = private$config,
                    id = private$id)
@@ -279,9 +277,8 @@ Cicerone <- R6::R6Class(
     #' @param step The step index at which to start.
     #' @param session A valid Shiny session if `NULL` the function
     #' attempts to get the session with [shiny::getDefaultReactiveDomain()].
-    start = function(step = 1, session = NULL) {
-      if (is.null(session))
-        session <- shiny::getDefaultReactiveDomain()
+    start = function(step = 1, session = shiny::getDefaultReactiveDomain()) {
+      
       
       # we run it once and it already did
       if (private$run_once && private$runs > 0L)
@@ -299,10 +296,7 @@ Cicerone <- R6::R6Class(
     #' @param step The step index at which to start.
     #' @param session A valid Shiny session if `NULL` the function
     #' attempts to get the session with [shiny::getDefaultReactiveDomain()].
-    drive = function(step = 1, session = NULL) {
-      if (is.null(session))
-        session <- shiny::getDefaultReactiveDomain()
-      
+    drive = function(step = 1, session = shiny::getDefaultReactiveDomain()) {
       # we run it once and it already did
       if (private$run_once && private$runs > 0L)
         return(invisible(self))
@@ -318,9 +312,7 @@ Cicerone <- R6::R6Class(
     #'
     #' @param session A valid Shiny session if `NULL` the function
     #' attempts to get the session with [shiny::getDefaultReactiveDomain()].
-    move_forward = function(session = NULL) {
-      if (is.null(session))
-        session <- shiny::getDefaultReactiveDomain()
+    move_forward = function(session = shiny::getDefaultReactiveDomain()) {
       session$sendCustomMessage("cicerone-next", list(id = private$id))
       invisible(self)
     },
@@ -355,10 +347,7 @@ Cicerone <- R6::R6Class(
     #'
     #' @param session A valid Shiny session if `NULL` the function
     #' attempts to get the session with [shiny::getDefaultReactiveDomain()].
-    get_next = function(session = NULL) {
-      if (is.null(session))
-        session <- shiny::getDefaultReactiveDomain()
-      
+    get_next = function(session = shiny::getDefaultReactiveDomain()) {
       grab <- paste0(private$id, "_cicerone_next")
       session$input[[grab]]
     },
@@ -366,10 +355,7 @@ Cicerone <- R6::R6Class(
     #'
     #' @param session A valid Shiny session if `NULL` the function
     #' attempts to get the session with [shiny::getDefaultReactiveDomain()].
-    get_previous = function(session = NULL) {
-      if (is.null(session))
-        session <- shiny::getDefaultReactiveDomain()
-      
+    get_previous = function(session = shiny::getDefaultReactiveDomain()) {
       grab <- paste0(private$id, "_cicerone_previous")
       session$input[[grab]]
     },
@@ -378,7 +364,7 @@ Cicerone <- R6::R6Class(
     #' @param id \code{chr} the ID of the guide to reset. Uses the current guide by default.
     #' @param session A valid Shiny session if `NULL` the function
     #' attempts to get the session with [shiny::getDefaultReactiveDomain()].
-    reset = function(id, session = NULL) {
+    reset = function(id, session = shiny::getDefaultReactiveDomain()) {
       session$sendCustomMessage("cicerone-reset", id = private$id)
     },
     # Deprecated ----
@@ -388,7 +374,7 @@ Cicerone <- R6::R6Class(
     #'
     #' @param session A valid Shiny session if `NULL` the function
     #' attempts to get the session with [shiny::getDefaultReactiveDomain()].
-    get_highlighted_el = function(session = NULL) {
+    get_highlighted_el = function(session = shiny::getDefaultReactiveDomain()) {
       .Deprecated("get_next", package = "cicerone", "Use `get_next` or `get_previous`")
     },
     #' @details
@@ -396,7 +382,7 @@ Cicerone <- R6::R6Class(
     #'
     #' @param session A valid Shiny session if `NULL` the function
     #' attempts to get the session with [shiny::getDefaultReactiveDomain()].
-    get_previous_el = function(session = NULL) {
+    get_previous_el = function(session = shiny::getDefaultReactiveDomain()) {
       .Deprecated("get_next", package = "cicerone", "Use the `get_next` or `get_previous`")
     },
     #' @details
@@ -404,7 +390,7 @@ Cicerone <- R6::R6Class(
     #'
     #' @param session A valid Shiny session if `NULL` the function
     #' attempts to get the session with [shiny::getDefaultReactiveDomain()].
-    has_next_step = function(session = NULL) {
+    has_next_step = function(session = shiny::getDefaultReactiveDomain()) {
       .Deprecated("get_next", package = "cicerone", "Use the `get_next` or `get_previous`")
     }
   ),
