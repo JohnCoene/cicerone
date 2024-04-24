@@ -176,6 +176,23 @@ const callback_make = {
   }
 }
 
+
+/**
+ * Create a driveStep object for passing to driver.highlight
+ * @param {Object} opts The configuration options
+ * @param {String} id the id of the driver
+ * @returns {Object} The driveStep object for passing to the highlight method
+ */
+function highlightDriveStep(opts, id) {
+  // Initialize callbacks in the highlight
+  let highlight = createCallbacks(opts.highlight, id, "step");
+  // adding an onCloseClick callback overwrites the default that would otherwise destroy the driver when clicking the close icon, so we have to manually destroy it as the last line
+  highlight.popover.onCloseClick = highlight.popover.onCloseClick + ";this.destroy(id);"
+  // Create callbacks for the popover object, this includes the user-supplied JS and the destroy statement from above
+  highlight.popover = createCallbacks(highlight.popover, id, "popover");
+  return(highlight)
+}
+
 /**
  * Combine user supplied callback body with required callback functionality
  * @param {Object} obj the object for which to prep the callbacks
