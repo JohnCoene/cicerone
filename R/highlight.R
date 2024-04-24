@@ -2,54 +2,54 @@
 #' 
 #' Initialise and highlight an element.
 #' 
-#' @param el Id of element to be highlighted.
-#' @param id Unique identifier of cicerone.
-#' @param title Title on the popover.
-#' @param description Body of the popover.
-#' @param position Where to position the popover. 
+#' @param el The CSS selector for the element to be highlighted. Can also use `element`.
+#' @param title Title shown in the popover. You can use HTML in this.
+#' @param description Description shown in the popover. You can use HTML in this. Omit one of title or description to show only the other.
+#' @param side The position of the popover relative to the target element. Possible values: "top", "right", "bottom", "left".
+#' @param align The alignment of the popover relative to the target element. Possible values: "start", "center", "end".
+#' @param show_buttons Array of buttons to show in the popover. Defaults to ["close"].
+#' @param disable_buttons Array of buttons to disable.
+#' @param done_btn_text Text to show in the done button.
+#' @param next_btn_text Text to show in the next button.
+#' @param prev_btn_text Text to show in the previous button.
+#' @param show_progress Whether to show the progress text in popover.
+#' @param progress_text Template for the progress text.
+#' @param popover_class Custom class to add to the popover element.
+#' @param element The CSS selector for the element to be highlighted. Can also use `el`.
+#' @param animate Whether to animate the product tour. (default: true)
+#' @param overlay_opacity Opacity of the backdrop. (default: 0.75)
+#' @param stage_padding Distance between the highlighted element and the cutout. (default: 10)
+#' @param allow_close Whether to allow closing the popover by clicking on the backdrop. (default: true)
+#' @param allow_keyboard_control Whether to allow keyboard navigation. (default: true)
+#' @param overlay_color Overlay color. (default: "black").
+#' @param smooth_scroll Whether to smooth scroll to the highlighted element. (default: false)
+#' @param stage_radius Radius of the cutout around the highlighted element. (default: 5)
+#' @param disable_active_interaction Whether to disable interaction with the highlighted element. (default: false)
+#' @param popover_offset Distance between the popover and the highlighted element. (default: 10)
+#' @param on_popover_render Hook to run after the popover is rendered.
+#' @param on_next_click Callback for next button click.
+#' @param on_prev_click Callback for previous button click.
+#' @param on_close_click Callback for close button click.
+#' @param on_deselected Callback for when the current step is deselected.
+#' @param on_highlighted A JavaScript function to run when the step is highlighted.
+#' @param on_highlight_started A JavaScript function body to run when the step is just about to be highlighted.
+#' @param on_destroy_started Hooks to run before destroying the driver. Each hook receives the following parameters: element: Currently active element, step: The step object configured for the currently active, options.config: The current configuration options, options.state: The current state of the driver
+#' @param on_destroyed Hooks to run after destroying the driver. Each hook receives the following parameters: element: Currently active element, step: The step object configured for the currently active, options.config: The current configuration options, options.state: The current state of the driver
+#' @param mathjax Whether to use MathJax in the steps.
+#' @param padding **Deprecated** See `stage_padding`
+#' @param position Where to position the popover.
 #' See positions section.
-#' @param class className to wrap this specific step 
-#' popover in addition to the general className in Driver 
-#' options.
-#' @param show_btns Whether to show control buttons.
-#' @param close_btn_text Text on the close button.
-#' @param next_btn_text Next button text.
-#' @param prev_btn_text Previous button text.
-#' @param animate Whether to animate or not.
-#' @param opacity Background opacity (0 means only popovers 
-#' and without overlay).
-#' @param padding Distance of element from around the edges.
-#' @param allow_close Whether the click on overlay should close 
-#' or not.
-#' @param overlay_click_next Whether the click on overlay should 
-#' move next.
-#' @param done_btn_text Text on the final button.
-#' @param close_btn_text Text on the close button for this step.
-#' @param stage_background Background color for the staged behind 
-#' highlighted element.
-#' @param next_btn_text Next button text for this step.
-#' @param prev_btn_text Previous button text for this step.
-#' @param show_btns Do not show control buttons in footer.
-#' @param keyboard_control Allow controlling through keyboard (escape 
-#' to close, arrow keys to move).
+#' @param stage_background **Deprecated** See `overlay_color`
+#' @param overlay_click_next **Deprecated**
+#' @param close_btn_text **Deprecated** 'Close' button is now an icon
+#' @param opacity **Deprecated** See `overlay_opacity`
+#' @param show_btns **Deprecated** See `show_buttons`
+#' @param keyboard_control  **Deprecated** See `allow_keyboard_control`
+#' @param class **Deprecated** See `popover_class`.
+#' @param ... Other options to pass to the driver.js initialisation. Reserved for future use.
 #' @param session A valid Shiny session if `NULL` 
 #' the function attempts to get the session with 
 #' [shiny::getDefaultReactiveDomain()].
-#' 
-#' @section Position:
-#' * left
-#' * right
-#' * left-center
-#' * left-bottom
-#' * top
-#' * top-center
-#' * top-right
-#' * right
-#' * right-center
-#' * right-bottom
-#' * bottom
-#' * bottom-center
-#' * mid-center
 #' 
 #' @name highlight
 #' @export
@@ -85,9 +85,7 @@ highlight <- function(
     on_deselected = NULL,
     on_highlighted = NULL,
     on_highlight_started = NULL,
-    # Placeholder for function
     on_destroy_started = NULL,
-    # Placeholder for function
     on_destroyed = NULL,
     mathjax = FALSE,
     padding = NULL,
@@ -156,7 +154,6 @@ highlight <- function(
       on_highlighted
     )
   }
-  
   
   highlight <- purrr::compact(list(
     config = purrr::compact(list(
