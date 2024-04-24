@@ -307,17 +307,17 @@ Add a step.
 \if{latex}{\out{\hypertarget{method-Cicerone-init}{}}}
 \subsection{Method \code{init()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Cicerone$init(session = NULL, run_once = FALSE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Cicerone$init(run_once = FALSE, session = shiny::getDefaultReactiveDomain())}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{session}}{A valid Shiny session if \code{NULL} the function
-attempts to get the session with \code{\link[shiny:domains]{shiny::getDefaultReactiveDomain()}}.}
-
 \item{\code{run_once}}{Whether to only run the guide once. If \code{TRUE}
 any subsequent calls of the method will not run the guide.}
+
+\item{\code{session}}{A valid Shiny session if \code{NULL} the function
+attempts to get the session with \code{\link[shiny:domains]{shiny::getDefaultReactiveDomain()}}.}
 }
 \if{html}{\out{</div>}}
 }
@@ -331,7 +331,7 @@ Initialise Cicerone.
 \if{latex}{\out{\hypertarget{method-Cicerone-start}{}}}
 \subsection{Method \code{start()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Cicerone$start(step = 1, session = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Cicerone$start(step = 1, session = shiny::getDefaultReactiveDomain())}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -354,7 +354,7 @@ Start Cicerone.
 \if{latex}{\out{\hypertarget{method-Cicerone-drive}{}}}
 \subsection{Method \code{drive()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Cicerone$drive(step = 1, session = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Cicerone$drive(step = 1, session = shiny::getDefaultReactiveDomain())}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -377,7 +377,7 @@ Start Cicerone.
 \if{latex}{\out{\hypertarget{method-Cicerone-move_forward}{}}}
 \subsection{Method \code{move_forward()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Cicerone$move_forward(session = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Cicerone$move_forward(session = shiny::getDefaultReactiveDomain())}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -398,7 +398,7 @@ Move Cicerone one step.
 \if{latex}{\out{\hypertarget{method-Cicerone-move_backward}{}}}
 \subsection{Method \code{move_backward()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Cicerone$move_backward(session = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Cicerone$move_backward(session = shiny::getDefaultReactiveDomain())}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -418,15 +418,38 @@ Move Cicerone one step backward.
 \if{html}{\out{<a id="method-Cicerone-highlight"></a>}}
 \if{latex}{\out{\hypertarget{method-Cicerone-highlight}{}}}
 \subsection{Method \code{highlight()}}{
+See \code{highlight} for parameter documentation
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Cicerone$highlight(el, session = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Cicerone$highlight(
+  el = NULL,
+  title = NULL,
+  description = NULL,
+  side = NULL,
+  align = NULL,
+  show_buttons = c("close"),
+  disable_buttons = NULL,
+  next_btn_text = NULL,
+  prev_btn_text = NULL,
+  done_btn_text = NULL,
+  show_progress = NULL,
+  progress_text = NULL,
+  popover_class = NULL,
+  on_popover_render = NULL,
+  on_next_click = NULL,
+  on_prev_click = NULL,
+  on_close_click = NULL,
+  on_deselected = NULL,
+  on_highlighted = NULL,
+  on_highlight_started = NULL,
+  element = NULL,
+  el_as_is = FALSE,
+  session = shiny::getDefaultReactiveDomain()
+)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{el}}{Id of element to highlight}
-
 \item{\code{session}}{A valid Shiny session if \code{NULL} the function
 attempts to get the session with \code{\link[shiny:domains]{shiny::getDefaultReactiveDomain()}}.}
 }
@@ -442,7 +465,7 @@ Highlight a specific step.
 \if{latex}{\out{\hypertarget{method-Cicerone-get_next}{}}}
 \subsection{Method \code{get_next()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Cicerone$get_next(session = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Cicerone$get_next(session = shiny::getDefaultReactiveDomain())}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -463,7 +486,7 @@ Retrieve data that was fired when the user hit the "next" button.
 \if{latex}{\out{\hypertarget{method-Cicerone-get_previous}{}}}
 \subsection{Method \code{get_previous()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Cicerone$get_previous(session = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Cicerone$get_previous(session = shiny::getDefaultReactiveDomain())}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -484,7 +507,7 @@ Retrieve data that was fired when the user hit the "previous" button.
 \if{latex}{\out{\hypertarget{method-Cicerone-reset}{}}}
 \subsection{Method \code{reset()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Cicerone$reset(id, session = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Cicerone$reset(id, session = shiny::getDefaultReactiveDomain())}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -507,7 +530,7 @@ Reset Cicerone.
 \if{latex}{\out{\hypertarget{method-Cicerone-get_highlighted_el}{}}}
 \subsection{Method \code{get_highlighted_el()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Cicerone$get_highlighted_el(session = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Cicerone$get_highlighted_el(session = shiny::getDefaultReactiveDomain())}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -528,7 +551,7 @@ Retrieve the id of the currently highlighted element.
 \if{latex}{\out{\hypertarget{method-Cicerone-get_previous_el}{}}}
 \subsection{Method \code{get_previous_el()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Cicerone$get_previous_el(session = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Cicerone$get_previous_el(session = shiny::getDefaultReactiveDomain())}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -549,7 +572,7 @@ Retrieve the id of the previously highlighted element.
 \if{latex}{\out{\hypertarget{method-Cicerone-has_next_step}{}}}
 \subsection{Method \code{has_next_step()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Cicerone$has_next_step(session = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Cicerone$has_next_step(session = shiny::getDefaultReactiveDomain())}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{

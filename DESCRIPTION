@@ -29,7 +29,7 @@ Imports:
     assertthat,
     purrr (>= 1.0.2),
     snakecase (>= 0.11.1)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 Roxygen: list(markdown = TRUE)
 URL: https://cicerone.john-coene.com/
 BugReports: https://github.com/JohnCoene/cicerone/issues
