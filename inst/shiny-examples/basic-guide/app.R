@@ -24,6 +24,11 @@ ui <- fluidPage(
     actionButton(
       "guide",
       "Run Guide"
+    ),
+    shiny::helpText("Use Guide to highlight step. Guide must run first."),
+    actionButton(
+      "guide_highlight",
+      "Highlight Selected Step"
     )
   ),
   rlang::exec(div,
@@ -83,6 +88,9 @@ server <- function(input, output, session) {
     print(str(input$guide_1_cicerone_state))
   })
   
+  observeEvent(input$guide_highlight, {
+    g$highlight(el = sprintf("#box_%s", input$step), title = "Highlight using previous guide", "This button should be highlighted with the options applied to the `g` object at initialization.")
+  })
   
   observeEvent(
     input$guide,
