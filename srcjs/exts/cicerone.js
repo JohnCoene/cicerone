@@ -33,6 +33,8 @@ function keep_at(object, fn = (x) => {return true;}) {
   }
   return out;
 }
+
+
 function ideclare(id) {
   return "let id = '" + id + "';"
 }
@@ -98,11 +100,20 @@ const cicerone_on = {
     return out
   },
   get_driver: (id) => {
-    return drivers[id]
+    // ID may be a driver itself
+    let out = id;
+    // If not grab it from the drivers list
+    if (typeof id == "string") {
+      out = drivers[id];
+    }
+    if (typeof out !== "object") {
+      throw new Error("No driver object found!")
+    }
+    return out;
   },
   next: (id) => {
     // Current Driver
-    let cd = drivers[id];
+    let cd = cicerone_on.get_driver(id);
     let data = cicerone_on.data(cd, "next");
     Shiny.setInputValue(id + "_cicerone_next", data);
     if (cd.isLastStep()) {
