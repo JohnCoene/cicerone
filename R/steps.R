@@ -382,7 +382,7 @@ Cicerone <- R6::R6Class(
     #' @param session A valid Shiny session if `NULL` the function
     #' attempts to get the session with [shiny::getDefaultReactiveDomain()].
     reset = function(id, session = shiny::getDefaultReactiveDomain()) {
-      session$sendCustomMessage("cicerone-reset", id = private$id)
+      session$sendCustomMessage("cicerone-reset", list(id = private$id))
     },
     # Deprecated ----
     # Tue Apr 23 11:56:43 2024
