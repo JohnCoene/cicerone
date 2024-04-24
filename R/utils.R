@@ -110,6 +110,18 @@ driver_configs <- list(
   }
 )
 
+mathjax <- function(on_highlighted, mathjax) {
+  if (mathjax) {
+    on_highlighted <- paste0(
+      "setTimeout(function(){
+          MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
+        }, 300);\n",
+      on_highlighted
+    )
+  }
+  return(on_highlighted)
+}
+
 deprecate_replace <- function(deprecated, e = rlang::caller_env()) {
   mapply(.x = deprecated, .y = names(deprecated), FUN = \(.x, .y) {
     if (!is.null(.x$val))
