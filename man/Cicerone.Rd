@@ -168,8 +168,6 @@ cicerone.}
 \item{\code{keyboard_control}}{\strong{Deprecated} See \code{allow_keyboard_control}}
 
 \item{\code{...}}{Other options to pass to the driver.js initialisation. Reserved for future use.}
-
-\item{\code{steps}}{Array of steps to highlight. You should pass this when you want to setup a product tour.}
 }
 \if{html}{\out{</div>}}
 }
@@ -474,12 +472,14 @@ Retrieve data that was fired when the user hit the "previous" button.
 \if{latex}{\out{\hypertarget{method-Cicerone-reset}{}}}
 \subsection{Method \code{reset()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Cicerone$reset(session = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Cicerone$reset(id, session = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
+\item{\code{id}}{\code{chr} the ID of the guide to reset. Uses the current guide by default.}
+
 \item{\code{session}}{A valid Shiny session if \code{NULL} the function
 attempts to get the session with \code{\link[shiny:domains]{shiny::getDefaultReactiveDomain()}}.}
 }

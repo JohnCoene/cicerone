@@ -6,104 +6,195 @@
 \title{Highlight & Initialise}
 \usage{
 highlight(
-  el,
-  id,
+  el = NULL,
   title = NULL,
   description = NULL,
+  side = NULL,
+  align = NULL,
+  show_buttons = c("close"),
+  disable_buttons = NULL,
+  done_btn_text = "Done",
+  next_btn_text = "Next",
+  prev_btn_text = "Previous",
+  show_progress = FALSE,
+  progress_text = NULL,
+  popover_class = NULL,
+  element = NULL,
+  animate = TRUE,
+  overlay_opacity = 0.75,
+  stage_padding = 10,
+  allow_close = TRUE,
+  allow_keyboard_control = TRUE,
+  overlay_color = "black",
+  smooth_scroll = FALSE,
+  stage_radius = 5,
+  disable_active_interaction = FALSE,
+  popover_offset = 10,
+  on_popover_render = NULL,
+  on_next_click = NULL,
+  on_prev_click = NULL,
+  on_close_click = NULL,
+  on_deselected = NULL,
+  on_highlighted = NULL,
+  on_highlight_started = NULL,
+  on_destroy_started = NULL,
+  on_destroyed = NULL,
+  mathjax = FALSE,
+  padding = NULL,
   position = NULL,
-  class = NULL,
-  show_btns = NULL,
+  stage_background = NULL,
+  overlay_click_next = NULL,
   close_btn_text = NULL,
-  next_btn_text = NULL,
-  prev_btn_text = NULL,
-  session = NULL
+  opacity = NULL,
+  show_btns = NULL,
+  keyboard_control = NULL,
+  class = NULL,
+  ...,
+  session = shiny::getDefaultReactiveDomain()
 )
 
 initialise(
-  id,
-  animate = TRUE,
-  opacity = 0.75,
-  padding = 10,
-  allow_close = TRUE,
-  overlay_click_next = FALSE,
+  el = NULL,
+  title = NULL,
+  description = NULL,
+  side = NULL,
+  align = NULL,
+  show_buttons = c("close"),
+  disable_buttons = NULL,
   done_btn_text = "Done",
-  close_btn_text = "Close",
-  stage_background = "#ffffff",
   next_btn_text = "Next",
   prev_btn_text = "Previous",
-  show_btns = TRUE,
-  keyboard_control = TRUE,
-  session = NULL
+  show_progress = FALSE,
+  progress_text = NULL,
+  popover_class = NULL,
+  element = NULL,
+  animate = TRUE,
+  overlay_opacity = 0.75,
+  stage_padding = 10,
+  allow_close = TRUE,
+  allow_keyboard_control = TRUE,
+  overlay_color = "black",
+  smooth_scroll = FALSE,
+  stage_radius = 5,
+  disable_active_interaction = FALSE,
+  popover_offset = 10,
+  on_popover_render = NULL,
+  on_next_click = NULL,
+  on_prev_click = NULL,
+  on_close_click = NULL,
+  on_deselected = NULL,
+  on_highlighted = NULL,
+  on_highlight_started = NULL,
+  on_destroy_started = NULL,
+  on_destroyed = NULL,
+  mathjax = FALSE,
+  padding = NULL,
+  position = NULL,
+  stage_background = NULL,
+  overlay_click_next = NULL,
+  close_btn_text = NULL,
+  opacity = NULL,
+  show_btns = NULL,
+  keyboard_control = NULL,
+  class = NULL,
+  ...,
+  session = shiny::getDefaultReactiveDomain()
 )
 }
 \arguments{
-\item{el}{Id of element to be highlighted.}
+\item{el}{The CSS selector for the element to be highlighted. Can also use \code{element}.}
 
-\item{id}{Unique identifier of cicerone.}
+\item{title}{Title shown in the popover. You can use HTML in this.}
 
-\item{title}{Title on the popover.}
+\item{description}{Description shown in the popover. You can use HTML in this. Omit one of title or description to show only the other.}
 
-\item{description}{Body of the popover.}
+\item{side}{The position of the popover relative to the target element. Possible values: "top", "right", "bottom", "left".}
+
+\item{align}{The alignment of the popover relative to the target element. Possible values: "start", "center", "end".}
+
+\item{show_buttons}{Array of buttons to show in the popover. Defaults to \link{"close"}.}
+
+\item{disable_buttons}{Array of buttons to disable.}
+
+\item{done_btn_text}{Text to show in the done button.}
+
+\item{next_btn_text}{Text to show in the next button.}
+
+\item{prev_btn_text}{Text to show in the previous button.}
+
+\item{show_progress}{Whether to show the progress text in popover.}
+
+\item{progress_text}{Template for the progress text.}
+
+\item{popover_class}{Custom class to add to the popover element.}
+
+\item{element}{The CSS selector for the element to be highlighted. Can also use \code{el}.}
+
+\item{animate}{Whether to animate the product tour. (default: true)}
+
+\item{overlay_opacity}{Opacity of the backdrop. (default: 0.75)}
+
+\item{stage_padding}{Distance between the highlighted element and the cutout. (default: 10)}
+
+\item{allow_close}{Whether to allow closing the popover by clicking on the backdrop. (default: true)}
+
+\item{allow_keyboard_control}{Whether to allow keyboard navigation. (default: true)}
+
+\item{overlay_color}{Overlay color. (default: "black").}
+
+\item{smooth_scroll}{Whether to smooth scroll to the highlighted element. (default: false)}
+
+\item{stage_radius}{Radius of the cutout around the highlighted element. (default: 5)}
+
+\item{disable_active_interaction}{Whether to disable interaction with the highlighted element. (default: false)}
+
+\item{popover_offset}{Distance between the popover and the highlighted element. (default: 10)}
+
+\item{on_popover_render}{Hook to run after the popover is rendered.}
+
+\item{on_next_click}{Callback for next button click.}
+
+\item{on_prev_click}{Callback for previous button click.}
+
+\item{on_close_click}{Callback for close button click.}
+
+\item{on_deselected}{Callback for when the current step is deselected.}
+
+\item{on_highlighted}{A JavaScript function to run when the step is highlighted.}
+
+\item{on_highlight_started}{A JavaScript function body to run when the step is just about to be highlighted.}
+
+\item{on_destroy_started}{Hooks to run before destroying the driver. Each hook receives the following parameters: element: Currently active element, step: The step object configured for the currently active, options.config: The current configuration options, options.state: The current state of the driver}
+
+\item{on_destroyed}{Hooks to run after destroying the driver. Each hook receives the following parameters: element: Currently active element, step: The step object configured for the currently active, options.config: The current configuration options, options.state: The current state of the driver}
+
+\item{mathjax}{Whether to use MathJax in the steps.}
+
+\item{padding}{\strong{Deprecated} See \code{stage_padding}}
 
 \item{position}{Where to position the popover.
 See positions section.}
 
-\item{class}{className to wrap this specific step
-popover in addition to the general className in Driver
-options.}
+\item{stage_background}{\strong{Deprecated} See \code{overlay_color}}
 
-\item{show_btns}{Do not show control buttons in footer.}
+\item{overlay_click_next}{\strong{Deprecated}}
 
-\item{close_btn_text}{Text on the close button for this step.}
+\item{close_btn_text}{\strong{Deprecated} 'Close' button is now an icon}
 
-\item{next_btn_text}{Next button text for this step.}
+\item{opacity}{\strong{Deprecated} See \code{overlay_opacity}}
 
-\item{prev_btn_text}{Previous button text for this step.}
+\item{show_btns}{\strong{Deprecated} See \code{show_buttons}}
+
+\item{keyboard_control}{\strong{Deprecated} See \code{allow_keyboard_control}}
+
+\item{class}{\strong{Deprecated} See \code{popover_class}.}
+
+\item{...}{Other options to pass to the driver.js initialisation. Reserved for future use.}
 
 \item{session}{A valid Shiny session if \code{NULL}
 the function attempts to get the session with
 \code{\link[shiny:domains]{shiny::getDefaultReactiveDomain()}}.}
-
-\item{animate}{Whether to animate or not.}
-
-\item{opacity}{Background opacity (0 means only popovers
-and without overlay).}
-
-\item{padding}{Distance of element from around the edges.}
-
-\item{allow_close}{Whether the click on overlay should close
-or not.}
-
-\item{overlay_click_next}{Whether the click on overlay should
-move next.}
-
-\item{done_btn_text}{Text on the final button.}
-
-\item{stage_background}{Background color for the staged behind
-highlighted element.}
-
-\item{keyboard_control}{Allow controlling through keyboard (escape
-to close, arrow keys to move).}
 }
 \description{
 Initialise and highlight an element.
 }
-\section{Position}{
-
-\itemize{
-\item left
-\item right
-\item left-center
-\item left-bottom
-\item top
-\item top-center
-\item top-right
-\item right
-\item right-center
-\item right-bottom
-\item bottom
-\item bottom-center
-\item mid-center
-}
-}
-
