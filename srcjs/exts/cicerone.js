@@ -294,18 +294,19 @@ Shiny.addCustomMessageHandler("cicerone-previous", function (opts) {
 });
 
 Shiny.addCustomMessageHandler("cicerone-highlight", function (opts) {
+  let id = "highlight";
   // Initialize driver.js with config (creates callbacks), without storing to `drivers`
-  let d = init({config: opts.config});
-  // Initialize callbacks in the highlight
-  let highlight = createCallbacks(opts.highlight);
-  // adding an onCloseClick callback overwrites the default that would otherwise destroy the driver when clicking the close icon, so we have to manually destroy it as the last line
-  highlight.popover.onCloseClick = highlight.popover.onCloseClick + ";this.d.destroy();"
-  // Create callbacks for the popover object, this includes the user-supplied JS and the destroy statement from above
-  highlight.popover = createCallbacks(highlight.popover);
-  // Create an object that includes a back reference to the driver, such that it's accessible in the callback
-  let e = {d : d}
-  // Bind the object so the driver can be referenced and destroyed within the callback
-  highlight.popover.onCloseClick = highlight.popover.onCloseClick.bind(e);
+  let d = init({config: opts.config, id: id});
+  // Create a configuration object for the highlight
+  let highlight = highlightDriveStep(opts, id);
+  // Fire the highlight
+  d.highlight(highlight);
+});
+
+Shiny.addCustomMessageHandler("cicerone-highlight-guide", function (opts) {
+  let d = drivers[opts.id];
+  // Create a configuration object for the highlight
+  let highlight = highlightDriveStep(opts, opts.id);
   // Fire the highlight
   d.highlight(highlight);
 });
