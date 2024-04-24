@@ -34,6 +34,43 @@ function keep_at(object, fn = (x) => {return true;}) {
   return out;
 }
 
+function divSelectors(tag){
+   return tag.id ? `#${tag.id}` : `${tag.tagName.toLowerCase()}${tag.classList.length ? `.${[...tag.classList].join('.')}` : ''}`
+}
+
+
+function isElement(element) {
+  return element instanceof Element || element instanceof Document;  
+}
+
+function censor(censor) {
+  var i = 0;
+  
+  return function(key, value) {
+    if (isElement(value))
+      return divSelectors(value)
+    if(i !== 0 && typeof(censor) === 'object' && typeof(value) == 'object' && censor == value) 
+      return '[Circular]'; 
+    
+    if(i >= 29) // seems to be a harded maximum of 30 serialized objects?
+      return '[Unknown]';
+    
+    ++i; // so we know we aren't using the original object anymore
+    
+    return value;  
+  }
+}
+function toShinyInput(x) {
+  let out;
+  try {
+    out = JSON.stringify(x, censor(x));
+  } catch (error) {
+    debugger;
+  }
+  
+  out = JSON.parse(out);
+  return out;
+}
 
 function ideclare(id) {
   return "let id = '" + id + "';"
@@ -55,6 +92,10 @@ function get_el(obj) {
   return out;
 }
 const cicerone_on = {
+  state: (state) => {
+    // For future use in trimming state object if it throws errors
+    return state;
+  },
   data: (current_driver, type = "prev") => {
     highlighted = current_driver.getActiveStep();
     has_next = current_driver.hasNextStep();
@@ -114,8 +155,9 @@ const cicerone_on = {
   next: (id) => {
     // Current Driver
     let cd = cicerone_on.get_driver(id);
-    let data = cicerone_on.data(cd, "next");
-    Shiny.setInputValue(id + "_cicerone_next", data);
+    let data;
+    data = cicerone_on.data(cd, "next");
+    Shiny.setInputValue(id + "_cicerone_next", toShinyInput(data));
     if (cd.isLastStep()) {
       Shiny.setInputValue(id + "_cicerone_reset", true);
     }
@@ -124,13 +166,14 @@ const cicerone_on = {
   previous: (id) => {
     let cd = cicerone_on.get_driver(id);
     let data = cicerone_on.data(cd);
-    Shiny.setInputValue(id + "_cicerone_previous", data);
+    Shiny.setInputValue(id + "_cicerone_previous", toShinyInput(data));
     cd.movePrevious()
   },
   highlight: (id) => {
     let cd = cicerone_on.get_driver(id);
-    let data = cd.getState()
-    Shiny.setInputValue(id + "_cicerone_state", data);
+    let data;
+    data = cicerone_on.state(cd.getState());
+    Shiny.setInputValue(id + "_cicerone_state", toShinyInput(data));
   },
   destroy: (id) => {
     let cd = cicerone_on.get_driver(id);
