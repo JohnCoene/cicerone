@@ -206,15 +206,13 @@ function createCallbacks(obj, id, type = 'config') {
     return x.startsWith("on")
   });
   
-  let req = ['onCloseClick']
-  if (id !== undefined) {
-      // Get the required callbacks for the object
-    req = intersect(callback_make.required, callback_make[type]);
-    // Get the user-declared callback functions
-    req.push(...Object.keys(callbacks));
-    // Only unique
-    req = [...new Set(req)];
-  }
+  // Get the required callbacks for the object
+  let req = intersect(callback_make.required, callback_make[type]);
+  // Get the user-declared callback functions
+  req.push(...Object.keys(callbacks));
+  // Only unique
+  req = [...new Set(req)];
+  
   
   for (let index = 0; index < req.length; index++) {
     let nm = req[index];
