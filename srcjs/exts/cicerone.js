@@ -152,7 +152,7 @@ const callback_make = {
   },
   default: (body, id) => {
     body = body || ''
-    return new Function ('element, index, options', body).bind(cicerone_on);
+    return new Function ('element, index, options', body);
   }
 }
 
