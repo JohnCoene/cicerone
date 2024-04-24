@@ -325,15 +325,24 @@ Shiny.addCustomMessageHandler("cicerone-start", function (opts) {
 });
 
 Shiny.addCustomMessageHandler("cicerone-reset", function (opts) {
-  drivers[opts.id].destroy();
+  let d = drivers[opts.id];
+  if (d) {
+    d.destroy();
+  }
 });
 
 Shiny.addCustomMessageHandler("cicerone-next", function (opts) {
-  drivers[opts.id].moveNext();
+  let d = drivers[opts.id];
+  if (d) {
+    d.moveNext();
+  }
 });
 
 Shiny.addCustomMessageHandler("cicerone-previous", function (opts) {
-  drivers[opts.id].movePrevious();
+  let d = drivers[opts.id];
+  if (d) {
+    d.movePrevious();
+  }
 });
 
 Shiny.addCustomMessageHandler("cicerone-highlight", function (opts) {
