@@ -11,7 +11,13 @@
 #'   - step: The step object configured for the step
 #'   - options.config: The current configuration options
 #'   - options.state: The current state of the driver
-#'
+#' The callback needs only the function body, and not the leading arguments or brackets. IE the arrow function syntax represented below is unnecessary and will break the callback:
+#' ```js
+#' (args) => {
+#'   //JS Code here
+#' }
+#' ```
+#' instead supply just the code!
 #' @export
 Cicerone <- R6::R6Class(
   # nolint

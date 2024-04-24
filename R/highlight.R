@@ -1,7 +1,7 @@
 #' Highlight & Initialise
 #' 
 #' Initialise and highlight an element.
-#' 
+#' @inheritSection Cicerone Callbacks
 #' @param el The CSS selector for the element to be highlighted. Can also use `element`.
 #' @param title Title shown in the popover. You can use HTML in this.
 #' @param description Description shown in the popover. You can use HTML in this. Omit one of title or description to show only the other.

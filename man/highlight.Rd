@@ -198,3 +198,23 @@ the function attempts to get the session with
 \description{
 Initialise and highlight an element.
 }
+\section{Callbacks}{
+
+All arguments beginning with \code{on...} allow for the declaration of a Javascript callback function body.
+The function body can use the following parameters:
+\itemize{
+\item element: The current DOM element of the step
+\item step: The step object configured for the step
+\item options.config: The current configuration options
+\item options.state: The current state of the driver
+The callback needs only the function body, and not the leading arguments or brackets. IE the arrow function syntax represented below is unnecessary and will break the callback:
+}
+
+\if{html}{\out{<div class="sourceCode js">}}\preformatted{(args) => \{
+  //JS Code here
+\}
+}\if{html}{\out{</div>}}
+
+instead supply just the code!
+}
+
