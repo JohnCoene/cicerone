@@ -60,6 +60,8 @@ server <- function(input, output, session) {
       el = sprintf("#box_%s", .x),
       title = sprintf("This is Box %s", .x),
       description = sprintf("This is the description for Box %s", .x),
+      # Test get_driver method inside of callback
+      on_popover_render = "d = this.get_driver(id); console.log(d);"
     )
   })
   observeEvent(input$guide_1_cicerone_reset, {
