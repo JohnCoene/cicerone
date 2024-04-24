@@ -140,44 +140,10 @@ Cicerone <- R6::R6Class(
         )
       )
       
-      private$config <- purrr::compact(list(
-        animate = animate,
-        overlayColor = overlay_color,
-        smoothScroll = smooth_scroll,
-        allowClose = allow_close,
-        overlayOpacity = overlay_opacity,
-        stagePadding = padding,
-        stageRadius = stage_radius,
-        allowKeyboardControl = keyboard_control,
-        disableActiveInteraction = disable_active_interaction,
-        popoverClass = popover_class,
-        popoverOffset = popover_offset,
-        showButtons = show_buttons,
-        disableButtons = disable_buttons,
-        showProgress = show_progress,
-        progressText = progress_text,
-        nextBtnText = next_btn_text,
-        prevBtnText = prev_btn_text,
-        doneBtnText = done_btn_text,
-        onPopoverRender = on_popover_render,
-        # Placeholder for function
-        onHighlightStarted = on_highlight_started,
-        # Placeholder for function
-        onHighlighted = on_highlighted,
-        # Placeholder for function
-        onDeselected = on_deselected,
-        # Placeholder for function
-        onDestroyStarted = on_destroy_started,
-        # Placeholder for function
-        onDestroyed = on_destroyed,
-        # Placeholder for function
-        onNextClick = on_next_click,
-        # Placeholder for function
-        onPrevClick = on_prev_click,
-        # Placeholder for function
-        onCloseClick = on_close_click,
-        # Placeholder for function
-        ...
+      private$config <- purrr::compact(
+        rlang::list2(
+          !!!driver_configs$config(e = environment()),
+          ...
       ))
       
       private$id <- id
@@ -281,41 +247,11 @@ Cicerone <- R6::R6Class(
       
       
       
-      el <- prep_element(element)
+      element <- prep_element(element, el_as_is)
       
-      if (private$mathjax) {
-        on_highlighted <- paste0(
-          "setTimeout(function(){
-          MathJax.Hub.Queue(['Typeset', MathJax.Hub]);
-        }, 300);\n",
-        on_highlighted
-        )
-      }
+      on_highlighted <- mathjax(on_highlighted, private$mathjax)
       
-      step <- purrr::compact(list(
-        element = element,
-        popover = purrr::compact(list(
-          title = title,
-          description = description,
-          side = side,
-          align = align,
-          showButtons = show_buttons,
-          disableButtons = disable_buttons,
-          nextBtnText = next_btn_text,
-          prevBtnText = prev_btn_text,
-          doneBtnText = done_btn_text,
-          showProgress = show_progress,
-          progressText = progress_text,
-          popoverClass = popover_class,
-          onPopoverRender = on_popover_render,
-          onNextClick = on_next_click,
-          onPrevClick = on_prev_click,
-          onCloseClick = on_close_click
-        )),
-        onDeselected = on_deselected,
-        onHighlighted = on_highlighted,
-        onHighlightStarted = on_highlight_started
-      ))
+      step <- driver_configs$drive_step(e = environment())
       private$steps <- append(private$steps, list(step))
       invisible(self)
     },
