@@ -321,26 +321,43 @@ Cicerone <- R6::R6Class(
     #'
     #' @param session A valid Shiny session if `NULL` the function
     #' attempts to get the session with [shiny::getDefaultReactiveDomain()].
-    move_backward = function(session = NULL) {
-      if (is.null(session))
-        session <- shiny::getDefaultReactiveDomain()
+    move_backward = function(session = shiny::getDefaultReactiveDomain()) {
       session$sendCustomMessage("cicerone-previous", list(id = private$id))
       invisible(self)
     },
     #' @details
     #' Highlight a specific step.
-    #'
-    #' @param el Id of element to highlight
+    #' @description
+    #' See `?highlight` for parameter documentation
+    #'  
     #' @param session A valid Shiny session if `NULL` the function
     #' attempts to get the session with [shiny::getDefaultReactiveDomain()].
-    highlight = function(el, session = NULL) {
-      assertthat::assert_that(!missing(el), msg = "Must pass `el`.")
-      if (is.null(session))
-        session <- shiny::getDefaultReactiveDomain()
-      
-      el <- prep_element(el)
-      
-      session$sendCustomMessage("cicerone-highlight", list(el = el, id = private$id))
+    highlight = function(el = NULL,
+                         title = NULL,
+                         description = NULL,
+                         side = NULL,
+                         align = NULL,
+                         show_buttons = c("close"),
+                         disable_buttons = NULL,
+                         next_btn_text = NULL,
+                         prev_btn_text = NULL,
+                         done_btn_text = NULL,
+                         show_progress = NULL,
+                         progress_text = NULL,
+                         popover_class = NULL,
+                         on_popover_render = NULL,
+                         on_next_click = NULL,
+                         on_prev_click = NULL,
+                         on_close_click = NULL,
+                         on_deselected = NULL,
+                         on_highlighted = NULL,
+                         on_highlight_started = NULL,
+                         element = NULL,
+                         el_as_is = FALSE, session = shiny::getDefaultReactiveDomain()) {
+      element <- el %||% element
+      element <- prep_element(element, el_as_is)
+      ds <- driver_configs$drive_step(e = environment())
+      session$sendCustomMessage("cicerone-highlight-guide", list(highlight = ds, id = private$id))
       invisible(self)
     },
     #' @details Retrieve data that was fired when the user hit the "next" button.
