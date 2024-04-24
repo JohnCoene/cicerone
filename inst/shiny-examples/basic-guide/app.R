@@ -95,7 +95,7 @@ server <- function(input, output, session) {
     highlight(
       el = sprintf("#el_%s", .x),
       title = sprintf("This is Element %s", .x),
-      description = sprintf("This is the description for Element %s", .x),
+      description = sprintf("This is the description for Element %s. This is a <a href='https://www.google.com' target='_blank'>link to Google</a>", .x),
     )
   })
 }

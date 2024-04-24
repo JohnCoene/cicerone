@@ -40,6 +40,7 @@ highlight(
   on_destroy_started = NULL,
   on_destroyed = NULL,
   mathjax = FALSE,
+  el_as_is = FALSE,
   padding = NULL,
   position = NULL,
   stage_background = NULL,
@@ -88,6 +89,7 @@ initialise(
   on_destroy_started = NULL,
   on_destroyed = NULL,
   mathjax = FALSE,
+  el_as_is = FALSE,
   padding = NULL,
   position = NULL,
   stage_background = NULL,
@@ -102,7 +104,7 @@ initialise(
 )
 }
 \arguments{
-\item{el}{The CSS selector for the element to be highlighted. Can also use \code{element}.}
+\item{el}{The CSS selector for the element to be highlighted. If not preceded by a \code{.} or \verb{#} the element will be assumed to be an id and \verb{#} will be prepended. Use \code{el_as_is = TRUE} to mute this behavior. Can also use \code{element}.}
 
 \item{title}{Title shown in the popover. You can use HTML in this.}
 
@@ -169,6 +171,8 @@ initialise(
 \item{on_destroyed}{Hooks to run after destroying the driver. Each hook receives the following parameters: element: Currently active element, step: The step object configured for the currently active, options.config: The current configuration options, options.state: The current state of the driver}
 
 \item{mathjax}{Whether to use MathJax in the steps.}
+
+\item{el_as_is}{\code{lgl} Whether the element should be treated as-is. IE elements without a \code{.} or \verb{#} in the first position will be treated as-is.}
 
 \item{padding}{\strong{Deprecated} See \code{stage_padding}}
 

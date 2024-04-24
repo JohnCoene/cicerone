@@ -214,6 +214,7 @@ A Cicerone object.
   on_highlighted = NULL,
   on_highlight_started = NULL,
   element = NULL,
+  el_as_is = FALSE,
   class = NULL,
   show_btns = NULL,
   close_btn_text = NULL,
@@ -272,9 +273,11 @@ highlighted, generally a callback function. This is effectively a string that is
 
 \item{\code{element}}{The CSS selector for the element to be highlighted. Can also use \code{el}.}
 
+\item{\code{el_as_is}}{\code{lgl} Whether the element should be treated as-is. IE elements without a \code{.} or \verb{#} in the first position will be treated as-is.}
+
 \item{\code{class}}{\strong{Deprecated} See \code{popover_class}.}
 
-\item{\code{show_btns}}{\strong{Deprecated} Whether to show control buttons. See \code{show_buttons}.}
+\item{\code{show_btns}}{\strong{Deprecated} See \code{show_buttons}. Whether to show control buttons.}
 
 \item{\code{close_btn_text}}{\strong{Deprecated} Close button is now an icon.}
 
@@ -285,8 +288,7 @@ highlighted, generally a callback function. This is effectively a string that is
 \item{\code{is_id}}{\strong{Deprecated} Whether the selector passed to \code{el} is an HTML id, set to \code{FALSE} to use.
 other selectors, e.g.: \code{.class}.}
 
-\item{\code{position}}{Where to position the popover.
-See positions section.}
+\item{\code{position}}{\strong{Deprecated} See \code{side} & \code{align} instead. Where to position the popover.}
 
 \item{\code{on_next}}{\strong{Deprecated} A JavaScript function to run when the next button is clicked (or its event triggered),
 generally a callback function. This is effectively a string that is evaluated JavaScript-side.}

@@ -217,10 +217,10 @@ Cicerone <- R6::R6Class(
     #' generally a callback function. This is effectively a string that is evaluated JavaScript-side. See `Callbacks`.
     #' @param on_highlight_started A JavaScript function body to run when the step is just about to be
     #' highlighted, generally a callback function. This is effectively a string that is evaluated JavaScript-side. See `Callbacks`.
-    #' @param position Where to position the popover.
-    #' See positions section.
+    #' @param el_as_is \code{lgl} Whether the element should be treated as-is. IE elements without a `.` or `#` in the first position will be treated as-is.
+    #' @param position **Deprecated** See `side` & `align` instead. Where to position the popover. 
     #' @param class **Deprecated** See `popover_class`.
-    #' @param show_btns **Deprecated** Whether to show control buttons. See `show_buttons`.
+    #' @param show_btns **Deprecated** See `show_buttons`. Whether to show control buttons. 
     #' @param close_btn_text **Deprecated** Close button is now an icon.
     #' @param tab_id **Deprecated** The id of the tabs to activate in order to highlight `tab_id`.
     #' @param is_id **Deprecated** Whether the selector passed to `el` is an HTML id, set to `FALSE` to use.
@@ -249,6 +249,7 @@ Cicerone <- R6::R6Class(
                     on_highlighted = NULL,
                     on_highlight_started = NULL,
                     element = NULL,
+                    el_as_is = FALSE,
                     class = NULL,
                     show_btns = NULL,
                     close_btn_text = NULL,

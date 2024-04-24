@@ -2,7 +2,7 @@
 #' 
 #' Initialise and highlight an element.
 #' @inheritSection Cicerone Callbacks
-#' @param el The CSS selector for the element to be highlighted. Can also use `element`.
+#' @param el The CSS selector for the element to be highlighted. If not preceded by a `.` or `#` the element will be assumed to be an id and `#` will be prepended. Use `el_as_is = TRUE` to mute this behavior. Can also use `element`.
 #' @param title Title shown in the popover. You can use HTML in this.
 #' @param description Description shown in the popover. You can use HTML in this. Omit one of title or description to show only the other.
 #' @param side The position of the popover relative to the target element. Possible values: "top", "right", "bottom", "left".
@@ -36,6 +36,7 @@
 #' @param on_destroy_started Hooks to run before destroying the driver. Each hook receives the following parameters: element: Currently active element, step: The step object configured for the currently active, options.config: The current configuration options, options.state: The current state of the driver
 #' @param on_destroyed Hooks to run after destroying the driver. Each hook receives the following parameters: element: Currently active element, step: The step object configured for the currently active, options.config: The current configuration options, options.state: The current state of the driver
 #' @param mathjax Whether to use MathJax in the steps.
+#' @param el_as_is \code{lgl} Whether the element should be treated as-is. IE elements without a `.` or `#` in the first position will be treated as-is.
 #' @param padding **Deprecated** See `stage_padding`
 #' @param position Where to position the popover.
 #' See positions section.
@@ -88,6 +89,7 @@ highlight <- function(
     on_destroy_started = NULL,
     on_destroyed = NULL,
     mathjax = FALSE,
+    el_as_is = FALSE,
     padding = NULL,
     position = NULL,
     stage_background = NULL,
@@ -143,8 +145,8 @@ highlight <- function(
     )
   )
 
-  
-  el <- prep_element(element)
+  if (!el_as_is)
+    element <- prep_element(element)
   
   if (mathjax) {
     on_highlighted <- paste0(
