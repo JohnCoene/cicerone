@@ -185,7 +185,7 @@ const callback_make = {
   // Callbacks for popover object
   popover: ["onPopoverRender", "onNextClick", "onPrevClick", "onCloseClick"],
   // Required callbacks
-  required: ["onNextClick", "onPrevClick", "onDestroyed", "onHighlightStarted", "onCloseClick"],
+  required: ["onNextClick", "onPrevClick", "onHighlightStarted", "onCloseClick", "onDestroyed"],
   next: (body, id) => {
     body = body || ''
     return new Function ('element, index, options', ideclare(id) + body + ";\nthis.next(id);").bind(cicerone_on);
@@ -200,6 +200,10 @@ const callback_make = {
   },
   close: (body, id) => {
     body = ideclare(id) + (body || '') + ";\nthis.destroy(id);"
+    return new Function ('element, index, options', body).bind(cicerone_on);
+  },
+  destroyed: (body, id) => {
+    body = ideclare(id) + (body || '') + ";\nthis.destroyed(id);"
     return new Function ('element, index, options', body).bind(cicerone_on);
   },
   default: (body, id) => {
@@ -258,6 +262,9 @@ function createCallbacks(obj, id, type = 'config') {
         break;
       case 'onCloseClick':
         the_nm = 'close';
+        break;
+      case 'onDestroyed':
+        the_nm = 'destroyed';
         break;
       case 'onHighlightStarted':
         the_nm = 'highlight';
