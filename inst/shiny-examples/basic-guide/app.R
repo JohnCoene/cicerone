@@ -21,14 +21,27 @@ ui <- fluidPage(
       3,
       step = 1, value = 1
     ),
-    actionButton(
-      "guide",
-      "Run Guide"
-    ),
-    shiny::helpText("Use Guide to highlight step. Guide must run first."),
-    actionButton(
-      "guide_highlight",
-      "Highlight Selected Step"
+    div(
+      class = "flex flex-row",
+      div(
+        actionButton(
+          "guide",
+          "Run Guide"
+        )
+      ),
+      div(
+        shiny::helpText("Use Guide to highlight step. Guide must run first."),
+        actionButton(
+          "guide_highlight",
+          "Highlight Selected Step"
+        )
+      ),
+      div(
+        actionButton(
+          "again",
+          "Run Guide again"
+        )
+      )
     )
   ),
   rlang::exec(div,
@@ -89,6 +102,7 @@ server <- function(input, output, session) {
   })
   
   observeEvent(input$guide_highlight, {
+    # Test HTML
     g$highlight(el = sprintf("#box_%s", input$step), title = "Highlight using previous guide", "This button should be highlighted with the options applied to the `g` object at initialization.")
   })
   
@@ -96,6 +110,12 @@ server <- function(input, output, session) {
     input$guide,
     {
       g$init()
+      g$drive(step = input$step)
+    }
+  )
+  observeEvent(
+    input$again,
+    {
       g$drive(step = input$step)
     }
   )
