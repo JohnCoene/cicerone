@@ -148,9 +148,6 @@ const cicerone_on = {
     let data;
     data = cicerone_on.data(cd, "next");
     Shiny.setInputValue(id + "_cicerone_next", toShinyInput(data));
-    if (cd.isLastStep()) {
-      Shiny.setInputValue(id + "_cicerone_reset", true);
-    }
     cd.moveNext()
   },
   previous: (id) => {
@@ -167,8 +164,10 @@ const cicerone_on = {
   },
   destroy: (id) => {
     let cd = cicerone_on.get_driver(id);
-    Shiny.setInputValue(id + "_cicerone_reset", null);
     cd.destroy();
+  },
+  destroyed: (id) => {
+    Shiny.setInputValue(id + "_cicerone_reset", true);
   }
 }
 
