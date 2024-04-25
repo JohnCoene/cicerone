@@ -35,19 +35,37 @@ function keep_at(object, fn = (x) => {return true;}) {
   return out;
 }
 
+/**
+ * Convert an Element to a CSS selector string
+ * @param {Object} tag A DOM Element
+ * @returns {String} The CSS Selector
+ */
 function divSelectors(tag){
    return tag.id ? `#${tag.id}` : `${tag.tagName.toLowerCase()}${tag.classList.length ? `.${[...tag.classList].join('.')}` : ''}`
 }
 
 
+/**
+ * Is node a DOM Element
+ * @param {Object} element any object to test
+ * @returns {Boolean} Whether a DOM element or not
+ */
 function isElement(element) {
   return element instanceof Element || element instanceof Document;  
 }
 
+/**
+ * TODO: Move to ShinyVirga
+ * Transform driver.js objects into Shiny.setInputValue safe objects
+ * @param {Object} x Any object
+ * @returns {Object} An object ready to be provided as a Shiny.setInputValue object
+ */
 function toShinyInput(x) {
+  // Recursively map over the object
   let out = traverse(x).map( function(node) {
     
     if (isElement(node)) {
+      // NOTE: Must use this.node_ becuase node is somehow stripped of it's attributes by this function and will throw an error
       this.update(divSelectors(this.node_));
     } else if (typeof node === "function") {
       this.update(node.toString());
@@ -62,9 +80,20 @@ function toShinyInput(x) {
   return out;
 }
 
+/**
+ * Create a string that declares an ID for use in metaprogramming
+ * @param {String} id the id to declare
+ * @returns {String} the statement that declares it internal to a callback
+ */
 function ideclare(id) {
   return "let id = '" + id + "';"
 }
+/**
+ * Find the intersection of two arrays
+ * @param {Array} a
+ * @param {Array} b
+ * @returns {Array} with intersecting values
+ */
 function intersect(a, b) {
   var t;
   if (b.length > a.length) t = b, b = a, a = t; // indexOf to loop over shorter
@@ -72,6 +101,11 @@ function intersect(a, b) {
       return b.indexOf(e) > -1;
   });
 }
+/**
+ * Get the element item from an object
+ * @param {Object} obj
+ * @returns {Object} The item with name `element`
+ */
 function get_el(obj) {
   let out;
   try {
@@ -81,6 +115,7 @@ function get_el(obj) {
   }
   return out;
 }
+
 const cicerone_on = {
   state: (state) => {
     // For future use in trimming state object if it throws errors
