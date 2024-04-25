@@ -75,12 +75,12 @@ server <- function(input, output, session) {
   
   observeEvent(input$guide_1_cicerone_next, {
     print("Next:")
-    print(input$guide_1_cicerone_next)
+    print(str(input$guide_1_cicerone_next))
   })
   
   observeEvent(input$guide_1_cicerone_previous, {
     print("Previous:")
-    print(input$guide_1_cicerone_previous)
+    print(str(input$guide_1_cicerone_previous))
   })
   
   observeEvent(input$guide_1_cicerone_state, {
