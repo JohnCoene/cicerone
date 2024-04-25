@@ -7,3 +7,5 @@ tabs_ok <- function(x, y) {
 on_failure(tabs_ok) <- function(call, env) {
   paste0("Either do not define either", deparse(call$x), " and ", deparse(call$y), "or define both.")
 }
+
+ver_upgrade = "2.0.0"

@@ -1,6 +1,6 @@
 Package: cicerone
 Title: Provide Tours of 'Shiny' Applications
-Version: 1.0.5.9000
+Version: 2.0.0
 Date: 2021-01-10
 Authors@R: 
   c(
@@ -26,8 +26,10 @@ Imports:
     R6,
     shiny,
     htmltools,
-    assertthat
-RoxygenNote: 7.2.3
+    assertthat,
+    purrr (>= 1.0.2),
+    snakecase (>= 0.11.1)
+RoxygenNote: 7.3.1
 Roxygen: list(markdown = TRUE)
 URL: https://cicerone.john-coene.com/
 BugReports: https://github.com/JohnCoene/cicerone/issues

@@ -1,124 +1,339 @@
-import "shiny";
+import { driver } from "driver.js";
+import "driver.js/dist/driver.css";
 import "jquery";
-import Driver from "driver.js";
-import "driver.js/dist/driver.min.css";
+import Shiny from "shiny";
+import traverse from 'traverse';
+
+
 
 import "./custom.css";
 
-let driver = [];
+let drivers = [];
 let highlighted;
+let next;
 let previous;
+let before_previous = null;
+let move_iterator = 0;
 let has_next;
 
-const on_next = (id) => {
-  highlighted = driver[id].getHighlightedElement();
-  previous = driver[id].getLastHighlightedElement();
-  has_next = driver[id].hasNextStep();
-
-  try {
-    highlighted = highlighted.options.element.substr(1);
-  } catch (err) {
-    highlighted = null;
-  }
-
-  try {
-    previous = previous.options.element.substr(1);
-  } catch (err) {
-    previous = null;
-  }
-
-  var data = {
-    highlighted: highlighted,
-    has_next: has_next,
-    previous: highlighted,
-    before_previous: previous,
-  };
-
-  Shiny.setInputValue(id + "_cicerone_next", data);
-};
-
-const on_previous = (id) => {
-  highlighted = driver[id].getHighlightedElement();
-  previous = driver[id].getLastHighlightedElement();
-  has_next = driver[id].hasNextStep();
-
-  try {
-    highlighted = highlighted.options.element.substr(1);
-  } catch (err) {
-    highlighted = null;
-  }
-
-  try {
-    previous = previous.options.element.substr(1);
-  } catch (err) {
-    previous = null;
-  }
-
-  var data = {
-    highlighted: highlighted,
-    has_next: has_next,
-    previous: highlighted,
-    before_previous: previous,
-  };
-
-  Shiny.setInputValue(id + "_cicerone_previous", data);
-};
-
-const make_previous = (id) => {
-  return function () {
-    return on_previous(id);
-  };
-};
-
-const make_next = (id) => {
-  return function () {
-    return on_next(id);
-  };
-};
-
-Shiny.addCustomMessageHandler("cicerone-init", function (opts) {
-  var id = opts.globals.id;
-  var next_func = make_next(id);
-  var prev_func = make_previous(id);
-  opts.globals.onNext = next_func;
-  opts.globals.onPrevious = prev_func;
-  opts.globals.onReset = function () {
-    Shiny.setInputValue("cicerone_reset", true, { priority: "event" });
-  };
-
-  driver[id] = new Driver(opts.globals);
-
-  opts.steps.forEach((step, index) => {
-    if (opts.steps[index].tab_id) {
-      opts.steps[index].onHighlightStarted = onHighlightTab({
-        tab_id: step.tab_id,
-        tab: step.tab,
-      }).getFn;
+/**
+ * Keep elements with name returning true from callback
+ * @param {Object} object 
+ * @param {Function} fn A callback function which takes a single argument, the name of the item, and returns a Boolean
+ * @returns {Object} with the subset of entries matching criteria
+ */
+function keep_at(object, fn = (x) => {return true;}) {
+  let nms = Object.keys(object);
+  let out = {};
+  for (let index = 0; index < nms.length; index++) {
+    let nm = nms[index];
+    if (fn(nm)) {
+      out[nm] = object[nm];
     }
+    
+  }
+  return out;
+}
 
-    if (opts.steps[index].onHighlighted) {
-      opts.steps[index].onHighlighted = new Function(
-        "return " + opts.steps[index].onHighlighted,
-      )();
-    }
+/**
+ * Convert an Element to a CSS selector string
+ * @param {Object} tag A DOM Element
+ * @returns {String} The CSS Selector
+ */
+function divSelectors(tag){
+   return tag.id ? `#${tag.id}` : `${tag.tagName.toLowerCase()}${tag.classList.length ? `.${[...tag.classList].join('.')}` : ''}`
+}
 
-    if (opts.steps[index].onHighlightStarted && !opts.steps[index].tab_id) {
-      opts.steps[index].onHighlightStarted = new Function(
-        "return " + opts.steps[index].onHighlightStarted,
-      )();
-    }
 
-    if (opts.steps[index].onNext) {
-      opts.steps[index].onNext = new Function(
-        "return " + opts.steps[index].onNext,
-      )();
+/**
+ * Is node a DOM Element
+ * @param {Object} element any object to test
+ * @returns {Boolean} Whether a DOM element or not
+ */
+function isElement(element) {
+  return element instanceof Element || element instanceof Document;  
+}
+
+/**
+ * TODO: Move to ShinyVirga
+ * Transform driver.js objects into Shiny.setInputValue safe objects
+ * @param {Object} x Any object
+ * @returns {Object} An object ready to be provided as a Shiny.setInputValue object
+ */
+function toShinyInput(x) {
+  // Recursively map over the object
+  let out = traverse(x).map( function(node) {
+    
+    if (isElement(node)) {
+      // NOTE: Must use this.node_ becuase node is somehow stripped of it's attributes by this function and will throw an error
+      this.update(divSelectors(this.node_));
+    } else if (typeof node === "function") {
+      this.update(node.toString());
     }
   });
-
-  if (opts.steps) {
-    driver[id].defineSteps(opts.steps);
+  try {
+    out = JSON.stringify(out);
+  } catch (error) {
+    debugger;
   }
-});
+  out = JSON.parse(out);
+  return out;
+}
+
+/**
+ * Create a string that declares an ID for use in metaprogramming
+ * @param {String} id the id to declare
+ * @returns {String} the statement that declares it internal to a callback
+ */
+function ideclare(id) {
+  return "let id = '" + id + "';"
+}
+/**
+ * Find the intersection of two arrays
+ * @param {Array} a
+ * @param {Array} b
+ * @returns {Array} with intersecting values
+ */
+function intersect(a, b) {
+  var t;
+  if (b.length > a.length) t = b, b = a, a = t; // indexOf to loop over shorter
+  return a.filter(function (e) {
+      return b.indexOf(e) > -1;
+  });
+}
+/**
+ * Get the element item from an object
+ * @param {Object} obj
+ * @returns {Object} The item with name `element`
+ */
+function get_el(obj) {
+  let out;
+  try {
+    out = obj.element;
+  } catch (err) {
+    out = null;
+  }
+  return out;
+}
+
+const cicerone_on = {
+  state: (state) => {
+    // For future use in trimming state object if it throws errors
+    return state;
+  },
+  data: (current_driver, type = "prev") => {
+    highlighted = current_driver.getActiveStep();
+    has_next = current_driver.hasNextStep();
+    let config = current_driver.getConfig();
+    let i = current_driver.getActiveIndex();
+    let is_prev = type == "prev"
+    if (is_prev) {
+      previous = config.steps[i];
+      next = config.steps[i - 1];
+    } else {
+      previous = current_driver.getPreviousStep(); 
+      next = has_next;
+    }
+    
+    let elements = {
+      highlighted: get_el(highlighted),
+      previous: get_el(previous),
+      next: get_el(next)
+    };
+    // Increment the number of moves for assigning `before_previous`
+    move_iterator++
+    // Moving backwards?
+    // Give the user the info
+    let out = {
+      //Highlighted element
+      highlighted: elements.highlighted,
+      // Highlighted: full object
+      highlighted_full: highlighted,
+      // Next element (varies if moving backwards or forwards)
+      next:  elements.next,
+      // Next: full object
+      next_full: next,
+      // Previous element (varies if moving backwards or forwards)
+      previous: elements.previous,
+      previous_full: previous,
+      // Before previous element
+      before_previous: before_previous,
+      has_next: has_next,
+    };
+    if (move_iterator > 1) {
+      before_previous = elements.previous;
+    }
+    return out
+  },
+  get_driver: (id) => {
+    // ID may be a driver itself
+    let out = id;
+    // If not grab it from the drivers list
+    if (typeof id == "string") {
+      out = drivers[id];
+    }
+    if (typeof out !== "object") {
+      throw new Error("No driver object found!")
+    }
+    return out;
+  },
+  next: (id) => {
+    // Current Driver
+    let cd = cicerone_on.get_driver(id);
+    let data;
+    data = cicerone_on.data(cd, "next");
+    Shiny.setInputValue(id + "_cicerone_next", toShinyInput(data));
+    cd.moveNext()
+  },
+  previous: (id) => {
+    let cd = cicerone_on.get_driver(id);
+    let data = cicerone_on.data(cd);
+    Shiny.setInputValue(id + "_cicerone_previous", toShinyInput(data));
+    cd.movePrevious()
+  },
+  highlight: (id) => {
+    let cd = cicerone_on.get_driver(id);
+    let data;
+    data = cicerone_on.state(cd.getState());
+    Shiny.setInputValue(id + "_cicerone_state", toShinyInput(data));
+  },
+  destroy: (id) => {
+    let cd = cicerone_on.get_driver(id);
+    cd.destroy();
+  },
+  destroyed: (id) => {
+    Shiny.setInputValue(id + "_cicerone_reset", true);
+  }
+}
+
+/**
+ * Create an callback
+ * @param {String} body The body of the user supplied callback
+ * @param {String} id Of the guide
+ * @returns {Function} with arguments element, index, options and a body that includes the user supplied code and the corresponding internal function.
+ */
+const callback_make = {
+  // Callbacks for step object
+  step: ["onDeselected", "onHighlightStarted", "onHighlighted"],
+  // Callbacks for config object
+  config: ["onDeselected", "onHighlightStarted", "onHighlighted", "onPopoverRender", "onDestroyStarted", "onDestroyed", "onNextClick", "onPrevClick", "onCloseClick"],
+  // Callbacks for popover object
+  popover: ["onPopoverRender", "onNextClick", "onPrevClick", "onCloseClick"],
+  // Required callbacks
+  required: ["onNextClick", "onPrevClick", "onHighlightStarted", "onCloseClick", "onDestroyed"],
+  next: (body, id) => {
+    body = body || ''
+    return new Function ('element, index, options', ideclare(id) + body + ";\nthis.next(id);").bind(cicerone_on);
+  },
+  previous: (body, id) => {
+    body = ideclare(id) + (body || '') + ";\nthis.previous(id);"
+    return new Function ('element, index, options', body).bind(cicerone_on);
+  },
+  highlight: (body, id) => {
+    body = ideclare(id) + (body || '') + ";\nthis.highlight(id);"
+    return new Function ('element, index, options', body).bind(cicerone_on);
+  },
+  close: (body, id) => {
+    body = ideclare(id) + (body || '') + ";\nthis.destroy(id);"
+    return new Function ('element, index, options', body).bind(cicerone_on);
+  },
+  destroyed: (body, id) => {
+    body = ideclare(id) + (body || '') + ";\nthis.destroyed(id);"
+    return new Function ('element, index, options', body).bind(cicerone_on);
+  },
+  default: (body, id) => {
+    body = body || ''
+    return new Function ('element, index, options', ideclare(id) + body).bind(cicerone_on);
+  }
+}
+
+
+/**
+ * Create a driveStep object for passing to driver.highlight
+ * @param {Object} opts The configuration options
+ * @param {String} id the id of the driver
+ * @returns {Object} The driveStep object for passing to the highlight method
+ */
+function highlightDriveStep(opts, id) {
+  // Initialize callbacks in the highlight
+  let highlight = createCallbacks(opts.highlight, id, "step");
+  // adding an onCloseClick callback overwrites the default that would otherwise destroy the driver when clicking the close icon, so we have to manually destroy it as the last line
+  highlight.popover.onCloseClick = highlight.popover.onCloseClick + ";this.destroy(id);"
+  // Create callbacks for the popover object, this includes the user-supplied JS and the destroy statement from above
+  highlight.popover = createCallbacks(highlight.popover, id, "popover");
+  return(highlight)
+}
+
+/**
+ * Combine user supplied callback body with required callback functionality
+ * @param {Object} obj the object for which to prep the callbacks
+ * @param {String} id the id of the driver
+ * @param {String} type='config' One of config, step, popover
+ * @returns {Object} The original object with callback functions.
+ */
+function createCallbacks(obj, id, type = 'config') {
+  // Retrieve all the on... callback functions
+  let callbacks = keep_at(obj, (x) => {
+    return x.startsWith("on")
+  });
+  
+  // Get the required callbacks for the object
+  let req = intersect(callback_make.required, callback_make[type]);
+  // Get the user-declared callback functions
+  req.push(...Object.keys(callbacks));
+  // Only unique
+  req = [...new Set(req)];
+  
+  
+  for (let index = 0; index < req.length; index++) {
+    let nm = req[index];
+    let the_nm = null;
+    switch (nm) {
+      case 'onNextClick':
+        the_nm = 'next';
+        break;
+      case 'onPrevClick':
+        the_nm = 'previous';
+        break;
+      case 'onCloseClick':
+        the_nm = 'close';
+        break;
+      case 'onDestroyed':
+        the_nm = 'destroyed';
+        break;
+      case 'onHighlightStarted':
+        the_nm = 'highlight';
+        break;
+      default:
+        the_nm = 'default';
+        break;
+    }
+    
+    obj[nm] = callback_make[the_nm](obj[nm], id)
+  }  
+  return obj;
+}
+function init(opts) {
+  var id = opts.id;
+  // Prep global callbacks
+  opts.config = createCallbacks(opts.config, id);
+  let steps = opts.config.steps;
+  // Prep callbacks
+  if (steps) {
+    steps.forEach((step, index) => {
+      steps[index] = createCallbacks(step, id, "step");
+      steps[index].popover = createCallbacks(step.popover, id, "popover");
+    })
+    // Reassign
+    opts.config.steps = steps;
+  }
+  // Create driver
+  let out = driver(opts.config);
+  if (id) {
+    drivers[id] = out;
+  }
+  return out;
+}
 
 const onHighlightTab = ({ tab_id, tab }) => ({
   tab_id,
@@ -126,31 +341,55 @@ const onHighlightTab = ({ tab_id, tab }) => ({
   getFn(element) {
     var tabs = $("#" + this.tab_id);
     console.log(this.tab_id);
-    Shiny.inputBindings.bindingNames["shiny.bootstrapTabInput"].binding
-      .setValue(tabs, this.tab);
+    Shiny.inputBindings.bindingNames[
+      "shiny.bootstrapTabInput"
+    ].binding.setValue(tabs, this.tab);
   },
-});
+})
+
+Shiny.addCustomMessageHandler("cicerone-init", init);
 
 Shiny.addCustomMessageHandler("cicerone-start", function (opts) {
-  driver[opts.id].start(opts.step);
+  // Set the reset value to null, it will be set to true when the guide finishes
+  Shiny.setInputValue(opts.id + "_cicerone_reset", null);
+  drivers[opts.id].drive(opts.step);
 });
 
 Shiny.addCustomMessageHandler("cicerone-reset", function (opts) {
-  driver[opts.id].reset();
+  let d = drivers[opts.id];
+  if (d) {
+    d.destroy();
+  }
 });
 
 Shiny.addCustomMessageHandler("cicerone-next", function (opts) {
-  driver[opts.id].moveNext();
+  let d = drivers[opts.id];
+  if (d) {
+    d.moveNext();
+  }
 });
 
 Shiny.addCustomMessageHandler("cicerone-previous", function (opts) {
-  driver[opts.id].movePrevious();
-});
-
-Shiny.addCustomMessageHandler("cicerone-highlight-man", function (opts) {
-  driver[opts.id].highlight(opts);
+  let d = drivers[opts.id];
+  if (d) {
+    d.movePrevious();
+  }
 });
 
 Shiny.addCustomMessageHandler("cicerone-highlight", function (opts) {
-  driver[opts.id].highlight(opts.el);
+  let id = "highlight";
+  // Initialize driver.js with config (creates callbacks), without storing to `drivers`
+  let d = init({config: opts.config, id: id});
+  // Create a configuration object for the highlight
+  let highlight = highlightDriveStep(opts, id);
+  // Fire the highlight
+  d.highlight(highlight);
+});
+
+Shiny.addCustomMessageHandler("cicerone-highlight-guide", function (opts) {
+  let d = drivers[opts.id];
+  // Create a configuration object for the highlight
+  let highlight = highlightDriveStep(opts, opts.id);
+  // Fire the highlight
+  d.highlight(highlight);
 });

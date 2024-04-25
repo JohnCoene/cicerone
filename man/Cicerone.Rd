@@ -2,27 +2,37 @@
 % Please edit documentation in R/steps.R
 \name{Cicerone}
 \alias{Cicerone}
-\title{Define Steps}
+\title{Define the Cicerone Driver}
 \description{
-Define cicerone steps.
-}
-\section{Position}{
+Define the Cicerone Driver
 
-\itemize{
-\item left
-\item right
-\item left-center
-\item left-bottom
-\item top
-\item top-center
-\item top-right
-\item right
-\item right-center
-\item right-bottom
-\item bottom
-\item bottom-center
-\item mid-center
+Define the Cicerone Driver
 }
+\section{New in 2.0.0}{
+
+The arguments have been updated to be the snake_case equivalents of the arguments in the \href{https://driverjs.com/docs/configuration}{driver.js 1.3.1 documentation} to provide parity and ease of navigating the functionality of driver.js. See \href{https://driverjs.com/docs/migrating-from-0x}{Migrate to 1.x} for documentation of changes.
+}
+
+\section{Callbacks}{
+
+All arguments beginning with \code{on...} allow for the declaration of a Javascript callback function body.
+The function body can use the following parameters:
+\itemize{
+\item element: The current DOM element of the step
+\item step: The step object configured for the step
+\item options.config: The current configuration options
+\item options.state: The current state of the driver
+\item id: the id of the driver
+\item this.get_driver(id): returns the driver object for calling API methods on the driver itself.
+The callback needs only the function body, and not the leading arguments or brackets. IE the arrow function syntax represented below is unnecessary and will break the callback:
+}
+
+\if{html}{\out{<div class="sourceCode js">}}\preformatted{(args) => \{
+  //JS Code here
+\}
+}\if{html}{\out{</div>}}
+
+instead supply just the code!
 }
 
 \section{Methods}{
@@ -31,16 +41,17 @@ Define cicerone steps.
 \item \href{#method-Cicerone-new}{\code{Cicerone$new()}}
 \item \href{#method-Cicerone-step}{\code{Cicerone$step()}}
 \item \href{#method-Cicerone-init}{\code{Cicerone$init()}}
-\item \href{#method-Cicerone-reset}{\code{Cicerone$reset()}}
 \item \href{#method-Cicerone-start}{\code{Cicerone$start()}}
+\item \href{#method-Cicerone-drive}{\code{Cicerone$drive()}}
 \item \href{#method-Cicerone-move_forward}{\code{Cicerone$move_forward()}}
 \item \href{#method-Cicerone-move_backward}{\code{Cicerone$move_backward()}}
 \item \href{#method-Cicerone-highlight}{\code{Cicerone$highlight()}}
+\item \href{#method-Cicerone-get_next}{\code{Cicerone$get_next()}}
+\item \href{#method-Cicerone-get_previous}{\code{Cicerone$get_previous()}}
+\item \href{#method-Cicerone-reset}{\code{Cicerone$reset()}}
 \item \href{#method-Cicerone-get_highlighted_el}{\code{Cicerone$get_highlighted_el()}}
 \item \href{#method-Cicerone-get_previous_el}{\code{Cicerone$get_previous_el()}}
 \item \href{#method-Cicerone-has_next_step}{\code{Cicerone$has_next_step()}}
-\item \href{#method-Cicerone-get_next}{\code{Cicerone$get_next()}}
-\item \href{#method-Cicerone-get_previous}{\code{Cicerone$get_previous()}}
 \item \href{#method-Cicerone-clone}{\code{Cicerone$clone()}}
 }
 }
@@ -51,58 +62,122 @@ Define cicerone steps.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Cicerone$new(
   animate = TRUE,
-  opacity = 0.75,
-  padding = 10,
+  overlay_opacity = 0.75,
+  stage_padding = 10,
   allow_close = TRUE,
-  overlay_click_next = FALSE,
   done_btn_text = "Done",
-  close_btn_text = "Close",
-  stage_background = "#ffffff",
   next_btn_text = "Next",
   prev_btn_text = "Previous",
-  show_btns = TRUE,
-  keyboard_control = TRUE,
+  allow_keyboard_control = TRUE,
+  overlay_color = "black",
+  smooth_scroll = FALSE,
+  stage_radius = 5,
+  disable_active_interaction = FALSE,
+  popover_class = NULL,
+  popover_offset = 10,
+  show_buttons = c("next", "previous", "close"),
+  disable_buttons = NULL,
+  show_progress = FALSE,
+  progress_text = NULL,
+  on_popover_render = NULL,
+  on_highlight_started = NULL,
+  on_highlighted = NULL,
+  on_deselected = NULL,
+  on_destroy_started = NULL,
+  on_destroyed = NULL,
+  on_next_click = NULL,
+  on_prev_click = NULL,
+  on_close_click = NULL,
   id = NULL,
-  mathjax = FALSE
+  mathjax = FALSE,
+  padding = NULL,
+  stage_background = NULL,
+  overlay_click_next = NULL,
+  close_btn_text = NULL,
+  opacity = NULL,
+  show_btns = NULL,
+  keyboard_control = NULL,
+  ...
 )}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{animate}}{Whether to animate or not.}
+\item{\code{animate}}{Whether to animate the product tour. (default: true)}
 
-\item{\code{opacity}}{Background opacity (0 means only popovers
-and without overlay).}
+\item{\code{overlay_opacity}}{Opacity of the backdrop. (default: 0.5)}
 
-\item{\code{padding}}{Distance of element from around the edges.}
+\item{\code{stage_padding}}{Distance between the highlighted element and the cutout. (default: 10)}
 
-\item{\code{allow_close}}{Whether the click on overlay should close
-or not.}
+\item{\code{allow_close}}{Whether to allow closing the popover by clicking on the backdrop. (default: true)}
 
-\item{\code{overlay_click_next}}{Whether the click on overlay should
-move next.}
+\item{\code{done_btn_text}}{Text to show in the done button. \code{doneBtnText} is used on the last step of a tour.}
 
-\item{\code{done_btn_text}}{Text on the final button.}
+\item{\code{next_btn_text}}{Text to show in the next button.}
 
-\item{\code{close_btn_text}}{Text on the close button for this step.}
+\item{\code{prev_btn_text}}{Text to show in the previous button.}
 
-\item{\code{stage_background}}{Background color for the staged behind
-highlighted element.}
+\item{\code{allow_keyboard_control}}{Whether to allow keyboard navigation. (default: true)}
 
-\item{\code{next_btn_text}}{Next button text for this step.}
+\item{\code{overlay_color}}{Overlay color. (default: black). This is useful when you have a dark background and want to highlight elements with a light background color.}
 
-\item{\code{prev_btn_text}}{Previous button text for this step.}
+\item{\code{smooth_scroll}}{Whether to smooth scroll to the highlighted element. (default: false)}
 
-\item{\code{show_btns}}{Do not show control buttons in footer.}
+\item{\code{stage_radius}}{Radius of the cutout around the highlighted element. (default: 5)}
 
-\item{\code{keyboard_control}}{Allow controlling through keyboard (escape
-to close, arrow keys to move).}
+\item{\code{disable_active_interaction}}{Whether to disable interaction with the highlighted element. (default: false)}
+
+\item{\code{popover_class}}{If you want to add custom class to the popover}
+
+\item{\code{popover_offset}}{Distance between the popover and the highlighted element. (default: 10)}
+
+\item{\code{show_buttons}}{Array of buttons to show in the popover. Defaults to \link{"next", "previous", "close"} for product tours and \link{'close'} for single element highlighting.}
+
+\item{\code{disable_buttons}}{Array of buttons to disable. This is useful when you want to show some of the buttons, but disable some of them.}
+
+\item{\code{show_progress}}{Whether to show the progress text in popover. (default: false)}
+
+\item{\code{progress_text}}{Template for the progress text. You can use the following placeholders in the template: {{current}}: The current step number, {{total}}: Total number of steps}
+
+\item{\code{on_popover_render}}{Called after the popover is rendered. PopoverDOM is an object with references to the popover DOM elements such as buttons title, descriptions, body, container etc.}
+
+\item{\code{on_highlight_started}}{Hooks to run before highlighting each step. Each hook receives the following parameters: element: The target DOM element of the step, step: The step object configured for the step, options.config: The current configuration options, options.state: The current state of the driver}
+
+\item{\code{on_highlighted}}{Hooks to run after highlighting each step. Each hook receives the following parameters: element: The target DOM element of the step, step: The step object configured for the step, options.config: The current configuration options, options.state: The current state of the driver}
+
+\item{\code{on_deselected}}{Hooks to run after deselecting each step. Each hook receives the following parameters: element: The target DOM element of the step, step: The step object configured for the step, options.config: The current configuration options, options.state: The current state of the driver}
+
+\item{\code{on_destroy_started}}{Hooks to run before destroying the driver. Each hook receives the following parameters: element: Currently active element, step: The step object configured for the currently active, options.config: The current configuration options, options.state: The current state of the driver}
+
+\item{\code{on_destroyed}}{Hooks to run after destroying the driver. Each hook receives the following parameters: element: Currently active element, step: The step object configured for the currently active, options.config: The current configuration options, options.state: The current state of the driver}
+
+\item{\code{on_next_click}}{Hooks to run on next button click. Each hook receives the following parameters: element: The current DOM element of the step, step: The step object configured for the step, options.config: The current configuration options, options.state: The current state of the driver}
+
+\item{\code{on_prev_click}}{Hooks to run on previous button click. Each hook receives the following parameters: element: The current DOM element of the step, step: The step object configured for the step, options.config: The current configuration options, options.state: The current state of the driver}
+
+\item{\code{on_close_click}}{Hooks to run on close button click. Each hook receives the following parameters: element: The current DOM element of the step, step: The step object configured for the step, options.config: The current configuration options, options.state: The current state of the driver}
 
 \item{\code{id}}{A unique identifier, useful if you are using more than one
 cicerone.}
 
 \item{\code{mathjax}}{Whether to use MathJax in the steps.}
+
+\item{\code{padding}}{\strong{Deprecated} See \code{stage_padding}}
+
+\item{\code{stage_background}}{\strong{Deprecated} See \code{overlay_color}}
+
+\item{\code{overlay_click_next}}{\strong{Deprecated}}
+
+\item{\code{close_btn_text}}{\strong{Deprecated} 'Close' button is now an icon}
+
+\item{\code{opacity}}{\strong{Deprecated} See \code{overlay_opacity}}
+
+\item{\code{show_btns}}{\strong{Deprecated} See \code{show_buttons}}
+
+\item{\code{keyboard_control}}{\strong{Deprecated} See \code{allow_keyboard_control}}
+
+\item{\code{...}}{Other options to pass to the driver.js initialisation. Reserved for future use.}
 }
 \if{html}{\out{</div>}}
 }
@@ -120,20 +195,35 @@ A Cicerone object.
 \subsection{Method \code{step()}}{
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Cicerone$step(
-  el,
+  el = NULL,
   title = NULL,
   description = NULL,
-  position = NULL,
+  side = NULL,
+  align = NULL,
+  show_buttons = NULL,
+  disable_buttons = NULL,
+  next_btn_text = NULL,
+  prev_btn_text = NULL,
+  done_btn_text = NULL,
+  show_progress = NULL,
+  progress_text = NULL,
+  popover_class = NULL,
+  on_popover_render = NULL,
+  on_next_click = NULL,
+  on_prev_click = NULL,
+  on_close_click = NULL,
+  on_deselected = NULL,
+  on_highlighted = NULL,
+  on_highlight_started = NULL,
+  element = NULL,
+  el_as_is = FALSE,
   class = NULL,
   show_btns = NULL,
   close_btn_text = NULL,
-  next_btn_text = NULL,
-  prev_btn_text = NULL,
   tab = NULL,
   tab_id = NULL,
   is_id = NULL,
-  on_highlighted = NULL,
-  on_highlight_started = NULL,
+  position = NULL,
   on_next = NULL
 )}\if{html}{\out{</div>}}
 }
@@ -141,41 +231,68 @@ A Cicerone object.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{el}}{Id of element to be highlighted.}
+\item{\code{el}}{The CSS selector for the element to be highlighted. Can also use \code{element}.}
 
-\item{\code{title}}{Title on the popover.}
+\item{\code{title}}{Title shown in the popover. You can use HTML in this.}
 
-\item{\code{description}}{Body of the popover.}
+\item{\code{description}}{Description shown in the popover. You can use HTML in this. Omit one of title or description to show only the other.}
 
-\item{\code{position}}{Where to position the popover.
-See positions section.}
+\item{\code{side}}{The position of the popover relative to the target element. Possible values: "top", "right", "bottom", "left".}
 
-\item{\code{class}}{className to wrap this specific step
-popover in addition to the general className in Driver
-options.}
+\item{\code{align}}{The alignment of the popover relative to the target element. Possible values: "start", "center", "end".}
 
-\item{\code{show_btns}}{Whether to show control buttons.}
+\item{\code{show_buttons}}{Array of buttons to show in the popover. Defaults to \link{"next", "previous", "close"} for tours and empty array for single element highlighting.}
 
-\item{\code{close_btn_text}}{Text on the close button.}
+\item{\code{disable_buttons}}{Array of buttons to disable.}
 
-\item{\code{next_btn_text}}{Next button text.}
+\item{\code{next_btn_text}}{Text to show in the next button.}
 
-\item{\code{prev_btn_text}}{Previous button text.}
+\item{\code{prev_btn_text}}{Text to show in the previous button.}
 
-\item{\code{tab}}{The name of the tab to set.}
+\item{\code{done_btn_text}}{Text to show in the done button.}
 
-\item{\code{tab_id}}{The id of the tabs to activate in order to highlight \code{tab_id}.}
+\item{\code{show_progress}}{Whether to show the progress text in popover.}
 
-\item{\code{is_id}}{\strong{Deprecated} Whether the selector passed to \code{el} is an HTML id, set to \code{FALSE} to use
-other selectors, e.g.: \code{.class}.}
+\item{\code{progress_text}}{Template for the progress text. You can use the following placeholders in the template: {{current}}: The current step number, {{total}}: Total number of steps. Defaults to "{{current}} of {{total}}" if show_progress is true.}
+
+\item{\code{popover_class}}{Custom class to add to the popover element.}
+
+\item{\code{on_popover_render}}{Hook to run after the popover is rendered. You can modify the popover element here. Parameter is an object with references to the popover DOM elements such as buttons, title, descriptions, body, etc.}
+
+\item{\code{on_next_click}}{Callback for next button click. See \code{Callbacks}.}
+
+\item{\code{on_prev_click}}{Callback for previous button click. See \code{Callbacks}.}
+
+\item{\code{on_close_click}}{Callback for close button click. See \code{Callbacks}.}
+
+\item{\code{on_deselected}}{Callback for when the current step is deselected. See \code{Callbacks}.}
 
 \item{\code{on_highlighted}}{A JavaScript function to run when the step is highlighted,
-generally a callback function. This is effectively a string that is evaluated JavaScript-side.}
+generally a callback function. This is effectively a string that is evaluated JavaScript-side. See \code{Callbacks}.}
 
-\item{\code{on_highlight_started}}{A JavaScript function to run when the step is just aobut to be
-highlighted, generally a callback function. This is effectively a string that is evaluated JavaScript-side.}
+\item{\code{on_highlight_started}}{A JavaScript function body to run when the step is just about to be
+highlighted, generally a callback function. This is effectively a string that is evaluated JavaScript-side. See \code{Callbacks}.}
 
-\item{\code{on_next}}{A JavaScript function to run when the next button is clicked (or its event triggered),
+\item{\code{element}}{The CSS selector for the element to be highlighted. Can also use \code{el}.}
+
+\item{\code{el_as_is}}{\code{lgl} Whether the element should be treated as-is. IE elements without a \code{.} or \verb{#} in the first position will be treated as-is.}
+
+\item{\code{class}}{\strong{Deprecated} See \code{popover_class}.}
+
+\item{\code{show_btns}}{\strong{Deprecated} See \code{show_buttons}. Whether to show control buttons.}
+
+\item{\code{close_btn_text}}{\strong{Deprecated} Close button is now an icon.}
+
+\item{\code{tab}}{\strong{Deprecated} The name of the tab to set.}
+
+\item{\code{tab_id}}{\strong{Deprecated} The id of the tabs to activate in order to highlight \code{tab_id}.}
+
+\item{\code{is_id}}{\strong{Deprecated} Whether the selector passed to \code{el} is an HTML id, set to \code{FALSE} to use.
+other selectors, e.g.: \code{.class}.}
+
+\item{\code{position}}{\strong{Deprecated} See \code{side} & \code{align} instead. Where to position the popover.}
+
+\item{\code{on_next}}{\strong{Deprecated} A JavaScript function to run when the next button is clicked (or its event triggered),
 generally a callback function. This is effectively a string that is evaluated JavaScript-side.}
 }
 \if{html}{\out{</div>}}
@@ -190,17 +307,17 @@ Add a step.
 \if{latex}{\out{\hypertarget{method-Cicerone-init}{}}}
 \subsection{Method \code{init()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Cicerone$init(session = NULL, run_once = FALSE)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Cicerone$init(run_once = FALSE, session = shiny::getDefaultReactiveDomain())}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{session}}{A valid Shiny session if \code{NULL} the function
-attempts to get the session with \code{\link[shiny:domains]{shiny::getDefaultReactiveDomain()}}.}
-
 \item{\code{run_once}}{Whether to only run the guide once. If \code{TRUE}
 any subsequent calls of the method will not run the guide.}
+
+\item{\code{session}}{A valid Shiny session if \code{NULL} the function
+attempts to get the session with \code{\link[shiny:domains]{shiny::getDefaultReactiveDomain()}}.}
 }
 \if{html}{\out{</div>}}
 }
@@ -210,32 +327,34 @@ Initialise Cicerone.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Cicerone-reset"></a>}}
-\if{latex}{\out{\hypertarget{method-Cicerone-reset}{}}}
-\subsection{Method \code{reset()}}{
+\if{html}{\out{<a id="method-Cicerone-start"></a>}}
+\if{latex}{\out{\hypertarget{method-Cicerone-start}{}}}
+\subsection{Method \code{start()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Cicerone$reset(session = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Cicerone$start(step = 1, session = shiny::getDefaultReactiveDomain())}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
+\item{\code{step}}{The step index at which to start.}
+
 \item{\code{session}}{A valid Shiny session if \code{NULL} the function
 attempts to get the session with \code{\link[shiny:domains]{shiny::getDefaultReactiveDomain()}}.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Details}{
-Reset Cicerone.
+Start Cicerone.
 }
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Cicerone-start"></a>}}
-\if{latex}{\out{\hypertarget{method-Cicerone-start}{}}}
-\subsection{Method \code{start()}}{
+\if{html}{\out{<a id="method-Cicerone-drive"></a>}}
+\if{latex}{\out{\hypertarget{method-Cicerone-drive}{}}}
+\subsection{Method \code{drive()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Cicerone$start(step = 1, session = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Cicerone$drive(step = 1, session = shiny::getDefaultReactiveDomain())}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -258,7 +377,7 @@ Start Cicerone.
 \if{latex}{\out{\hypertarget{method-Cicerone-move_forward}{}}}
 \subsection{Method \code{move_forward()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Cicerone$move_forward(session = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Cicerone$move_forward(session = shiny::getDefaultReactiveDomain())}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -279,7 +398,7 @@ Move Cicerone one step.
 \if{latex}{\out{\hypertarget{method-Cicerone-move_backward}{}}}
 \subsection{Method \code{move_backward()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Cicerone$move_backward(session = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Cicerone$move_backward(session = shiny::getDefaultReactiveDomain())}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -299,15 +418,38 @@ Move Cicerone one step backward.
 \if{html}{\out{<a id="method-Cicerone-highlight"></a>}}
 \if{latex}{\out{\hypertarget{method-Cicerone-highlight}{}}}
 \subsection{Method \code{highlight()}}{
+See \code{highlight} for parameter documentation
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Cicerone$highlight(el, session = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Cicerone$highlight(
+  el = NULL,
+  title = NULL,
+  description = NULL,
+  side = NULL,
+  align = NULL,
+  show_buttons = c("close"),
+  disable_buttons = NULL,
+  next_btn_text = NULL,
+  prev_btn_text = NULL,
+  done_btn_text = NULL,
+  show_progress = NULL,
+  progress_text = NULL,
+  popover_class = NULL,
+  on_popover_render = NULL,
+  on_next_click = NULL,
+  on_prev_click = NULL,
+  on_close_click = NULL,
+  on_deselected = NULL,
+  on_highlighted = NULL,
+  on_highlight_started = NULL,
+  element = NULL,
+  el_as_is = FALSE,
+  session = shiny::getDefaultReactiveDomain()
+)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{el}}{Id of element to highlight}
-
 \item{\code{session}}{A valid Shiny session if \code{NULL} the function
 attempts to get the session with \code{\link[shiny:domains]{shiny::getDefaultReactiveDomain()}}.}
 }
@@ -319,74 +461,11 @@ Highlight a specific step.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Cicerone-get_highlighted_el"></a>}}
-\if{latex}{\out{\hypertarget{method-Cicerone-get_highlighted_el}{}}}
-\subsection{Method \code{get_highlighted_el()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Cicerone$get_highlighted_el(session = NULL)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{session}}{A valid Shiny session if \code{NULL} the function
-attempts to get the session with \code{\link[shiny:domains]{shiny::getDefaultReactiveDomain()}}.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Details}{
-Retrieve the id of the currently highlighted element.
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Cicerone-get_previous_el"></a>}}
-\if{latex}{\out{\hypertarget{method-Cicerone-get_previous_el}{}}}
-\subsection{Method \code{get_previous_el()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Cicerone$get_previous_el(session = NULL)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{session}}{A valid Shiny session if \code{NULL} the function
-attempts to get the session with \code{\link[shiny:domains]{shiny::getDefaultReactiveDomain()}}.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Details}{
-Retrieve the id of the previously highlighted element.
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Cicerone-has_next_step"></a>}}
-\if{latex}{\out{\hypertarget{method-Cicerone-has_next_step}{}}}
-\subsection{Method \code{has_next_step()}}{
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Cicerone$has_next_step(session = NULL)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{session}}{A valid Shiny session if \code{NULL} the function
-attempts to get the session with \code{\link[shiny:domains]{shiny::getDefaultReactiveDomain()}}.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Details}{
-Retrieve whether there is a next step.
-}
-
-}
-\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Cicerone-get_next"></a>}}
 \if{latex}{\out{\hypertarget{method-Cicerone-get_next}{}}}
 \subsection{Method \code{get_next()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Cicerone$get_next(session = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Cicerone$get_next(session = shiny::getDefaultReactiveDomain())}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -407,7 +486,7 @@ Retrieve data that was fired when the user hit the "next" button.
 \if{latex}{\out{\hypertarget{method-Cicerone-get_previous}{}}}
 \subsection{Method \code{get_previous()}}{
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Cicerone$get_previous(session = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Cicerone$get_previous(session = shiny::getDefaultReactiveDomain())}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -420,6 +499,92 @@ attempts to get the session with \code{\link[shiny:domains]{shiny::getDefaultRea
 }
 \subsection{Details}{
 Retrieve data that was fired when the user hit the "previous" button.
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Cicerone-reset"></a>}}
+\if{latex}{\out{\hypertarget{method-Cicerone-reset}{}}}
+\subsection{Method \code{reset()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Cicerone$reset(id, session = shiny::getDefaultReactiveDomain())}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{id}}{\code{chr} the ID of the guide to reset. Uses the current guide by default.}
+
+\item{\code{session}}{A valid Shiny session if \code{NULL} the function
+attempts to get the session with \code{\link[shiny:domains]{shiny::getDefaultReactiveDomain()}}.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Reset Cicerone.
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Cicerone-get_highlighted_el"></a>}}
+\if{latex}{\out{\hypertarget{method-Cicerone-get_highlighted_el}{}}}
+\subsection{Method \code{get_highlighted_el()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Cicerone$get_highlighted_el(session = shiny::getDefaultReactiveDomain())}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{session}}{A valid Shiny session if \code{NULL} the function
+attempts to get the session with \code{\link[shiny:domains]{shiny::getDefaultReactiveDomain()}}.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Retrieve the id of the currently highlighted element.
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Cicerone-get_previous_el"></a>}}
+\if{latex}{\out{\hypertarget{method-Cicerone-get_previous_el}{}}}
+\subsection{Method \code{get_previous_el()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Cicerone$get_previous_el(session = shiny::getDefaultReactiveDomain())}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{session}}{A valid Shiny session if \code{NULL} the function
+attempts to get the session with \code{\link[shiny:domains]{shiny::getDefaultReactiveDomain()}}.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Retrieve the id of the previously highlighted element.
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Cicerone-has_next_step"></a>}}
+\if{latex}{\out{\hypertarget{method-Cicerone-has_next_step}{}}}
+\subsection{Method \code{has_next_step()}}{
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Cicerone$has_next_step(session = shiny::getDefaultReactiveDomain())}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{session}}{A valid Shiny session if \code{NULL} the function
+attempts to get the session with \code{\link[shiny:domains]{shiny::getDefaultReactiveDomain()}}.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Details}{
+Retrieve whether there is a next step.
 }
 
 }
