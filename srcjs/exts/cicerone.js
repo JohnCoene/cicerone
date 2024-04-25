@@ -44,31 +44,20 @@ function isElement(element) {
   return element instanceof Element || element instanceof Document;  
 }
 
-function censor(censor) {
-  var i = 0;
-  
-  return function(key, value) {
-    if (isElement(value))
-      return divSelectors(value)
-    if(i !== 0 && typeof(censor) === 'object' && typeof(value) == 'object' && censor == value) 
-      return '[Circular]'; 
-    
-    if(i >= 29) // seems to be a harded maximum of 30 serialized objects?
-      return '[Unknown]';
-    
-    ++i; // so we know we aren't using the original object anymore
-    
-    return value;  
-  }
-}
 function toShinyInput(x) {
-  let out;
+  let out = traverse(x).map( function(node) {
+    
+    if (isElement(node)) {
+      this.update(divSelectors(this.node_));
+    } else if (typeof node === "function") {
+      this.update(node.toString());
+    }
+  });
   try {
-    out = JSON.stringify(x, censor(x));
+    out = JSON.stringify(out);
   } catch (error) {
     debugger;
   }
-  
   out = JSON.parse(out);
   return out;
 }
