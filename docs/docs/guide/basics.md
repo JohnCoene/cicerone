@@ -63,10 +63,6 @@ ui <- fluidPage(
 
 server <- function(input, output){
 
-  guide$
-    init()$
-    start()
-
   dat <- eventReactive(input$submit_button, {
     runif(input$nobs)
   })
@@ -76,7 +72,7 @@ server <- function(input, output){
   })
 
   observeEvent(input$guide, {
-    guide$start()
+    guide$init()$start()
   })
 }
 
